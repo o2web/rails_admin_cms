@@ -19,4 +19,14 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.2.0"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "capybara"
+  s.add_development_dependency "factory_girl_rails"
+  s.add_development_dependency "poltergeist"
+  s.add_development_dependency "database_cleaner"
+  s.add_development_dependency "faker"
+  s.add_development_dependency "shoulda-matchers"
+  s.add_development_dependency "spring"
+  s.add_development_dependency "spring-commands-rspec"
+  s.add_development_dependency "quiet_assets"
 end

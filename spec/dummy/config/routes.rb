@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'home#show', defaults: { css: 'show' }
+  root 'home#show', defaults: { cms_body_class: 'show' }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -5,7 +5,7 @@ RSpec.describe CMS::ViewHelper, type: :helper do
     before(:each) do
       I18n.locale = :fr
       allow(controller).to receive(:action_name).and_return('show')
-      allow(params).to receive(:[]).with(:css).and_return('show')
+      allow(params).to receive(:[]).with(:cms_body_class).and_return('show')
     end
 
     it "generate contextual classes" do

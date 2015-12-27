@@ -7,6 +7,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'faker'
+I18n.reload!
 require 'factory_girl_rails'
 require 'database_cleaner'
 require 'capybara/rails'
@@ -87,4 +88,5 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
+  config.include RailsAdmin::Engine.routes.url_helpers
 end

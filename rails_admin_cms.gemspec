@@ -17,6 +17,12 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 4.2.0"
+  s.add_dependency "rails_admin"
+  s.add_dependency "route_translator"
+  s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-ui-rails"
+  s.add_dependency "active_link_to"
+  s.add_dependency "youtube_addy"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
@@ -29,4 +35,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "spring"
   s.add_development_dependency "spring-commands-rspec"
   s.add_development_dependency "quiet_assets"
+  s.add_development_dependency "yaml_db"
 end

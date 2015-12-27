@@ -14,6 +14,6 @@ class BasePresenter
   end
 
   def respond_to?(name, include_all = false)
-    m.respond_to? name, include_all
+    super || m.respond_to?(name, include_all)
   end
 end

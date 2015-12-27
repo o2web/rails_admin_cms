@@ -44,6 +44,8 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
 
+  config.render_views
+
   config.before :suite do
     Capybara.javascript_driver = :poltergeist
     DatabaseCleaner.clean_with :truncation

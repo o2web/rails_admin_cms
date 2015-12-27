@@ -5,6 +5,9 @@ module CMS
         # TODO: N+1 optimization
         # default_scope { includes(:unique_key).where(unique_keys: { locale: I18n.locale }).order('unique_keys.position') }
 
+        raise ArgumentError, "'min' can not be Float::INFINITY" if min == Float::INFINITY
+        raise ArgumentError, "'name' must be a String" unless name.is_a? String
+
         presenter_list = (1..min).map do |position|
           find_or_create_presenter(type, name, position)
         end

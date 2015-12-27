@@ -1,0 +1,17 @@
+<%
+   links = cms_link('simple-link', 0, Float::INFINITY)
+   links_2nd = cms_link('simple-link-2nd', 0, Float::INFINITY)
+-%>
+
+<div>
+  <%= link_to_switch_edit_mode %>
+</div>
+
+<div>
+  <ul <%= links.sortable_html %>>
+    <% links.menu %>
+  </ul>
+</div>
+<div>
+  <%= links_2nd.wrapped_menu('test') %>
+</div>

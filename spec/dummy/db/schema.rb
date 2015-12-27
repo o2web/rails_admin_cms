@@ -11,6 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20151226054335) do
+
+  create_table "unique_keys", force: :cascade do |t|
+    t.integer  "viewable_id"
+    t.string   "viewable_type"
+    t.string   "view_path",     null: false
+    t.string   "name",          null: false
+    t.integer  "position",      null: false
+    t.string   "locale",        null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "unique_keys", ["viewable_type", "view_path", "name", "position", "locale"], name: "index_unique_keys_on_unique_key", unique: true
+  add_index "unique_keys", ["viewable_type", "viewable_id"], name: "index_unique_keys_on_viewable_type_and_viewable_id"
+
+  create_table "viewable_links", force: :cascade do |t|
+    t.string   "title"
+    t.text     "link"
+    t.text     "page"
+    t.boolean  "target_blank", default: false
+    t.boolean  "turbolink",    default: true
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
 
 end

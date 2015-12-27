@@ -2,7 +2,7 @@
 
 ## Body classes helper
 
-Seamlessly adds some useful classes to the body tag within your layout in order to scope your css/js : `cms-template-name`, `controller-name`, `controller-name-action-name` and `locale`.
+Seamlessly adds some useful classes to the body tag within your layout in order to scope your css/js : `cms-template-name`, `controller-name`, `controller-name-action-name`, `locale` and `edit-mode`.
 
 ```ruby
 # ...

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CMS::ViewHelper, type: :helper do
+describe CMS::ViewHelper, type: :helper do
   describe "#cms_body_class" do
     before(:each) do
       I18n.locale = :fr

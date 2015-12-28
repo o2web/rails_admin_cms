@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "active_link_to"
   s.add_dependency "youtube_addy"
+  s.add_dependency "rich"
+  s.add_dependency "paperclip", "~> 4.2"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"

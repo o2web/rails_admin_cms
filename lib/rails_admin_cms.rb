@@ -2,6 +2,8 @@ require "rails_admin"
 require "route_translator"
 require "active_link_to"
 require "youtube_addy"
+require "rich"
+require "paperclip"
 
 require "rails_admin_cms/engine"
 require "rails_admin_cms/inflections"

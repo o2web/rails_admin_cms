@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Rich::Engine => '/rich', :as => 'rich'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   root 'home#show', defaults: { cms_body_class: 'show' }

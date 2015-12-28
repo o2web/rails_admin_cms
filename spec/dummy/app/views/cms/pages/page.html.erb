@@ -1,6 +1,6 @@
 <%
    links = cms_link('simple-link', 0, Float::INFINITY)
-   links_2nd = cms_link('simple-link-2nd', 0, Float::INFINITY)
+   texts = cms_text('simple-text', 0, Float::INFINITY)
 -%>
 
 <div>
@@ -13,5 +13,13 @@
   </ul>
 </div>
 <div>
-  <%= links_2nd.wrapped_menu('test') %>
+  <ul>
+    <% texts.each do |text| %>
+      <li>
+        <%= text.html %>
+        <%= text.edit_link %>
+      </li>
+    <% end %>
+    <li><%= texts.add_link %></li>
+  </ul>
 </div>

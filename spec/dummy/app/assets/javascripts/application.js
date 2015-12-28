@@ -12,5 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require rails_admin_cms/viewables
+//= require rails_admin_cms/all
 //= require_tree .

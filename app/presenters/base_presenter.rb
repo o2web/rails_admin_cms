@@ -1,6 +1,4 @@
 class BasePresenter
-  include ActionView::Helpers
-
   attr_reader :model, :context
   alias_method :h, :context
   alias_method :m, :model

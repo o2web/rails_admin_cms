@@ -1,11 +1,39 @@
 class BaseListPresenter
-  include ActionView::Helpers
-  include Enumerable
-
   attr_reader :context, :list
   alias_method :h, :context
 
-  delegate :each, :first, :last, :map, to: :list
+  delegate(
+    :[],
+    :all?,
+    :any?,
+    :count,
+    :cycle,
+    :detect,
+    :drop,
+    :each,
+    :empty?,
+    :first,
+    :inject,
+    :last,
+    :map,
+    :none?,
+    :one?,
+    :pop,
+    :reduce,
+    :reject,
+    :reverse,
+    :rotate,
+    :sample,
+    :select,
+    :size,
+    :shift,
+    :shuffle,
+    :slice,
+    :sort,
+    :sort_by,
+    :zip,
+    to: :list
+  )
 
   def initialize(list, context)
     @list, @context = list, context

@@ -1,11 +1,11 @@
 module Viewable
   class TextPresenter < ViewablePresenter
     def html
-      m.html.try(:html_safe)
+      m.text.try(:html_safe)
     end
 
     def text
-      h.strip_tags m.html
+      h.strip_tags m.text
     end
   end
 end

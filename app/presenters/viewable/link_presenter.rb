@@ -35,9 +35,9 @@ module Viewable
     end
 
     def youtube_embed_url(width = 420, height = 315)
-      if (link = m.link)
-        link = YouTubeAddy.youtube_embed_url(link, width, height)
-        # verify link validity
+      if (url = m.url)
+        link = YouTubeAddy.youtube_embed_url(url, width, height)
+        # verify url validity
         unless link[/\[\/\^/]
           link.html_safe
         end
@@ -45,7 +45,11 @@ module Viewable
     end
 
     def url(options = {})
-      m.page.presence || m.link.presence || options[:path] || options[:url] || '#'
+      if m.file.present?
+        h.main_app.file_path(id: m)
+      else
+        m.page.presence || m.url.presence || options[:path] || options[:url] || '#'
+      end
     end
 
     private

@@ -7,8 +7,11 @@ class ViewablePresenter < BasePresenter
     end
   end
 
-  def li_sortable_tag(options = {})
-    options = h.edit_mode? ? { 'data-cms-sortable-id' => m.unique_key.id }.merge(options) : options
+  def li_sortable_tag(options = nil)
+    options ||= {}
+    if h.edit_mode?
+      options['data-cms-sortable-id'] = m.unique_key.id
+    end
     h.content_tag :li, options do
       yield
     end

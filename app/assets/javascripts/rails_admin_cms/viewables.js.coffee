@@ -1,15 +1,16 @@
 #= require jquery-ui/sortable
 
 $(document).on 'ready page:change', ->
-  if $('body').hasClass('cms-edit-mode')
-    $('[data-cms-sortable]').each ->
-      $(this).sortable
-        update: (event, ui) ->
-          url = $(this).data('cms-sortable')['url']
+  return unless $('body').hasClass('cms-edit-mode')
 
-          target = $(ui.item)
-          id = target.data('cms-sortable-id')
-          unique_key = { position: target.index() + 1 }
-          payload = $.param(id: id, unique_key: unique_key)
+  $('[data-cms-sortable]').each ->
+    $(this).sortable
+      update: (event, ui) ->
+        url = $(this).data('cms-sortable')['url']
 
-          $.post(url, payload)
+        target = $(ui.item)
+        id = target.data('cms-sortable-id')
+        unique_key = { position: target.index() + 1 }
+        payload = $.param(id: id, unique_key: unique_key)
+
+        $.post(url, payload)

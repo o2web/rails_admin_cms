@@ -5,13 +5,13 @@ module Viewable
     end
 
     def li_link_to(name = nil, options = {})
-      li_tag do
+      li_sortable_tag options[:li] do
         h.link_to *normalize_link_options(name, options)
       end
     end
 
     def li_link_to_with_edit(name = nil, options = {})
-      li_tag do
+      li_sortable_tag options[:li] do
         h.concat h.link_to(*normalize_link_options(name, options))
         h.concat edit_link
       end
@@ -22,13 +22,13 @@ module Viewable
     end
 
     def li_active_link_to(name = nil, options = {})
-      li_tag do
+      li_sortable_tag options[:li] do
         h.active_link_to *normalize_link_options(name, options)
       end
     end
 
     def li_active_link_to_with_edit(name = nil, options = {})
-      li_tag do
+      li_sortable_tag options[:li] do
         h.concat h.active_link_to(*normalize_link_options(name, options))
         h.concat edit_link
       end
@@ -49,13 +49,6 @@ module Viewable
     end
 
     private
-
-    def li_tag
-      options = h.edit_mode? ? { 'data-cms-sortable-id' => m.unique_key.id } : {}
-      h.content_tag :li, options do
-        yield
-      end
-    end
 
     def normalize_link_options(name, options)
       name = m.title.presence || name

@@ -40,6 +40,12 @@ class ViewableListPresenter < BaseListPresenter
     sortable(options).to_a.map{ |a| %{#{a.first}=#{a.last}} }.join(' ')
   end
 
+  def ul_sortable_tag(options = {})
+    h.content_tag :ul, sortable(options) do
+      yield
+    end
+  end
+
   private
 
   def add_path

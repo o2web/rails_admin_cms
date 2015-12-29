@@ -30,13 +30,13 @@ describe CMS::ViewableHelper, type: :helper do
 
     context "without min and max" do
       subject { helper.cms_link('test') }
-      it { is_expected.to respond_to(:edit_link) }
+      it { is_expected.to respond_to(:edit_link, :li_sortable_tag) }
       it { expect(subject.edit_link).to match /<a class="cms-edit cms-edit-viewable-link" data-no-turbolink="true" href=".+">/ }
     end
 
     context "with min = 0 and max = Float::INFINITY" do
       subject { helper.cms_link('test', 0, Float::INFINITY) }
-      it { is_expected.to respond_to(:edit_links, :add_link, :sortable, :sortable_html) }
+      it { is_expected.to respond_to(:edit_links, :add_link, :sortable, :sortable_html, :ul_sortable_tag) }
       it { expect(subject.count).to eql(0) }
       it { expect(subject.add_link).to match /<a class="cms-add" data-no-turbolink="true" href=".+">/ }
       it { expect(subject.sortable_html).to match /data-cms-sortable={\".+\"}/ }

@@ -9,20 +9,21 @@
 </div>
 
 <div>
-  <ul <%= links.sortable_html %>>
+  <%= links.ul_sortable_tag do %>
     <% links.menu %>
-  </ul>
+  <% end %>
 </div>
+
 <div>
-  <ul>
+  <%= texts.ul_sortable_tag do %>
     <% texts.each do |text| %>
-      <li>
+      <%= text.li_sortable_tag do %>
         <%= text.html %>
         <%= text.edit_link %>
-      </li>
+      <% end %>
     <% end %>
     <li><%= texts.add_link %></li>
-  </ul>
+  <% end %>
 </div>
 
 <div>

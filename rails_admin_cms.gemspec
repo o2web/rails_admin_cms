@@ -21,10 +21,19 @@ Gem::Specification.new do |s|
   s.add_dependency "route_translator"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
+
   s.add_dependency "active_link_to"
   s.add_dependency "youtube_addy"
   s.add_dependency "rich"
   s.add_dependency "paperclip", "~> 4.2"
+
+  s.add_dependency "simple_form"
+  s.add_dependency "active_type"
+  s.add_dependency "validates"
+  s.add_dependency "country_select"
+  s.add_dependency "invisible_captcha"
+  s.add_dependency "jquery-form-validator-rails"
+  s.add_dependency "bootstrap_flash_messages", "~> 1.0.1"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"

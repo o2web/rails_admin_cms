@@ -36,18 +36,28 @@ if Object.const_defined?("Rich")
     # remember to re-generate your styles by running:
     #   rake rich:refresh_assets
     config.image_styles = {
-      :thumb => "100x100#"
+      mini: '60x60>',
+      thumb: '120x120>',
+      small: '240x240>',
+      medium: '480x480>',
+      large: '960x960>',
+      full: '1480x1480>',
+      huge: '1920x1920>',
     }
 
     # == Convert options
     #
     # You can pass additional commands to ImageMagick to set image quality,
     # apply a blur, and other fancy tricks.
-    #
-    # Example (this will make your image look terrible):
-    # config.convert_options = {
-    #     :large => '-quality 1'
-    # }
+    config.convert_options = {
+      all: %{
+        -unsharp 3x1+0.5
+        -quality 85
+        -strip
+        -auto-orient
+        -colorspace sRGB
+      }
+    }
 
     # == Allowed styles (in file manager)
     #
@@ -65,7 +75,7 @@ if Object.const_defined?("Rich")
     # The style to insert by default. In addition to the
     # styles defined above you can also use :original to get
     # the unprocessed file. Make sure this style exists.
-    config.default_style = :thumb
+    config.default_style = :medium
 
     # == Upload non-image files
     #
@@ -88,7 +98,12 @@ if Object.const_defined?("Rich")
     # config.allowed_document_types = :all
     #
     # Example, only allow PDF uploads:
-    config.allowed_document_types = ['application/pdf']
+    config.allowed_document_types = %w[
+      text/plain
+      application/pdf
+      application/msword
+      application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    ]
 
     # == Asset insertion
     #

@@ -37,13 +37,5 @@ module RailsAdminCMS
     def with_paper_trail?
       @with_paper_trail
     end
-
-    def base_path
-      @base_path || ''
-    end
-
-    def base_path=(base_path)
-      @base_path = base_path.split('/').compact.join('/')
-    end
   end
 end

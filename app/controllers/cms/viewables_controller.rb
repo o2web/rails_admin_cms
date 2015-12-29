@@ -21,7 +21,11 @@ module CMS
     def update
       unique_key = UniqueKey.find(params[:id])
 
-      unique_key.update!(unique_key_params)
+      if unique_key.update(unique_key_params)
+        flash_now!(:success)
+      else
+        flash_now!(:error)
+      end
 
       respond_to do |format|
         format.js {}

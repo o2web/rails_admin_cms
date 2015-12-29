@@ -12,5 +12,11 @@ module CMS
       classes.concat(args) if args.any?
       classes.compact.join(' ')
     end
+
+    def cms_flash_messages(*args)
+      content_tag :div, 'data-cms-flash' => true do
+        flash_messages(*args)
+      end
+    end
   end
 end

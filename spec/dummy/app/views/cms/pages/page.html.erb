@@ -1,6 +1,7 @@
 <%
    links = cms_link('simple-link', 0, Float::INFINITY)
    texts = cms_text('simple-text', 0, Float::INFINITY)
+   image = cms_image('simple-image')
 -%>
 
 <div>
@@ -22,4 +23,9 @@
     <% end %>
     <li><%= texts.add_link %></li>
   </ul>
+</div>
+
+<div>
+  <%= image_tag image.image_path %>
+  <%= image.edit_link %>
 </div>

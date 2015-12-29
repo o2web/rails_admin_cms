@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227072414) do
+ActiveRecord::Schema.define(version: 20151228231201) do
 
   create_table "rich_rich_files", force: :cascade do |t|
     t.datetime "created_at"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20151227072414) do
 
   add_index "unique_keys", ["viewable_type", "view_path", "name", "position", "locale"], name: "index_unique_keys_on_unique_key", unique: true
   add_index "unique_keys", ["viewable_type", "viewable_id"], name: "index_unique_keys_on_viewable_type_and_viewable_id"
+
+  create_table "viewable_images", force: :cascade do |t|
+    t.string   "title"
+    t.text     "image_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "viewable_links", force: :cascade do |t|
     t.string   "title"

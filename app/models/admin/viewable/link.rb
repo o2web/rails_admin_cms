@@ -11,7 +11,7 @@ module Admin
           field :url, :string
           field :page
           field :file, :rich_picker do
-            # TODO
+            config type: 'file', allowed_styles: [:original]
           end
           fields :target_blank, :turbolink
         end

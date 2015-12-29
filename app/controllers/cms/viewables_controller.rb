@@ -23,7 +23,9 @@ module CMS
 
       unique_key.update!(unique_key_params)
 
-      render nothing: true
+      respond_to do |format|
+        format.js {}
+      end
     end
 
     private

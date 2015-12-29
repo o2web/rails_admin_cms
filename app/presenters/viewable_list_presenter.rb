@@ -30,7 +30,7 @@ class ViewableListPresenter < BaseListPresenter
 
   def sortable(options = {})
     if h.edit_mode?
-      { 'data-cms-sortable' => { url: h.main_app.edit_viewable_url }.to_json }.merge(options)
+      { 'data-cms-sortable' => { url: h.main_app.edit_viewable_url(format: :js) }.to_json }.merge(options)
     else
       options
     end

@@ -50,24 +50,25 @@ describe CMS::ViewablesController, type: :controller do
     context "when count = 3" do
       before(:each) do
         FactoryGirl.reload
-        FactoryGirl.create_list(:unique_key, 3)
+        FactoryGirl.create_list(:unique_key_fr, 3)
+        FactoryGirl.create_list(:unique_key_en, 3)
       end
 
       subject { UniqueKey.all.map(&:position) }
 
       it "updates position from 1 to 3" do
         post :update, { id: 1, unique_key: { position: 3 } }
-        expect(subject).to eql([3,1,2])
+        expect(subject).to eql([3,1,2, 3,1,2])
       end
 
       it "updates position from 3 to 1" do
         post :update, { id: 3, unique_key: { position: 1 } }
-        expect(subject).to eql([2,3,1])
+        expect(subject).to eql([2,3,1, 2,3,1])
       end
 
       it "updates position from 2 to 2" do
         post :update, { id: 2, unique_key: { position: 2 } }
-        expect(subject).to eql([1,2,3])
+        expect(subject).to eql([1,2,3, 1,2,3])
       end
     end
   end

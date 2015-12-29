@@ -8,7 +8,7 @@ module Admin
           visible false
 
           field :title
-          field :html, :rich_editor
+          field :text, :rich_editor
         end
       end
     end

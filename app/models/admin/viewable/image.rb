@@ -8,7 +8,7 @@ module Admin
           visible false
 
           field :title
-          field :image_path, :rich_picker do
+          field :image, :rich_picker do
             config hidden_input: true
           end
         end

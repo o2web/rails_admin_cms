@@ -8,8 +8,12 @@ module Admin
           visible false
 
           field :title
-          field :link, :string
-          fields :page, :target_blank, :turbolink
+          field :url, :string
+          field :page
+          field :file, :rich_picker do
+            # TODO
+          end
+          fields :target_blank, :turbolink
         end
       end
 

@@ -42,15 +42,16 @@ ActiveRecord::Schema.define(version: 20151228231201) do
 
   create_table "viewable_images", force: :cascade do |t|
     t.string   "title"
-    t.text     "image_path"
+    t.text     "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "viewable_links", force: :cascade do |t|
     t.string   "title"
-    t.text     "link"
+    t.text     "url"
     t.text     "page"
+    t.text     "file"
     t.boolean  "target_blank", default: false
     t.boolean  "turbolink",    default: true
     t.datetime "created_at",                   null: false
@@ -59,7 +60,7 @@ ActiveRecord::Schema.define(version: 20151228231201) do
 
   create_table "viewable_texts", force: :cascade do |t|
     t.string   "title"
-    t.text     "html"
+    t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

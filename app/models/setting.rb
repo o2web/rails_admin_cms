@@ -30,7 +30,11 @@ class Setting < ActiveRecord::Base
       value.presence
     end
 
-    def clear(name)
+    def has_key?(name)
+      cache.exist? name
+    end
+
+    def expire(name)
       cache.delete(name)
     end
 
@@ -49,7 +53,7 @@ class Setting < ActiveRecord::Base
     def remove_all(*settings)
       settings.each do |name|
         find_by(name: name.to_s).try(:destroy!)
-        clear(name)
+        expire(name)
       end
     end
   end

@@ -7,9 +7,9 @@ class UniqueKey < ActiveRecord::Base
 
   before_update ::Callbacks::UniqueKeyBeforeUpdate.new
 
-  validates :position, numericality: { less_than_or_equal_to: :count }
+  validates :position, numericality: { less_than_or_equal_to: :list_count }
 
-  delegate :count, to: :list
+  delegate :count, to: :list, prefix: true
 
   class << self
     def find_viewable(unique_key)

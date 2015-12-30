@@ -1,8 +1,6 @@
 #= require jquery-ui/sortable
 
-$(document).on 'ready page:change', ->
-  return unless $('body').hasClass('cms-edit-mode')
-
+CMS.ready_with_scope 'cms-edit-mode', ->
   $('[data-cms-sortable]').each ->
     $(this).sortable
       update: (event, ui) ->

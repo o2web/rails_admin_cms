@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228231201) do
+ActiveRecord::Schema.define(version: 20151230085947) do
 
   create_table "rich_rich_files", force: :cascade do |t|
     t.datetime "created_at"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20151228231201) do
     t.text     "uri_cache"
     t.string   "simplified_type",        default: "file"
   end
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "name"
+    t.text     "value"
+    t.string   "unit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "settings", ["name"], name: "index_settings_on_name", unique: true
 
   create_table "unique_keys", force: :cascade do |t|
     t.integer  "viewable_id"
@@ -56,6 +66,13 @@ ActiveRecord::Schema.define(version: 20151228231201) do
     t.boolean  "turbolink",    default: true
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "viewable_selects", force: :cascade do |t|
+    t.string   "value"
+    t.string   "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "viewable_texts", force: :cascade do |t|

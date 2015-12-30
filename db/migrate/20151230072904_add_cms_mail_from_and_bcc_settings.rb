@@ -1,4 +1,4 @@
-class AddCmsMailFromAndBccSettings < ActiveRecord::Migration
+class AddCMSMailFromAndBccSettings < ActiveRecord::Migration
   def up
     Setting.apply_all(
       cms_mail_from: 'rails@admin.cms',

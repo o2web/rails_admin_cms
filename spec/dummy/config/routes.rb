@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   mount Rich::Engine => '/rich', :as => 'rich'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 

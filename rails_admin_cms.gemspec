@@ -47,4 +47,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "spring-commands-rspec"
   s.add_development_dependency "quiet_assets"
   s.add_development_dependency "yaml_db"
+  s.add_development_dependency "letter_opener"
+  s.add_development_dependency "letter_opener_web", "~> 1.2.0"
 end

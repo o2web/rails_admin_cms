@@ -4,10 +4,8 @@ class ViewablePresenter < BasePresenter
 
     h.link_to edit_path, class: "cms-edit cms-edit-#{m.dashed_name}", 'data-no-turbolink' => true do
       h.concat h.content_tag(:span, h.t('cms.edit'), class: "cms-edit-action")
-      if name.present?
-        h.concat " "
-        h.concat h.content_tag(:span, name, class: "cms-edit-name")
-      end
+      h.concat " "
+      h.concat h.content_tag(:span, name, class: "cms-edit-name")
     end
   end
 

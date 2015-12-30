@@ -28,7 +28,10 @@ RailsAdmin.config do |config|
       except Viewable.models + %w[ UniqueKey ]
     end
     bulk_delete do
-      except %w[ UniqueKey ]
+      except %w[
+        UniqueKey
+        Setting
+      ]
     end
     show do
       except %w[ UniqueKey ]
@@ -37,7 +40,10 @@ RailsAdmin.config do |config|
       except %w[ UniqueKey ]
     end
     delete do
-      except %w[ UniqueKey ]
+      except %w[
+        UniqueKey
+        Setting
+      ]
     end
     show_in_app
 

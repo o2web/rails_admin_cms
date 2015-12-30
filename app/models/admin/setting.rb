@@ -10,9 +10,7 @@ module Admin
           field :name do
             read_only true
           end
-          field :value, :string do
-            required true
-          end
+          field :value, :string
           field :unit do
             read_only true
           end

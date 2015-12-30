@@ -11,14 +11,17 @@ class Setting < ActiveRecord::Base
   class << self
     def []=(name, value)
       write(name, value)
+
       find_or_create_by!(name: name) do |setting|
         setting.value = value
       end
+
+      value
     end
 
     def [](name)
-      unless (value = read(name)).nil?
-        return value
+      if has_key? name
+        return read(name)
       end
 
       if (setting = find_by(name: name))
@@ -29,7 +32,7 @@ class Setting < ActiveRecord::Base
 
       write(name, value)
 
-      value.presence
+      value
     end
 
     def has_key?(name)

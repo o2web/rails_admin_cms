@@ -7,8 +7,6 @@ class Setting < ActiveRecord::Base
   @@cache = Rails.cache
 
   class << self
-    delegate :delete, :clear, to: :cache
-
     def []=(name, value)
       cache.write(name, value)
       setting = where(name: name).first_or_initialize
@@ -32,6 +30,10 @@ class Setting < ActiveRecord::Base
       value.presence
     end
 
+    def clear(name)
+      cache.delete(name)
+    end
+
     def apply_all(settings = {})
       settings.each do |name, value|
         find_or_create_by!(name: name.to_s) do |setting|
@@ -41,6 +43,13 @@ class Setting < ActiveRecord::Base
             setting.value = value
           end
         end
+      end
+    end
+
+    def remove_all(*settings)
+      settings.each do |name|
+        find_by(name: name.to_s).try(:destroy!)
+        clear(name)
       end
     end
   end

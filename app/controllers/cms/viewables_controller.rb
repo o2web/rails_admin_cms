@@ -24,7 +24,7 @@ module CMS
       if unique_key.update(unique_key_params)
         flash_now!(:success)
       else
-        flash_now!(:error)
+        flash_now!(error: unique_key.errors.full_messages.first)
       end
 
       respond_to do |format|

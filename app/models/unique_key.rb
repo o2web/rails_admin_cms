@@ -7,6 +7,10 @@ class UniqueKey < ActiveRecord::Base
 
   before_update ::Callbacks::UniqueKeyBeforeUpdate.new
 
+  validates :position, numericality: { less_than_or_equal_to: :count }
+
+  delegate :count, to: :list
+
   class << self
     def find_viewable(unique_key)
       (unique_key = find_by(unique_key)) ? unique_key.viewable : nil
@@ -32,12 +36,17 @@ class UniqueKey < ActiveRecord::Base
     end
   end
 
-  def list(locale)
-    self.class.where(viewable_type: viewable_type, view_path: view_path, name: name).where(locale: locale)
+  def list(locale = nil)
+    self.class
+      .where(viewable_type: viewable_type, view_path: view_path, name: name)
+      .where(locale: locale || self.locale)
   end
 
-  def other_locales(position)
-    self.class.where(viewable_type: viewable_type, view_path: view_path, name: name, position: position).where.not(locale: locale)
+  def other_locales(position = nil)
+    self.class
+      .where(viewable_type: viewable_type, view_path: view_path, name: name)
+      .where(position: position || self.position)
+      .where.not(locale: locale)
   end
 
   def with_unlocalized_buffered_position(new_position)

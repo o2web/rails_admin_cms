@@ -9,7 +9,7 @@ module Admin
 
           field :title
           field :image, :rich_picker do
-            config hidden_input: true
+            config hidden_input: true, scoped: 'cms'
           end
         end
       end

@@ -8,7 +8,7 @@ module Admin
           visible false
 
           field :title
-          field :text, :rich_editor
+          field :text, :rich_editor, scoped: 'cms'
         end
       end
     end

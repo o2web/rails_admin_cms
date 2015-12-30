@@ -6,16 +6,18 @@ class Setting < ActiveRecord::Base
   cattr_accessor :cache
   @@cache = Rails.cache
 
+  after_commit :expire_cache
+
   class << self
     def []=(name, value)
-      cache.write(name, value)
-      setting = where(name: name).first_or_initialize
-      setting.value = value
-      setting.save
+      write(name, value)
+      find_or_create_by!(name: name) do |setting|
+        setting.value = value
+      end
     end
 
     def [](name)
-      unless (value = cache.read(name)).nil?
+      unless (value = read(name)).nil?
         return value
       end
 
@@ -25,22 +27,22 @@ class Setting < ActiveRecord::Base
         value = yield # default value passed as block
       end
 
-      cache.write(name, value)
+      write(name, value)
 
       value.presence
     end
 
     def has_key?(name)
-      cache.exist? name
+      cache.exist? cache_key(name)
     end
 
     def expire(name)
-      cache.delete(name)
+      cache.delete cache_key(name)
     end
 
     def apply_all(settings = {})
       settings.each do |name, value|
-        find_or_create_by!(name: name.to_s) do |setting|
+        find_or_create_by!(name: name) do |setting|
           if value.is_a? Array
             setting.value, setting.unit = value
           else
@@ -52,9 +54,29 @@ class Setting < ActiveRecord::Base
 
     def remove_all(*settings)
       settings.each do |name|
-        find_by(name: name.to_s).try(:destroy!)
+        find_by(name: name).try(:destroy!)
         expire(name)
       end
     end
+
+    private
+
+    def read(name)
+      cache.read cache_key(name)
+    end
+
+    def write(name, value)
+      cache.write cache_key(name), value
+    end
+
+    def cache_key(name)
+      "setting/#{name}"
+    end
+  end
+
+  private
+
+  def expire_cache
+    self.class.expire(name)
   end
 end

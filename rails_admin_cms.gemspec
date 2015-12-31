@@ -17,7 +17,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 4.2.0"
+  s.add_dependency "rails-i18n"
   s.add_dependency "rails_admin"
+  s.add_dependency "rails_admin-i18n"
   s.add_dependency "route_translator"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
@@ -31,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency "active_type"
   s.add_dependency "validates"
   s.add_dependency "country_select"
+  s.add_dependency "i18n_country_select"
   s.add_dependency "invisible_captcha"
   s.add_dependency "jquery-form-validator-rails"
   s.add_dependency "bootstrap_flash_messages", "~> 1.0.1"

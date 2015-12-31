@@ -10,3 +10,5 @@ fr:
         sending: En cours...
       email:
         default_subject: Sujet
+    locale_selector:
+      language: Fr

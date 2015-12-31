@@ -10,3 +10,5 @@ en:
         sending: Sending...
       email:
         default_subject: Subject
+    locale_selector:
+      language: En

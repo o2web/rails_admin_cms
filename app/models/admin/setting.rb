@@ -11,9 +11,7 @@ module Admin
             read_only true
           end
           field :value, :string
-          field :unit do
-            read_only true
-          end
+          field :unit
         end
       end
     end

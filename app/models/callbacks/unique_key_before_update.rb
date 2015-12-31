@@ -39,6 +39,7 @@ module Callbacks
         position = @reverse ? m.position_was - i : m.position_was + i
 
         unique_key.update_column(:position, position)
+        unique_key.viewable.touch
       end
     end
   end

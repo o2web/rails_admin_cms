@@ -14,7 +14,9 @@ module Viewable
 
     after_destroy ::Callbacks::ViewableAfterDestroy.new
 
-    after_commit :expire_cache
+    before_destroy :expire_cache
+    after_update :expire_cache
+    after_touch  :expire_cache
   end
 
   class_methods do

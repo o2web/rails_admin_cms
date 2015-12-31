@@ -1,6 +1,8 @@
 module Viewable
   extend ActiveSupport::Concern
 
+  # TODO fallback for translations
+
   included do
     self.table_name_prefix = 'viewable_'
 

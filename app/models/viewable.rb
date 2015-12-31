@@ -13,6 +13,8 @@ module Viewable
     delegate :view_path, :name, :position, :locale, :list, :other_locales, to: :unique_key
 
     after_destroy ::Callbacks::ViewableAfterDestroy.new
+
+    after_commit :expire_cache
   end
 
   class_methods do
@@ -63,5 +65,15 @@ module Viewable
         engine_viewables + app_viewables
       end
     end
+  end
+
+  private
+
+  def expire_cache
+    ActionController::Base.new.expire_fragment /#{view_cache_key}/
+  end
+
+  def view_cache_key
+    "#{locale}/#{view_path}"
   end
 end

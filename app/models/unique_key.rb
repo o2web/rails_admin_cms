@@ -3,7 +3,7 @@ class UniqueKey < ActiveRecord::Base
 
   has_paper_trail if RailsAdminCMS::Config.with_paper_trail?
 
-  belongs_to :viewable, polymorphic: true
+  belongs_to :viewable, polymorphic: true, touch: true
 
   before_update ::Callbacks::UniqueKeyBeforeUpdate.new
 

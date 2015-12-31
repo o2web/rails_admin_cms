@@ -1,4 +1,4 @@
-<%
+<% cms_cache do
    links = cms_link('simple-link', 0, Float::INFINITY)
    texts = cms_text('simple-text', 0, Float::INFINITY)
    image = cms_image('simple-image')
@@ -30,3 +30,5 @@
   <%= image_tag image.path %>
   <%= image.edit_link %>
 </div>
+
+<% end %>

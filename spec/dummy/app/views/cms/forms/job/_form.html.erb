@@ -1,4 +1,4 @@
-<%
+<% cms_cache do
    periods = cms_select('periods', 1, Float::INFINITY)
 -%>
 
@@ -12,4 +12,6 @@
   <%= periods.edit_links(:value) %>
 
   <%= f.submit cms_form_send, cms_form_sending %>
+<% end %>
+
 <% end %>

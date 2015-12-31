@@ -11,3 +11,8 @@ CMS.ready = (callback) ->
 CMS.ready_with_scope = (body_class, callback) ->
   CMS.ready ->
     CMS.with_scope(body_class, callback)
+
+#------------------------------------------------------------------------------#
+
+CMS.ready ->
+  CMS.flash_messages()

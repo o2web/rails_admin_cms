@@ -1,3 +1,5 @@
 fr:
   routes:
     page: fr/page
+    contact: fr/contact
+    job: fr/job

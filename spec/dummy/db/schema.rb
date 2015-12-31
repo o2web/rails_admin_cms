@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230085947) do
+ActiveRecord::Schema.define(version: 20151230223418) do
+
+  create_table "form_jobs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "country"
+    t.text     "periods"
+    t.string   "letter_file_name"
+    t.string   "letter_content_type"
+    t.integer  "letter_file_size"
+    t.datetime "letter_updated_at"
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "rich_rich_files", force: :cascade do |t|
     t.datetime "created_at"

@@ -1,0 +1,15 @@
+<%
+   periods = cms_select('periods', 1, Float::INFINITY)
+-%>
+
+<%= cms_form_for do |f| %>
+  <%= f.input :name, input_html: cms_validate_presence %>
+  <%= f.input :email, input_html: cms_validate_email %>
+  <%= f.input :country %>
+  <%= f.input :letter, as: :file %>
+  <%= f.input :resume, as: :file %>
+  <%= f.input :periods, as: :check_boxes, collection: periods.options, input_html: cms_validate_presence(check_boxes: true) %>
+  <%= periods.edit_links(:value) %>
+
+  <%= f.submit cms_form_send, cms_form_sending %>
+<% end %>

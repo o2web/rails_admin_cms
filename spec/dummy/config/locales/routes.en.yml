@@ -1,3 +1,5 @@
 en:
   routes:
     page: page
+    contact: contact
+    job: job

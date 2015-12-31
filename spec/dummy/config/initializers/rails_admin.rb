@@ -35,7 +35,6 @@ RailsAdmin.config do |config|
       except %w[
         UniqueKey
         Setting
-        Rich::RichFile
       ]
     end
     show do
@@ -48,7 +47,6 @@ RailsAdmin.config do |config|
       except %w[
         UniqueKey
         Setting
-        Rich::RichFile
       ]
     end
     show_in_app

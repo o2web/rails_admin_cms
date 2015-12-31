@@ -8,7 +8,7 @@ module Admin
           visible false
 
           edit do
-            field :uuid do
+            field :name do
               read_only true
             end
           end

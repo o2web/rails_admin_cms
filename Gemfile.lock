@@ -29,6 +29,7 @@ PATH
       active_type
       bootstrap_flash_messages (~> 1.0.1)
       country_select
+      email_validator
       i18n_country_select
       invisible_captcha
       jquery-form-validator-rails
@@ -43,7 +44,6 @@ PATH
       rich
       route_translator
       simple_form
-      validates
       youtube_addy
 
 GEM
@@ -121,6 +121,8 @@ GEM
     currencies (0.4.2)
     database_cleaner (1.5.1)
     diff-lcs (1.2.5)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -297,9 +299,6 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unicode_utils (1.4.0)
-    validates (1.0.0)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
     websocket-driver (0.6.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)

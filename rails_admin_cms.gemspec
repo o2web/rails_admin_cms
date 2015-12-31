@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "simple_form"
   s.add_dependency "active_type"
-  s.add_dependency "validates"
+  s.add_dependency "email_validator"
   s.add_dependency "country_select"
   s.add_dependency "i18n_country_select"
   s.add_dependency "invisible_captcha"

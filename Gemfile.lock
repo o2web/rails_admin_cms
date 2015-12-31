@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: git://github.com/o2web/rich.git
-  revision: 54684957a4b38772a06132979694220921239e92
+  revision: 7a376028be33d33029b5031e0d9eb8208ce415d0
   specs:
     rich (1.4.8)
       babosa

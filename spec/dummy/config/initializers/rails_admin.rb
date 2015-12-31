@@ -24,6 +24,7 @@ RailsAdmin.config do |config|
     new do
       except Viewable.models + %w[
         UniqueKey
+        Setting
         Rich::RichFile
       ]
     end

@@ -12,3 +12,9 @@ en:
         default_subject: Subject
     locale_selector:
       language: En
+
+  rich:
+    navigation: Multimedia
+    file:
+      one: File
+      other: Files

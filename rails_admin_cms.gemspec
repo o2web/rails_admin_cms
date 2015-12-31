@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency "youtube_addy"
   s.add_dependency "rich"
   s.add_dependency "paperclip", "~> 4.2"
+  s.add_dependency "rails_admin_jcrop"
 
   s.add_dependency "simple_form"
   s.add_dependency "active_type"

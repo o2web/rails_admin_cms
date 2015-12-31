@@ -12,3 +12,9 @@ fr:
         default_subject: Sujet
     locale_selector:
       language: Fr
+
+  rich:
+    navigation: Multimédia
+    file:
+      one: Fichier
+      other: Fichiers

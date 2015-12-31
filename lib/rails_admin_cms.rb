@@ -7,6 +7,7 @@ require "active_link_to"
 require "youtube_addy"
 require "rich"
 require "paperclip"
+require "rails_admin_jcrop"
 
 require "simple_form"
 require "active_type"

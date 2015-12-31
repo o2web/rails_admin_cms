@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/o2web/rails_admin_jcrop.git
+  revision: 0454a6aae243c3cdd5fbe639891bf62a30857a08
+  branch: feature/one_crop_per_page
+  specs:
+    rails_admin_jcrop (1.4.0)
+      mini_magick
+      rails (~> 4.0)
+      rails_admin (>= 0.6.5)
+
+GIT
   remote: git://github.com/o2web/rich.git
   revision: 54684957a4b38772a06132979694220921239e92
   specs:
@@ -29,6 +39,7 @@ PATH
       rails-i18n
       rails_admin
       rails_admin-i18n
+      rails_admin_jcrop
       rich
       route_translator
       simple_form
@@ -162,6 +173,7 @@ GEM
       mime-types (>= 1.16, < 3)
     mime-types (2.99)
     mimemagic (0.3.0)
+    mini_magick (4.3.6)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
@@ -208,7 +220,7 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails-i18n (4.0.7)
+    rails-i18n (4.0.8)
       i18n (~> 0.7)
       railties (~> 4.0)
     rails_admin (0.8.1)
@@ -311,6 +323,7 @@ DEPENDENCIES
   poltergeist
   quiet_assets
   rails_admin_cms!
+  rails_admin_jcrop!
   rich!
   rspec-rails
   shoulda-matchers

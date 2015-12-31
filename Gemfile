@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rich', github: 'o2web/rich'
+gem 'rails_admin_jcrop', github: 'o2web/rails_admin_jcrop', branch: 'feature/one_crop_per_page'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

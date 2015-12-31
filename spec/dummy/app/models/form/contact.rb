@@ -1,6 +1,7 @@
 module Form
   class Contact < Form::Object
     include Admin::Form::Object
+
     include Form::Email
     include Form::Attachment
 

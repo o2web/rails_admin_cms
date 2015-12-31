@@ -1,5 +1,7 @@
 module Form
   class Object < ActiveType::Object
+    self.abstract_class = true
+
     def self.virtual?
       true
     end

@@ -49,19 +49,7 @@ class UniqueKey < ActiveRecord::Base
       .where.not(locale: locale)
   end
 
-  def with_unlocalized_buffered_position(new_position)
-    with_localized_buffered_position(new_position) do
-
-      # Heads-up! this where unlocalized buffered callbacks should be
-
-      yield
-    end
-  end
-
-  def with_localized_buffered_position(new_position)
-
-    # Heads-up! this where localized buffered callbacks should be
-
+  def with_buffered_position(new_position)
     update_column(:position, 0)
     yield
     update_column(:position, new_position)

@@ -11,8 +11,8 @@ fr:
     #
     # Add default flash messages:
     defaults:
-      success: "This is a notification"
-      error: "Something went wrong"
+      success: "Votre requête a bien été reçue"
+      error: "Une erreur s'est produite"
       #   create:
     #     success: "Successfully created!"
     #     error: "Something went wrong. Please take a look at the form to see what went wrong."

@@ -1,0 +1,12 @@
+en:
+  cms:
+    show_mode: Show
+    edit_mode: Edit
+    edit: Edit
+    add: Add
+    form:
+      submit:
+        send: Send
+        sending: Sending...
+      email:
+        default_subject: Subject

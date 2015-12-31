@@ -11,7 +11,7 @@ en:
     #
     # Add default flash messages:
     defaults:
-      success: "This is a notification"
+      success: "Your request processed successfully"
       error: "Something went wrong"
     #   create:
     #     success: "Successfully created!"

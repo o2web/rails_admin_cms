@@ -13,7 +13,7 @@ module Viewable
       each do |link|
         h.concat link.li_active_link_to_with_edit
       end
-      h.concat(add_link) if h.edit_mode?
+      h.concat(add_link) if h.cms_edit_mode?
     end
 
     private

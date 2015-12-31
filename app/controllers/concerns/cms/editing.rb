@@ -5,10 +5,10 @@ module CMS
     included do
       before_action :set_edit_mode
 
-      helper_method :edit_mode?
+      helper_method :cms_edit_mode?
     end
 
-    def edit_mode?
+    def cms_edit_mode?
       @_editing ||= RailsAdminCMS::Config.authorized_user_method && session[:edit_mode].to_b
     end
 

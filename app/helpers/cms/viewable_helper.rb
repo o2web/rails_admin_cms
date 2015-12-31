@@ -39,10 +39,10 @@ module CMS
       end
     end
 
-    def link_to_switch_edit_mode
-      next_mode = edit_mode? ? t('cms.show_mode') : t('cms.edit_mode')
+    def cms_link_to_edit_mode
+      next_mode = cms_edit_mode? ? t('cms.show_mode') : t('cms.edit_mode')
 
-      path = "#{request.path}?#{{ edit_mode: !edit_mode? }.to_query}"
+      path = "#{request.path}?#{{ edit_mode: !cms_edit_mode? }.to_query}"
 
       link_to next_mode, path
     end

@@ -9,7 +9,7 @@ module CMS
     private
 
     def no_cache
-      edit_mode? || forms_create?
+      cms_edit_mode? || forms_create?
     end
 
     def forms_create?

@@ -8,7 +8,7 @@ module CMS
         "#{controller_name}-#{action_name}",
         I18n.locale,
       ]
-      classes << 'cms-edit-mode' if edit_mode?
+      classes << 'cms-edit-mode' if cms_edit_mode?
       classes.concat(args) if args.any?
       classes.compact.join(' ')
     end

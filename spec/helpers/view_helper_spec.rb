@@ -6,7 +6,7 @@ describe CMS::ViewHelper, type: :helper do
       I18n.locale = :fr
       allow(controller).to receive(:action_name).and_return('show')
       allow(params).to receive(:[]).with(:cms_body_class).and_return('page')
-      helper.class.send(:define_method, :edit_mode?) { true }
+      helper.class.send(:define_method, :cms_edit_mode?) { true }
     end
 
     it "generate contextual classes" do

@@ -6,7 +6,7 @@ class ViewableListPresenter < BaseListPresenter
   end
 
   def edit_links(method_name = nil)
-    return unless h.edit_mode?
+    return unless h.cms_edit_mode?
 
     h.content_tag(:ul, sortable(class: "cms-wrapped-edit")) do
       list.each.with_index(1) do |m, i|
@@ -20,7 +20,7 @@ class ViewableListPresenter < BaseListPresenter
   end
 
   def add_link
-    return unless h.edit_mode?
+    return unless h.cms_edit_mode?
     return unless @max == Float::INFINITY || list.size < @max.to_i
 
     h.link_to add_path, class: "cms-add", 'data-no-turbolink' => true do
@@ -29,7 +29,7 @@ class ViewableListPresenter < BaseListPresenter
   end
 
   def sortable(options = {})
-    if h.edit_mode?
+    if h.cms_edit_mode?
       { 'data-cms-sortable' => { url: h.main_app.edit_viewable_url(format: :js) }.to_json }.merge(options)
     else
       options

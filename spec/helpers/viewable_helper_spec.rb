@@ -5,7 +5,7 @@ describe CMS::ViewableHelper, type: :helper do
     before(:each) do
       I18n.locale = :fr
       helper.instance_variable_set(:@virtual_path, 'cms/pages/page')
-      helper.class.send(:define_method, :edit_mode?) { true }
+      helper.class.send(:define_method, :cms_edit_mode?) { true }
     end
 
     context "without name" do

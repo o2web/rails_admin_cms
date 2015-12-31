@@ -1,12 +1,16 @@
 module CMS
   module ViewableHelper
-    Viewable.names.each do |type|
-      define_method "cms_#{type}" do |name, min = 1, max = nil| # FLOAT::INFINITY
-        # TODO: N+1 optimization
-        # default_scope { includes(:unique_key).where(unique_keys: { locale: I18n.locale }).order('unique_keys.position') }
+    Viewable::Block.names.each do |type|
+      define_method "cms_#{type}" do |name, min = 1, max = nil|
+        cms_block("#{type}/#{name}", min, max)
+      end
+    end
 
-        raise ArgumentError, "'min' can not be Float::INFINITY" if min == Float::INFINITY
-        raise ArgumentError, "'name' must be a String" unless name.is_a? String
+    Viewable.names.each do |type|
+      define_method "cms_#{type}" do |name, min = 1, max = nil| # max = FLOAT::INFINITY
+        validate_arguments! name, min, max
+
+        name = normalize_name(name)
 
         presenter_list = (1..min).map do |position|
           find_or_create_presenter(type, name, position)
@@ -15,16 +19,11 @@ module CMS
         list_key = to_list_key(type, name)
 
         if max.nil?
-          case min
-          when 0
-            raise ArgumentError, "if 'max' is not defined, 'min' must be greater than 0"
-          when 1
+          if min == 1
             return presenter_list.first
           else
             return build_list_presenter(presenter_list, list_key, max)
           end
-        elsif max < 1
-          raise ArgumentError, "'max' must be greater than 0 or nil"
         end
 
         ((min + 1)..max).each do |position|
@@ -48,6 +47,31 @@ module CMS
     end
 
     private
+
+    def validate_arguments!(name, min, max)
+      if min == Float::INFINITY
+        raise ArgumentError, "'min' can not be Float::INFINITY"
+      end
+
+      unless name.is_a?(String) || name.is_a?(Symbol)
+        raise ArgumentError, "'name' must be a String or Symbol"
+      end
+
+      if max.nil?
+        if min == 0
+          raise ArgumentError, "if 'max' is not defined, 'min' must be greater than 0"
+        end
+      elsif max < 1
+        raise ArgumentError, "'max' must be greater than 0 or nil"
+      end
+    end
+
+    def normalize_name(name)
+      if @block
+        name = @block.uuid_with name
+      end
+      name
+    end
 
     def find_presenter(type, name, position)
       unique_key = to_unique_key(type, name, position)

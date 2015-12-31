@@ -8,7 +8,7 @@ module Callbacks
 
     def call
       update_list
-      m.other_locales(m.position).map(&:viewable).each do |viewable|
+      m.other_locales.map(&:viewable).each do |viewable|
         viewable.destroy!
         update_list(viewable.locale)
       end

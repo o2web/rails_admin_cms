@@ -13,7 +13,7 @@ module Viewable
         @_names ||= begin
           Dir["#{Rails.root}/app/views/cms/blocks/*.html.*"].map do |name|
             name = File.basename(name).sub(/\.html\..+$/, '').sub(/^_/, '')
-            if name.in? Viewable.names
+            if name.in?(Viewable.names + %w[ cache ])
               raise ArgumentError, "'cms/blocks/_#{name}.html' partial should be called otherwise, '#{name}' taken"
             end
             name

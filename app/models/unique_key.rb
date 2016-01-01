@@ -32,6 +32,7 @@ class UniqueKey < ActiveRecord::Base
           viewable = new_record.viewable
         end
       end
+      viewable.try(:uuid) # forces uuid creation
       viewable
     end
   end

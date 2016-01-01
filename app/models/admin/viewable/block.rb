@@ -7,11 +7,7 @@ module Admin
         rails_admin do
           visible false
 
-          edit do
-            field :name do
-              read_only true
-            end
-          end
+          field :title
         end
       end
     end

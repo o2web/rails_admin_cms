@@ -18,5 +18,20 @@ module CMS
         flash_messages(*args)
       end
     end
+
+    def cms_title(default = nil)
+      @cms_page_title || default
+    end
+
+    def cms_meta_data_tags(default = nil)
+      if @cms_page_meta_keywords || @cms_page_meta_description
+        html = tag(:meta, name: 'meta_keywords', content: @cms_page_meta_keywords)
+        html << "\n"
+        html << tag(:meta, name: 'meta_description', content: @cms_page_meta_description)
+        html.html_safe
+      else
+        default
+      end
+    end
   end
 end

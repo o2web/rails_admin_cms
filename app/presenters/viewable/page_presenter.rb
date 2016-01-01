@@ -1,7 +1,8 @@
 module Viewable
   class PagePresenter < ViewablePresenter
-    def set_meta_tags
-      # TODO
+    def initialize(model, context)
+      super
+      set_meta_tags
     end
 
     def add_link
@@ -13,6 +14,17 @@ module Viewable
     end
 
     private
+
+    def set_meta_tags
+      tags = %w[
+        title
+        meta_keywords
+        meta_description
+      ]
+      tags.each do |tag|
+        h.instance_variable_set("@cms_page_#{tag}", m.send(tag).presence)
+      end
+    end
 
     def add_path
       h.main_app.new_viewable_url(list_key: h.cms_list_key('page', m.unique_key_name), max: Float::INFINITY)

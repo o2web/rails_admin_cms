@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20151231102148) do
 
   create_table "viewable_blocks", force: :cascade do |t|
     t.string   "uuid"
+    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

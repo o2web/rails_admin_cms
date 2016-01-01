@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231054310) do
+ActiveRecord::Schema.define(version: 20151231102148) do
 
   create_table "form_jobs", force: :cascade do |t|
     t.string   "name"
@@ -90,6 +90,18 @@ ActiveRecord::Schema.define(version: 20151231054310) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end
+
+  create_table "viewable_pages", force: :cascade do |t|
+    t.string   "uuid"
+    t.text     "url"
+    t.string   "title"
+    t.text     "meta_keywords"
+    t.text     "meta_description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "viewable_pages", ["url"], name: "index_viewable_pages_on_url"
 
   create_table "viewable_selects", force: :cascade do |t|
     t.string   "value"

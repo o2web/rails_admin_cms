@@ -10,13 +10,16 @@ module Viewable
 
     has_one :unique_key, as: :viewable, dependent: :destroy
 
-    delegate :view_path, :name, :position, :locale, :list, :other_locales, to: :unique_key
+    delegate :view_path, :position, :locale, :list, :other_locales, to: :unique_key
+    delegate :name, to: :unique_key, prefix: true
 
     after_destroy ::Callbacks::ViewableAfterDestroy.new
 
     before_destroy :expire_cache
     after_update :expire_cache
     after_touch  :expire_cache
+
+    scope :localized, -> { includes(:unique_key).where(unique_keys: { locale: I18n.locale }) }
   end
 
   class_methods do
@@ -45,13 +48,13 @@ module Viewable
     self.class.underscored_name
   end
 
-  class << self
-    def pages
-      @_pages ||= Dir["#{Rails.root}/app/views/cms/pages/*.html.*"].map do |name|
-        File.basename(name).sub(/\.html\..+$/, '')
-      end
-    end
+  def unique_key_hash(locale = nil)
+    unique_key
+      .slice(:viewable_type, :view_path, :name, :position)
+      .merge(locale: locale || self.locale)
+  end
 
+  class << self
     def models
       @_models ||= names.map{ |name| "Viewable::#{name.camelize}" }
     end

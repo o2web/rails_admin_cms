@@ -3,18 +3,22 @@ Rails.application.routes.draw do
     get 'viewables/new' => 'viewables#create', format: false, as: :new_viewable
     post 'viewables/edit' => 'viewables#update', format: true, constraints: { format: :js }, as: :edit_viewable
 
-    get 'attachments/*directory/:id' => 'attachments#show', format: true
+    get 'attachments/*directory/:file' => 'attachments#show', format: true
+
+    Viewable::Page.with_url.each do |page|
+      get page.url => "pages#show", format: false, defaults: { id: page.id, cms_body_class: page.view_name, locale: page.locale }
+    end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
 
     localized do
       resources :files, format: false, only: [:show]
 
-      Viewable.pages.each do |page|
-        get page => 'pages#show', defaults: { id: page, cms_body_class: page }, format: false
+      Viewable::Page.names.each do |name|
+        get name => 'pages#show', format: false, defaults: { page: name, cms_body_class: name }
       end
 
-      Form.pages.each do |page|
-        get page => 'forms#new', defaults: { id: page, cms_body_class: page }, format: false
-        post page => 'forms#create', defaults: { id: page, cms_body_class: page }
+      Form.names.each do |name|
+        get name => 'forms#new', format: false, defaults: { form: name, cms_body_class: name }
+        post name => 'forms#create', defaults: { form: name, cms_body_class: name }
       end
     end
   end

@@ -44,8 +44,8 @@ module Form
   end
 
   class << self
-    def pages
-      @_pages ||= Dir["#{Rails.root}/app/views/cms/forms/*"].select{ |name|
+    def names
+      @_names ||= Dir["#{Rails.root}/app/views/cms/forms/*"].select{ |name|
         File.directory? name
       }.map{ |name|
         name.split('/').last

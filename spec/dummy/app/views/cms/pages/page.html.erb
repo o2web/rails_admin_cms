@@ -1,8 +1,15 @@
+<% @page = cms_page %>
+
 <% cms_cache do
-   links = cms_link('simple-link', 0, Float::INFINITY)
-   texts = cms_text('simple-text', 0, Float::INFINITY)
-   image = cms_image('simple-image')
+   links = cms_link(0, Float::INFINITY)
+   texts = cms_text(0, Float::INFINITY)
+   image = cms_image
 -%>
+
+<div>
+  <%= @page.edit_link %>
+  <%= @page.add_link %>
+</div>
 
 <div>
   <%= links.ul_sortable_tag do %>

@@ -4,7 +4,9 @@ module Admin
 
     included do
       rails_admin do
-        navigation_label 'Configuration'
+        navigation_label I18n.t('cms.setting.navigation')
+        label I18n.t('cms.setting.one')
+        label_plural I18n.t('cms.setting.other')
 
         edit do
           field :name do

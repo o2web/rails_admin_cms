@@ -4,6 +4,7 @@ fr:
     edit_mode: Éditer
     edit: Modifier
     add: Ajouter
+    add_page: Nouvelle Page
     form:
       submit:
         send: Envoyer
@@ -12,9 +13,16 @@ fr:
         default_subject: Sujet
     locale_selector:
       language: Fr
-
+    page:
+      navigation: Site
+      one: Page
+      other: Pages
+    setting:
+      navigation: Site
+      one: Paramètre
+      other: Paramètres
   rich:
-    navigation: Multimédia
     file:
+      navigation: Site
       one: Fichier
       other: Fichiers

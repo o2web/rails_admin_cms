@@ -16,14 +16,6 @@ module Admin
           fields :target_blank, :turbolink
         end
       end
-
-      def page_enum
-        static = ::Viewable.pages
-        paths = static.map do |template|
-          Rails.application.routes.url_helpers.send "#{template}_path"
-        end
-        paths.sort
-      end
     end
   end
 end

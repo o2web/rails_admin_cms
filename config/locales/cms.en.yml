@@ -4,6 +4,7 @@ en:
     edit_mode: Edit
     edit: Edit
     add: Add
+    add_page: New Page
     form:
       submit:
         send: Send
@@ -12,9 +13,16 @@ en:
         default_subject: Subject
     locale_selector:
       language: En
-
+    page:
+      navigation: Site
+      one: Page
+      other: Pages
+    setting:
+      navigation: Site
+      one: Setting
+      other: Settings
   rich:
-    navigation: Multimedia
     file:
+      navigation: Site
       one: File
       other: Files

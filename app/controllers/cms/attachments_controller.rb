@@ -3,8 +3,8 @@ module CMS
     before_action RailsAdminCMS::Config.authentication_method
 
     def show
-      id, format = params[:id].sub(/\?.+$/, ''), params[:format]
-      file_name = "#{id}.#{format}"
+      name, format = params[:file].sub(/\?.+$/, ''), params[:format]
+      file_name = "#{name}.#{format}"
       content_type = Mime::Type.lookup_by_extension(format)
 
       send_file(

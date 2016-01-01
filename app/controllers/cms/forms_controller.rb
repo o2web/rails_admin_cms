@@ -77,7 +77,7 @@ module CMS
     end
 
     def form_name
-      @_form_name ||= params[:id]
+      @_form_name ||= params[:form]
     end
   end
 end

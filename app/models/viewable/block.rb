@@ -4,8 +4,8 @@ module Viewable
     include Viewable::Field::UUID
     include Admin::Viewable::Block
 
-    def partial
-      @_partial ||= "cms/blocks/#{name.partition('/').first}"
+    def partial_path
+      @_partial_path ||= "cms/blocks/#{unique_key_name.partition('/').first}"
     end
 
     class << self

@@ -1,22 +1,29 @@
 module CMS
   module ViewableHelper
     Viewable::Block.names.each do |type|
-      define_method "cms_#{type}" do |name, min = 1, max = nil|
+      define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil|
         cms_block("#{type}/#{name}", min, max)
       end
     end
 
     Viewable.names.each do |type|
-      define_method "cms_#{type}" do |name, min = 1, max = nil| # max = FLOAT::INFINITY
-        validate_arguments! name, min, max
+      define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
+        if !name.is_a?(String) && !name.is_a?(Symbol)
+          max, min = min, name
+          name = 'cms'
+        end
 
-        name = normalize_name(name)
+        validate_min_max! min, max
+
+        name, return_page = validate_type_and_adjust_name_or_return_page! type, name
+
+        return @page if return_page
 
         presenter_list = (1..min).map do |position|
           find_or_create_presenter(type, name, position)
         end
 
-        list_key = to_list_key(type, name)
+        list_key = cms_list_key(type, name)
 
         if max.nil?
           if min == 1
@@ -46,17 +53,21 @@ module CMS
       link_to next_mode, path
     end
 
+    def cms_list_key(type, name)
+      {
+        viewable_type: "Viewable::#{type.camelize}",
+        view_path: @virtual_path,
+        name: name,
+        locale: locale,
+      }
+    end
+
     private
 
-    def validate_arguments!(name, min, max)
+    def validate_min_max!(min, max)
       if min == Float::INFINITY
         raise ArgumentError, "'min' can not be Float::INFINITY"
       end
-
-      unless name.is_a?(String) || name.is_a?(Symbol)
-        raise ArgumentError, "'name' must be a String or Symbol"
-      end
-
       if max.nil?
         if min == 0
           raise ArgumentError, "if 'max' is not defined, 'min' must be greater than 0"
@@ -66,11 +77,29 @@ module CMS
       end
     end
 
-    def normalize_name(name)
-      if @block
-        name = @block.uuid_with name
+    def validate_type_and_adjust_name_or_return_page!(type, name)
+      case type
+      when 'page'
+        if @page
+          @page = Viewable::PagePresenter.new(@page, self)
+          return_page = true
+        end
+      when 'block'
+        if @block
+          raise ArgumentError, "can not have cms_block(...) within block partials"
+        end
+        if @page
+          name = @page.uuid_with(name)
+        end
+      else
+        if @block
+          name = @block.uuid_with(name)
+        end
+        if @page
+          name = @page.uuid_with(name)
+        end
       end
-      name
+      [name, return_page]
     end
 
     def find_presenter(type, name, position)
@@ -105,16 +134,7 @@ module CMS
     end
 
     def to_unique_key(type, name, position)
-      to_list_key(type, name).merge(position: position)
-    end
-
-    def to_list_key(type, name)
-      {
-        viewable_type: "Viewable::#{type.camelize}",
-        view_path: @virtual_path,
-        name: name,
-        locale: locale,
-      }
+      cms_list_key(type, name).merge(position: position)
     end
   end
 end

@@ -57,7 +57,7 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Rich::RichFile' do
-    navigation_label I18n.t('rich.navigation')
+    navigation_label I18n.t('rich.file.navigation')
     label I18n.t('rich.file.one')
     label_plural I18n.t('rich.file.other')
 

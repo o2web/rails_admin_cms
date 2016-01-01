@@ -1,30 +1,11 @@
 module Viewable
   class Block < ActiveRecord::Base
     include Viewable
+    include Viewable::Field::UUID
     include Admin::Viewable::Block
-
-    after_destroy :destroy_viewables
 
     def partial
       @_partial ||= "cms/blocks/#{name.partition('/').first}"
-    end
-
-    def uuid
-      value = read_attribute(:uuid)
-      if value.blank?
-        value = SecureRandom.uuid
-        transaction do
-          update_column(:uuid, value)
-          other_locales.map(&:viewable).each do |viewable|
-            viewable.update_column(:uuid, value)
-          end
-        end
-      end
-      value
-    end
-
-    def uuid_with(name)
-      "B[#{uuid}]/#{name}"
     end
 
     class << self
@@ -39,12 +20,6 @@ module Viewable
           end
         end
       end
-    end
-
-    private
-
-    def destroy_viewables
-      UniqueKey.where('name LIKE :uuid', uuid: "%B[#{uuid}]%").destroy_all
     end
   end
 end

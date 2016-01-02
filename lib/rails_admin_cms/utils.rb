@@ -2,10 +2,10 @@ module CMS
   extend self
 
   def rb_all_names(dirname)
-    Dir["#{RailsAdminCMS::Engine.root}/#{dirname}/*.rb"].map do |name|
+    Dir["#{RailsAdminCMS::Engine.root}/#{dirname}/*.rb"].map { |name|
       File.basename(name).sub(/\.rb$/, '')
-    end
-    + rb_names(dirname)
+    } +
+    rb_names(dirname)
   end
 
   def rb_names(dirname)

@@ -20,7 +20,7 @@ module Viewable
 
     scope :localized, -> { includes(:unique_key).where(unique_keys: { locale: I18n.locale }) }
 
-    delegate :unlocalized_fields, :viewable_type, :dashed_name, :underscored_name, to: :class
+    delegate :has_unlocalized_fields?, :unlocalized_fields, :viewable_type, :dashed_name, :underscored_name, to: :class
   end
 
   class_methods do
@@ -28,6 +28,10 @@ module Viewable
       define_singleton_method :unlocalized_fields do
         fields
       end
+    end
+
+    def has_unlocalized_fields?
+      unlocalized_fields.any?
     end
 
     def unlocalized_fields

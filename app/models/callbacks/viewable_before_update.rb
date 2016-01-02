@@ -3,7 +3,7 @@ module Callbacks
     include Callback
 
     def call
-      return unless m.unlocalized_fields.any?
+      return unless m.has_unlocalized_fields?
 
       attributes = m.slice(*m.unlocalized_fields)
 

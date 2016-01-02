@@ -57,13 +57,13 @@ module Viewable
 
   def list(locale = nil)
     self.class.includes(:unique_key)
-      .where(unique_keys: { viewable_type: viewable_type, view_path: view_path, name: name })
+      .where(unique_keys: { viewable_type: viewable_type, view_path: view_path, name: unique_key_name })
       .where(unique_keys: { locale: locale || self.locale })
   end
 
   def other_locales(position = nil)
     self.class.includes(:unique_key)
-      .where(unique_keys: { viewable_type: viewable_type, view_path: view_path, name: name })
+      .where(unique_keys: { viewable_type: viewable_type, view_path: view_path, name: unique_key_name })
       .where(unique_keys: { position: position || self.position })
       .where.not(unique_keys: { locale: locale })
   end

@@ -4,12 +4,16 @@ module Viewable
       extend ActiveSupport::Concern
 
       included do
-        after_destroy :destroy_viewables
+        after_destroy :destroy_other_uuids
       end
 
       class_methods do
-        def prefix
-          @_prefix ||= model_name.human[0]
+        def uuid_with_prefix
+          @_uuid_with_prefix ||= model_name.human[0]
+        end
+
+        def find_by_uuid(uuid)
+          localized.find_by(uuid: uuid)
         end
       end
 
@@ -28,12 +32,16 @@ module Viewable
       end
 
       def uuid_with(name)
-        "#{self.class.prefix}[#{uuid}]/#{name}"
+        "#{self.class.uuid_with_prefix}[#{uuid}]/#{name}"
+      end
+
+      def other_uuid(locale)
+        self.class.where(uuid: uuid).includes(:unique_key).where(unique_keys: { locale: locale }).first
       end
 
       private
 
-      def destroy_viewables
+      def destroy_other_uuids
         UniqueKey.where('name LIKE :uuid', uuid: "%#{self.class.prefix}[#{uuid}]%").destroy_all
       end
 

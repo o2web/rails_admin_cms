@@ -21,7 +21,7 @@ module CMS
       url = case controller_path
       when /^cms\/pages/
         if @page
-          @page.other_locale(locale).try(:url)
+          @page.other_uuid(locale).try(:url)
         else
           main_app.try("#{params[:page]}_#{locale}_path")
         end

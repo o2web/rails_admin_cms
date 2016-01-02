@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
     get 'attachments/*directory/:file' => 'attachments#show', format: true
 
-    Viewable::Page.with_url.each do |page|
+    Viewable::Page.all.each do |page|
       get page.url => "pages#show", format: false, defaults: { id: page.id, cms_body_class: page.view_name, locale: page.locale }
     end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
 

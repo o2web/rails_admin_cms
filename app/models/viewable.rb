@@ -1,8 +1,6 @@
 module Viewable
   extend ActiveSupport::Concern
 
-  # TODO fallback for translations
-
   included do
     self.table_name_prefix = 'viewable_'
 
@@ -14,15 +12,28 @@ module Viewable
     delegate :name, to: :unique_key, prefix: true
 
     after_destroy ::Callbacks::ViewableAfterDestroy.new
+    before_update ::Callbacks::ViewableBeforeUpdate.new
 
     before_destroy :expire_cache
     after_update :expire_cache
     after_touch  :expire_cache
 
     scope :localized, -> { includes(:unique_key).where(unique_keys: { locale: I18n.locale }) }
+
+    delegate :unlocalized_fields, :viewable_type, :dashed_name, :underscored_name, to: :class
   end
 
   class_methods do
+    def has_unlocalized_fields(*fields)
+      define_singleton_method :unlocalized_fields do
+        fields
+      end
+    end
+
+    def unlocalized_fields
+      []
+    end
+
     def viewable_type
       name
     end
@@ -36,16 +47,8 @@ module Viewable
     end
   end
 
-  def viewable_type
-    self.class.viewable_type
-  end
-
-  def dashed_name
-    self.class.dashed_name
-  end
-
-  def underscored_name
-    self.class.underscored_name
+  def short_type
+    viewable_type.demodulize.underscore
   end
 
   def unique_key_hash(locale = nil)

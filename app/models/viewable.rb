@@ -82,10 +82,6 @@ module Viewable
   private
 
   def expire_cache
-    ActionController::Base.new.expire_fragment /#{view_cache_key}/
-  end
-
-  def view_cache_key
-    "#{locale}/#{view_path}"
+    ActionController::Base.new.expire_fragment /#{view_path}/
   end
 end

@@ -21,16 +21,34 @@ module CMS
       "cms/forms/#{cms_form_instance.form_name}/form"
     end
 
-    def cms_validate_presence(options = {})
-      if options.delete(:check_boxes)
-        { 'data-validation' => 'checkbox_group', 'data-validation-qty' => 'min1', 'data-validation-error-msg' => t('errors.messages.blank') }.merge(options)
-      else
-        { 'data-validation' => 'required', 'data-validation-error-msg' => t('errors.messages.blank') }.merge(options)
+    def cms_validates(options = {})
+      type, required = options.extract!(*Form::Field.names).first
+      unless type
+        return cms_validate_presence(options)
       end
+      unless required
+        return options
+      end
+      case type
+      when :check_boxes
+        cms_validate_check_boxes(options)
+      when :email
+        cms_validate_email(options)
+      else
+        cms_validate_presence(options)
+      end
+    end
+
+    def cms_validate_presence(options = {})
+      { 'data-validation' => 'required', 'data-validation-error-msg' => t('errors.messages.blank') }.merge(options)
     end
 
     def cms_validate_email(options = {})
       { 'data-validation' => 'email', 'data-validation-error-msg' => t('errors.messages.invalid') }.merge(options)
+    end
+
+    def cms_validate_check_boxes(options = {})
+      { 'data-validation' => 'checkbox_group', 'data-validation-qty' => 'min1', 'data-validation-error-msg' => t('errors.messages.blank') }.merge(options)
     end
 
     def cms_form_send

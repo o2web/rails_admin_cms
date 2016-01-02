@@ -1,7 +1,7 @@
 module Viewable
   class Block < ActiveRecord::Base
     include Viewable
-    include Viewable::Field::UUID
+    include Field::UUID
     include Admin::Viewable::Block
 
     def partial_path

@@ -1,8 +1,8 @@
 module Viewable
   class Page < ActiveRecord::Base
     include Viewable
-    include Viewable::Field::UUID
-    include Viewable::Field::Url
+    include Field::UUID
+    include Field::Url
     include Admin::Viewable::Page
 
     class << self

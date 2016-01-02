@@ -11,6 +11,9 @@ en:
         sending: Sending...
       email:
         default_subject: Subject
+      navigation: Site
+      one: Form
+      other: Forms
     locale_selector:
       language: En
     page:

@@ -11,6 +11,9 @@ fr:
         sending: En cours...
       email:
         default_subject: Sujet
+      navigation: Site
+      one: Formulaire
+      other: Formulaires
     locale_selector:
       language: Fr
     page:

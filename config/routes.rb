@@ -5,20 +5,31 @@ Rails.application.routes.draw do
 
     get 'attachments/*directory/:file' => 'attachments#show', format: true
 
-    Viewable::Page.all.each do |page|
-      get page.url => "pages#show", format: false, defaults: { id: page.id, cms_body_class: page.view_name, locale: page.locale }
+    Viewable::Page.with_url.each do |page|
+      get page.url => "pages#show", format: false,
+        defaults: { id: page.id, cms_view_type: page.view_name, cms_body_class: page.view_name, locale: page.locale }
     end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
+
+    Viewable::Form.with_url.each do |form|
+      get form.url => "forms#new", format: false,
+        defaults: { id: form.id, cms_view_type: form.form_name, cms_body_class: form.form_name, locale: form.locale }
+      post form.url => 'forms#create',
+        defaults: { id: form.id, cms_view_type: form.form_name, cms_body_class: form.form_name, locale: form.locale }
+    end if ActiveRecord::Base.connection.table_exists? 'viewable_forms'
 
     localized do
       resources :files, format: false, only: [:show]
 
       Viewable::Page.names.each do |name|
-        get name => 'pages#show', format: false, defaults: { page: name, cms_body_class: name }
+        get name => 'pages#show', format: false,
+          defaults: { cms_view_type: name, cms_body_class: name }
       end
 
-      Form.names.each do |name|
-        get name => 'forms#new', format: false, defaults: { form: name, cms_body_class: name }
-        post name => 'forms#create', defaults: { form: name, cms_body_class: name }
+      Viewable::Form.names.each do |name|
+        get name => 'forms#new', format: false,
+          defaults: { cms_view_type: name, cms_body_class: name }
+        post name => 'forms#create',
+          defaults: { cms_view_type: name, cms_body_class: name }
       end
     end
   end

@@ -15,9 +15,9 @@ module CMS
 
         validate_min_max! min, max
 
-        name, return_page = validate_type_and_adjust_name_or_return_page! type, name
+        name, presenter = validate_type_and_adjust_name_or_return! type, name
 
-        return @page if return_page
+        return presenter if presenter
 
         presenter_list = (1..min).map do |position|
           find_or_create_presenter(type, name, position)
@@ -77,29 +77,32 @@ module CMS
       end
     end
 
-    def validate_type_and_adjust_name_or_return_page!(type, name)
+    def validate_type_and_adjust_name_or_return!(type, name)
       case type
       when 'page'
-        if @page
-          @page = Viewable::PagePresenter.new(@page, self)
-          return_page = true
+        if @cms_view
+          presenter = Viewable::PagePresenter.new(@cms_view, self)
+        end
+      when 'form'
+        if @cms_view
+          presenter = Viewable::FormPresenter.new(@cms_view, self)
         end
       when 'block'
-        if @block
+        if @cms_view_partial
           raise ArgumentError, "can not have cms_block(...) within block partials"
         end
-        if @page
-          name = @page.uuid_with(name)
+        if @cms_view
+          name = @cms_view.uuid_with(name)
         end
       else
-        if @block
-          name = @block.uuid_with(name)
+        if @cms_view_partial
+          name = @cms_view_partial.uuid_with(name)
         end
-        if @page
-          name = @page.uuid_with(name)
+        if @cms_view
+          name = @cms_view.uuid_with(name)
         end
       end
-      [name, return_page]
+      [name, presenter]
     end
 
     def find_presenter(type, name, position)

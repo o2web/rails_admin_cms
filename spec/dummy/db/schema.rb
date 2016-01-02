@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231102148) do
+ActiveRecord::Schema.define(version: 20160102010317) do
+
+  create_table "form_fields", force: :cascade do |t|
+    t.integer  "structure_id"
+    t.integer  "position"
+    t.string   "type"
+    t.boolean  "required",     default: false
+    t.string   "label_en"
+    t.string   "label_fr"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "form_fields", ["structure_id"], name: "index_form_fields_on_structure_id"
 
   create_table "form_jobs", force: :cascade do |t|
     t.string   "name"
@@ -28,6 +41,43 @@ ActiveRecord::Schema.define(version: 20151231102148) do
     t.datetime "resume_updated_at"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+  end
+
+  create_table "form_rows", force: :cascade do |t|
+    t.integer  "structure_id"
+    t.text     "column_0"
+    t.text     "column_1"
+    t.text     "column_2"
+    t.text     "column_3"
+    t.text     "column_4"
+    t.text     "column_5"
+    t.text     "column_6"
+    t.text     "column_7"
+    t.text     "column_8"
+    t.text     "column_9"
+    t.text     "column_10"
+    t.text     "column_11"
+    t.text     "column_12"
+    t.text     "column_13"
+    t.text     "column_14"
+    t.text     "column_15"
+    t.text     "column_16"
+    t.text     "column_17"
+    t.text     "column_18"
+    t.text     "column_19"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "form_rows", ["structure_id"], name: "index_form_rows_on_structure_id"
+
+  create_table "form_structures", force: :cascade do |t|
+    t.boolean  "send_email",      default: false
+    t.string   "send_to"
+    t.string   "send_subject_en"
+    t.string   "send_subject_fr"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "rich_rich_files", force: :cascade do |t|
@@ -73,6 +123,20 @@ ActiveRecord::Schema.define(version: 20151231102148) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "viewable_forms", force: :cascade do |t|
+    t.integer  "structure_id"
+    t.string   "uuid"
+    t.text     "url"
+    t.string   "title"
+    t.text     "meta_keywords"
+    t.text     "meta_description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "viewable_forms", ["structure_id"], name: "index_viewable_forms_on_structure_id"
+  add_index "viewable_forms", ["url"], name: "index_viewable_forms_on_url"
 
   create_table "viewable_images", force: :cascade do |t|
     t.string   "title"

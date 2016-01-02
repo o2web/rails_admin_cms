@@ -8,7 +8,12 @@ module CMS
     end
 
     def cms_form_options(options = {})
-      options = { url: main_app.__send__("#{cms_form_instance.form_name}_path") }.merge(options)
+      if @cms_view
+        url = @cms_view.url
+      else
+        url = main_app.__send__("#{cms_form_instance.form_name}_path")
+      end
+      options.reverse_merge! url: url
       if cms_form_instance.has_attachments?
         options[:multipart] = true
       else
@@ -18,7 +23,7 @@ module CMS
     end
 
     def cms_form_partial
-      "cms/forms/#{cms_form_instance.form_name}/form"
+      "cms/forms/#{params[:cms_view_type]}/form"
     end
 
     def cms_validates(options = {})

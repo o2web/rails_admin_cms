@@ -1,5 +1,4 @@
 module Viewable
-  class PagePresenter < ViewablePresenter
-    include Viewable::Field::UrlPresenter
+  class PagePresenter < ViewPresenter
   end
 end

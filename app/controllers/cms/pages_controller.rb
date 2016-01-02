@@ -1,12 +1,12 @@
 module CMS
   class PagesController < RailsAdminCMS::Config.parent_controller
     def show
-      @page = Viewable::Page.find(params[:id]) if params[:id].present?
+      @cms_view = Viewable::Page.find(params[:id]) if params[:id].present?
 
-      if @page
-        render @page.view_path
+      if @cms_view
+        render @cms_view.view_path
       else
-        render "cms/pages/#{params[:page]}"
+        render "cms/pages/#{params[:cms_view_type]}"
       end
     end
   end

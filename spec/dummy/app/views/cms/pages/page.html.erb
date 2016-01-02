@@ -1,4 +1,4 @@
-<% @page = cms_page %>
+<% cms_page %>
 
 <% cms_cache do
    links = cms_link(0, Float::INFINITY)
@@ -7,8 +7,8 @@
 -%>
 
 <div>
-  <%= @page.edit_link %>
-  <%= @page.add_link %>
+  <%= @cms_view.edit_link %>
+  <%= @cms_view.add_link %>
 </div>
 
 <div>

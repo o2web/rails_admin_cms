@@ -15,7 +15,8 @@ module RailsAdminCMS
       :authentication_method,
       :authorized_user_method,
       :parent_mailer,
-      :with_paper_trail
+      :with_paper_trail,
+      :custom_form_max_size
     )
 
     def parent_controller
@@ -36,6 +37,10 @@ module RailsAdminCMS
 
     def with_paper_trail?
       @with_paper_trail
+    end
+
+    def custom_form_max_size
+      @custom_form_max_size || 20
     end
   end
 end

@@ -51,6 +51,8 @@ RailsAdmin.config do |config|
     end
     show_in_app
 
+    nestable
+
     ## With an audit adapter, you can add:
     # history_index
     # history_show

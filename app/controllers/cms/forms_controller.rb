@@ -1,8 +1,7 @@
 module CMS
   class FormsController < RailsAdminCMS::Config.parent_controller
     attr_internal :cms_form_instance
-
-    helper_method :cms_form_instance
+    helper_method :cms_form_instance, :cms_form_instance=
 
     def new
       load_form
@@ -34,8 +33,9 @@ module CMS
     private
 
     def load_form
+      @cms_view = Viewable::Form.find(params[:id]) if params[:id].present?
       attributes = form_params if params.has_key?(form_key)
-      self.cms_form_instance ||= form_class.new(attributes)
+      self.cms_form_instance = form_class.new(attributes)
     end
 
     def reset_form
@@ -43,7 +43,7 @@ module CMS
     end
 
     def new_template
-      "cms/forms/#{form_name}/new"
+      "cms/forms/#{params[:cms_view_type]}/new"
     end
 
     def form_params
@@ -65,7 +65,7 @@ module CMS
     end
 
     def form_key
-      @_form_key ||= "form_#{form_name}"
+      @_form_key ||= "form_#{form_class_name}"
     end
 
     def form_object
@@ -73,11 +73,17 @@ module CMS
     end
 
     def form_class
-      @_form_class ||= "Form::#{form_name.camelize}".constantize
+      @_form_class ||= "Form::#{form_class_name.camelize}".constantize
     end
 
-    def form_name
-      @_form_name ||= params[:form]
+    def form_class_name
+      return @_form_class_name if @_form_class_name
+
+      if Viewable::Form.static? params[:cms_view_type]
+        @_form_class_name = params[:cms_view_type]
+      else
+        @_form_class_name = 'row'
+      end
     end
   end
 end

@@ -1,0 +1,16 @@
+<% cms_form %>
+
+<%= cms_form_for do |f| %>
+  <% cms_form_instance.fields.each do |field| %>
+    <%= f.input field.column_key,
+      as: field.input_type,
+      required: field.required?,
+      label: field.label,
+      input_html: cms_validates(field.input_type => field.required?)
+    -%>
+  <% end %>
+
+  <%= f.input :structure_id, as: :hidden, input_html: { value: cms_form_instance.structure_id } %>
+
+  <%= f.submit cms_form_send, cms_form_sending %>
+<% end %>

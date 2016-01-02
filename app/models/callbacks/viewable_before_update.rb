@@ -7,7 +7,7 @@ module Callbacks
 
       attributes = m.slice(*m.unlocalized_fields)
 
-      m.other_locales.each do |viewable|
+      m.other_locales.map(&:viewable).each do |viewable|
         viewable.update! attributes
       end
     end

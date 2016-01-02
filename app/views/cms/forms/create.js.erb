@@ -1,8 +1,3 @@
-var form_selector = '#new_form_<%= cms_form_instance.form_name %>';
-<% if cms_form_instance.errors.empty? %>
-  $(form_selector).slideUp();
-<% else %>
-  $(form_selector).replaceWith("<%= j render cms_form_partial %>");
-  $.validate({validateOnBlur: false});
-<% end %>
+$('#new_form_<%= cms_form_instance.form_name %>').replaceWith("<%= j render cms_form_partial %>");
+$.validate({validateOnBlur: false});
 <%= render 'cms/shared/flash_messages' %>

@@ -2,12 +2,20 @@ module Form
   extend ActiveSupport::Concern
 
   included do
+    self.abstract_class = true
+
     attr_accessor :_subtitle
 
     validates :_subtitle, invisible_captcha: true
+
+    delegate :virtual?, :has_attachments?, :has_collections?, to: :class
   end
 
   class_methods do
+    def virtual?
+      false
+    end
+
     def has_attachments?
       respond_to? :attachments
     end
@@ -21,9 +29,7 @@ module Form
         collections
       end
 
-      define_method :collections do
-        self.class.collections
-      end
+      delegate :collections, to: :class
     end
   end
 
@@ -33,14 +39,6 @@ module Form
 
   def send_email?
     respond_to? :send_to
-  end
-
-  def has_attachments?
-    self.class.has_attachments?
-  end
-
-  def has_collections?
-    self.class.has_collections?
   end
 
   class << self

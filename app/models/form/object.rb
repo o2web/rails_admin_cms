@@ -1,15 +1,9 @@
 module Form
   class Object < ActiveType::Object
-    self.abstract_class = true
+    include Form
 
     def self.virtual?
       true
     end
-
-    def virtual?
-      self.class.virtual?
-    end
-
-    include Form
   end
 end

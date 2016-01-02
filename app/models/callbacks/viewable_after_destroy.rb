@@ -8,7 +8,7 @@ module Callbacks
 
     def call
       update_list
-      m.other_locales.map(&:viewable).each do |viewable|
+      m.other_locales.each do |viewable|
         viewable.destroy!
         update_list(viewable.locale)
       end
@@ -19,7 +19,7 @@ module Callbacks
     def update_list(locale = nil)
       query = m.list(locale).where(position: @range).order(:position)
 
-      query.map(&:viewable).each.with_index(m.position) do |viewable, position|
+      query.each.with_index(m.position) do |viewable, position|
         viewable.unique_key.update_column(:position, position)
       end
     end

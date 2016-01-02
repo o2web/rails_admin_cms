@@ -23,7 +23,7 @@ module Viewable
           value = SecureRandom.uuid
           transaction do
             update_uuid_columns value
-            other_locales.map(&:viewable).each do |viewable|
+            other_locales.each do |viewable|
               viewable.__send__ :update_uuid_columns, value
             end
           end

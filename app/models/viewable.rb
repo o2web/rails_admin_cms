@@ -8,7 +8,7 @@ module Viewable
 
     has_one :unique_key, as: :viewable, dependent: :destroy
 
-    delegate :view_path, :position, :locale, :list, :other_locales, to: :unique_key
+    delegate :view_path, :position, :locale, to: :unique_key
     delegate :name, to: :unique_key, prefix: true
 
     after_destroy ::Callbacks::ViewableAfterDestroy.new
@@ -53,6 +53,19 @@ module Viewable
 
   def short_type
     viewable_type.demodulize.underscore
+  end
+
+  def list(locale = nil)
+    self.class.includes(:unique_key)
+      .where(unique_keys: { viewable_type: viewable_type, view_path: view_path, name: name })
+      .where(unique_keys: { locale: locale || self.locale })
+  end
+
+  def other_locales(position = nil)
+    self.class.includes(:unique_key)
+      .where(unique_keys: { viewable_type: viewable_type, view_path: view_path, name: name })
+      .where(unique_keys: { position: position || self.position })
+      .where.not(unique_keys: { locale: locale })
   end
 
   def unique_key_hash(locale = nil)

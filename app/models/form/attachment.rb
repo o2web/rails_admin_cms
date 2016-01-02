@@ -8,9 +8,7 @@ module Form
           attachments
         end
 
-        define_method :attachments do
-          self.class.attachments
-        end
+        delegate :attachments, to: :class
 
         if virtual?
           attachments.each do |attachment|

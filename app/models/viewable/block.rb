@@ -21,13 +21,13 @@ module Viewable
 
       def names
         @_names ||= begin
-          Dir["#{Rails.root}/app/views/cms/blocks/*.html.*"].map do |name|
-            name = File.basename(name).sub(/\.html\..+$/, '').sub(/^_/, '')
+          names = CMS.html_names 'app/views/cms/blocks'
+          names.each do |name|
             if name.in? restricted_names
               raise ArgumentError, "'cms/blocks/_#{name}.html' partial should be called otherwise, '#{name}' taken"
             end
-            name
           end
+          names
         end
       end
     end

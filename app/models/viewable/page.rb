@@ -7,9 +7,7 @@ module Viewable
 
     class << self
       def names
-        @_names ||= Dir["#{Rails.root}/app/views/cms/pages/*.html.*"].map do |name|
-          File.basename(name).sub(/\.html\..+$/, '')
-        end
+        @_names ||= CMS.html_names 'app/views/cms/pages'
       end
     end
 

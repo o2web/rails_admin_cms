@@ -80,15 +80,7 @@ module Viewable
     end
 
     def names
-      @_names ||= begin
-        engine_viewables = Dir["#{RailsAdminCMS::Engine.root}/app/models/viewable/*.rb"].map { |name|
-          File.basename(name).sub(/\.rb$/, '')
-        }
-        app_viewables = Dir["#{Rails.root}/app/models/viewable/*.rb"].map { |name|
-          File.basename(name).sub(/\.rb$/, '')
-        }
-        engine_viewables + app_viewables
-      end
+      @_names ||= CMS.rb_all_names 'app/models/viewable'
     end
   end
 

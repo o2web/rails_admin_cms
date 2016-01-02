@@ -1,7 +1,7 @@
 module Form
-  class Job < Form::Base
-    include Form::Email
-    include Form::Attachment
+  class Job < Static::Base
+    include Static::Email
+    include Static::Attachment
 
     has_attachments :letter, :resume
     has_collections :periods

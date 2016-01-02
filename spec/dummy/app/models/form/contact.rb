@@ -1,9 +1,9 @@
 module Form
-  class Contact < Form::Object
-    include Admin::Form::Object
+  class Contact < Static::Object
+    include Admin::Form::Static::Object
 
-    include Form::Email
-    include Form::Attachment
+    include Static::Email
+    include Static::Attachment
 
     has_attachments :letter, :resume
     has_collections :periods

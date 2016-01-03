@@ -9,15 +9,13 @@ module Admin
           label I18n.t('cms.page.one')
           label_plural I18n.t('cms.page.other')
 
-          field :url, :string
-          field :title
-          fields :meta_keywords, :meta_description
-
-          configure :url do
+          field :url, :string do
             pretty_value do
               bindings[:view].link_to value, value, target: '_blank'
             end
           end
+          field :title
+          fields :meta_keywords, :meta_description
 
           list do
             scopes [:localized]

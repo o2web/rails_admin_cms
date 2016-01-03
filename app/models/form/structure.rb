@@ -12,8 +12,6 @@ module Form
     validates :fields, length: { maximum: RailsAdminCMS::Config.custom_form_max_size }
 
     after_create :create_header
-    after_create :add_to_scopes
-    before_destroy :remove_from_scopes
     after_update :expire_cache
     after_touch  :expire_cache
 
@@ -61,6 +59,9 @@ module Form
           end
           self.scopes << current_name
         end
+
+        after_create :add_to_scopes
+        before_destroy :remove_from_scopes
       end
 
       private
@@ -74,7 +75,12 @@ module Form
       end
 
       def remove_from_scopes
-        current_name = "#{self.class.form_name}_#{id}".to_sym
+        if (current_name = self.class.form_name)
+          current_name = "#{current_name}_#{id}".to_sym
+          self.class.form_name = nil
+        else
+          current_name = name
+        end
         self.class.scopes.delete(current_name)
       end
     end

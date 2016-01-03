@@ -9,12 +9,7 @@ module Admin
           label I18n.t('cms.form.one')
           label_plural I18n.t('cms.form.other')
 
-          field :structure
-          field :url, :string
-          field :title
-          fields :meta_keywords, :meta_description
-
-          configure :structure do
+          field :structure do
             pretty_value do
               h = bindings[:view]
               p = ViewablePresenter.new value, h
@@ -23,12 +18,13 @@ module Admin
 
             inline_add false
           end
-
-          configure :url do
+          field :url, :string do
             pretty_value do
               bindings[:view].link_to value, value, target: '_blank'
             end
           end
+          field :title
+          fields :meta_keywords, :meta_description
 
           list do
             scopes [:localized]

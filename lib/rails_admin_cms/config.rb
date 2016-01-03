@@ -16,7 +16,8 @@ module RailsAdminCMS
       :authorized_user_method,
       :parent_mailer,
       :with_paper_trail,
-      :custom_form_max_size
+      :custom_form_max_size,
+      :with_email_body
     )
 
     def parent_controller
@@ -41,6 +42,10 @@ module RailsAdminCMS
 
     def custom_form_max_size
       @custom_form_max_size || 20
+    end
+
+    def with_email_body?
+      @with_email_body
     end
   end
 end

@@ -11,7 +11,7 @@ module Form
 
     validates :structure, presence: true
 
-    delegate :send_email?, :send_to, :send_subject, :email_column_key, :header, to: :structure
+    delegate :with_email?, :send_to, :subject, :body, :email_column_key, :header, to: :structure
     delegate :form_name, to: :viewable
 
     def send_from

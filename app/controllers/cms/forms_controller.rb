@@ -13,7 +13,7 @@ module CMS
       load_form
 
       if cms_form_instance.save
-        if cms_form_instance.send_email?
+        if cms_form_instance.with_email?
           FormsMailer.send_email(cms_form_instance).deliver_now
         end
         reset_form

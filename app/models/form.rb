@@ -30,4 +30,14 @@ module Form
       delegate :collections, to: :class
     end
   end
+
+  class << self
+    def structure_models
+      %w[
+        Form::Structure
+        Form::Field
+        Form::Email
+      ]
+    end
+  end
 end

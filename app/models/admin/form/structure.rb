@@ -7,7 +7,7 @@ module Admin
         rails_admin do
           visible false
 
-          fields :send_email, :send_to, *I18n.available_locales.map{ |l| :"send_subject_#{l}" }
+          field :email
           field :fields do
             sortable true
           end

@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102010317) do
+ActiveRecord::Schema.define(version: 20160103120544) do
+
+  create_table "form_emails", force: :cascade do |t|
+    t.boolean  "with_email", default: false
+    t.string   "send_to"
+    t.string   "subject_en"
+    t.string   "subject_fr"
+    t.text     "body_en"
+    t.text     "body_fr"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "form_fields", force: :cascade do |t|
     t.integer  "structure_id"
@@ -72,13 +83,12 @@ ActiveRecord::Schema.define(version: 20160102010317) do
   end
 
   create_table "form_structures", force: :cascade do |t|
-    t.boolean  "send_email",      default: false
-    t.string   "send_to"
-    t.string   "send_subject_en"
-    t.string   "send_subject_fr"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "email_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  add_index "form_structures", ["email_id"], name: "index_form_structures_on_email_id"
 
   create_table "rich_rich_files", force: :cascade do |t|
     t.datetime "created_at"

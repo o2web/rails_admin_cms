@@ -20,6 +20,8 @@ module Admin
               p = ViewablePresenter.new value, h
               h.link_to value.name, p.__send__(:edit_path)
             end
+
+            inline_add false
           end
 
           configure :url do

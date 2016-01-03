@@ -7,6 +7,7 @@ module Form
     has_one :viewable, class_name: 'Viewable::Form'
     has_many :fields, -> { order(:position) }, dependent: :destroy
     has_many :rows, -> { order(:id) }, dependent: :destroy
+    belongs_to :email, dependent: :destroy
 
     validates :fields, length: { maximum: RailsAdminCMS::Config.custom_form_max_size }
 
@@ -17,23 +18,17 @@ module Form
     after_touch  :expire_cache
 
     accepts_nested_attributes_for :fields, allow_destroy: true
+    accepts_nested_attributes_for :email
 
     delegate :form_name, to: :viewable
+    delegate :with_email?, :send_to, :subject, :body, to: :email
 
     def name
       @_name ||= "#{form_name}_#{id}".to_sym
     end
 
-    def send_subject
-      send("send_subject_#{I18n.locale}").presence || I18n.t('cms.form.email.default_subject')
-    end
-
-    def send_to
-      read_attribute(:send_to).presence || Setting[:cms_mail_bcc]
-    end
-
     def email_column_key
-      @email_column_key ||= fields.where(type: 'Form::Field::Email').first.try(:column_key)
+      @email_column_key ||= fields.where(type: 'email').first.try(:column_key)
     end
 
     def header

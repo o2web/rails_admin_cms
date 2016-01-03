@@ -23,31 +23,27 @@ RailsAdmin.config do |config|
     dashboard                     # mandatory
     index                         # mandatory
     new do
-      except Viewable.models + %w[
+      except Viewable.models + Form.structure_models + %w[
         UniqueKey
         Setting
         Rich::RichFile
         Form::Row
-        Form::Field
-        Form::Structure
       ]
     end
     export do
-      except Viewable.models + %w[ UniqueKey ]
+      except Viewable.models + Form.structure_models + %w[
+        UniqueKey
+      ]
     end
     bulk_delete do
-      except Viewable.models + %w[
+      except Viewable.models + Form.structure_models + %w[
         UniqueKey
         Setting
-        Form::Field
-        Form::Structure
       ]
     end
     show do
-      except Viewable.models + %w[
+      except Viewable.models + Form.structure_models + %w[
         UniqueKey
-        Form::Field
-        Form::Structure
       ]
     end
     edit do
@@ -56,11 +52,9 @@ RailsAdmin.config do |config|
       ]
     end
     delete do
-      except %w[
+      except Form.structure_models + %w[
         UniqueKey
         Setting
-        Form::Field
-        Form::Structure
       ]
     end
     show_in_app

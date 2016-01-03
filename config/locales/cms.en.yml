@@ -11,6 +11,7 @@ en:
         sending: Sending...
       email:
         default_subject: Subject
+        default_body: Body
       navigation: Site
       one: Form
       other: Forms

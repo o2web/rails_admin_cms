@@ -6,7 +6,7 @@ module Form
       self.abstract_class = true
     end
 
-    def send_email?
+    def with_email?
       false
     end
 

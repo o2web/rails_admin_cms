@@ -3,7 +3,7 @@ module Form
     module Email
       extend ActiveSupport::Concern
 
-      def send_subject
+      def subject
         I18n.t('cms.form.email.default_subject')
       end
 
@@ -15,7 +15,7 @@ module Form
         Setting[:cms_mail_bcc]
       end
 
-      def send_email?
+      def with_email?
         true
       end
     end

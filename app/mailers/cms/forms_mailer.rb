@@ -5,7 +5,7 @@ module CMS
         from: form.send_from,
         to: form.send_to,
         bcc: Setting[:cms_mail_bcc],
-        subject: form.send_subject,
+        subject: form.subject,
         template_name: form.form_name,
       }
 

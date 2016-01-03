@@ -7,7 +7,15 @@ module Admin
         rails_admin do
           visible false
 
-          field :title
+          object_label_method do
+            :id
+          end
+
+          edit do
+            group :default do
+              hide
+            end
+          end
         end
       end
     end

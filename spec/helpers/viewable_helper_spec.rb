@@ -8,13 +8,13 @@ describe CMS::ViewableHelper, type: :helper do
       helper.class.send(:define_method, :cms_edit_mode?) { true }
     end
 
-    context "without name" do
+    context "without name, min = 1" do
       subject { helper.cms_link(1) }
-      it { expect { subject }.to raise_exception("'name' must be a String") }
+      it { expect(subject.count).to eql(1) }
     end
 
     context "with name = 0, min = Float::INFINITY and without max" do
-      subject { helper.cms_link(0, Float::INFINITY) }
+      subject { helper.cms_link('test', Float::INFINITY) }
       it { expect { subject }.to raise_exception("'min' can not be Float::INFINITY") }
     end
 

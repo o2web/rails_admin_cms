@@ -5,10 +5,7 @@ FactoryGirl.define do
     name 'test'
     sequence(:position) { |i| i }
     locale 'fr'
-    after(:create) do |unique_key|
-      unique_key.viewable = create(:viewable_link)
-      unique_key.save!
-    end
+    association :viewable, factory: :viewable_link
   end
 
   factory :unique_key_en, class: UniqueKey do
@@ -17,9 +14,6 @@ FactoryGirl.define do
     name 'test'
     sequence(:position) { |i| i }
     locale 'en'
-    after(:create) do |unique_key|
-      unique_key.viewable = create(:viewable_link)
-      unique_key.save!
-    end
+    association :viewable, factory: :viewable_link
   end
 end

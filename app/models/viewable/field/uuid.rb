@@ -42,7 +42,7 @@ module Viewable
       private
 
       def destroy_other_uuids
-        UniqueKey.where('name LIKE :uuid', uuid: "%#{self.class.prefix}[#{uuid}]%").destroy_all
+        UniqueKey.where('name LIKE :uuid', uuid: "%#{self.class.uuid_with_prefix}[#{uuid}]%").destroy_all
       end
 
       def update_uuid_columns(value)

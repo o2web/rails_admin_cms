@@ -17,7 +17,7 @@ module Callbacks
     private
 
     def update_list(locale = nil)
-      query = m.list(locale).where(position: @range).order(:position)
+      query = m.list(locale).where(unique_keys: { position: @range }).order('unique_keys.position')
 
       query.each.with_index(m.position) do |viewable, position|
         viewable.unique_key.update_column(:position, position)

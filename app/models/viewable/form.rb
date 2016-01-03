@@ -5,7 +5,7 @@ module Viewable
     include Field::Url
     include Admin::Viewable::Form
 
-    belongs_to :structure, class_name: 'Form::Structure'
+    belongs_to :structure, class_name: 'Form::Structure', dependent: :destroy
     has_many :rows, through: :structure, class_name: 'Form::Row'
 
     accepts_nested_attributes_for :structure, allow_destroy: true
@@ -47,5 +47,21 @@ module Viewable
     def uuid_columns
       super + [:url]
     end
+
+    module Splitter
+      extend ActiveSupport::Concern
+
+      included do
+        before_destroy :assign_form_name_to_structure
+      end
+
+      private
+
+      def assign_form_name_to_structure
+        ::Form::Structure.form_name = self.form_name
+      end
+    end
+
+    include Splitter
   end
 end

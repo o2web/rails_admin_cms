@@ -14,7 +14,7 @@ module Admin
             pretty_value do
               h = bindings[:view]
               p = ViewablePresenter.new value, h
-              h.link_to value.rails_admin_label, p.__send__(:edit_path)
+              h.link_to value.name, p.__send__(:edit_path)
             end
           end
 
@@ -26,6 +26,8 @@ module Admin
             configure :id do
               sort_reverse false
             end
+
+            scopes ::Form::Structure.scopes
           end
         end
       end

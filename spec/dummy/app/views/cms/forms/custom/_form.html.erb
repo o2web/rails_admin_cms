@@ -1,5 +1,10 @@
 <% cms_form %>
 
+<div>
+  <%= @cms_view.edit_link %>
+  <%= @cms_view.add_link %>
+</div>
+
 <%= cms_form_for do |f| %>
   <% cms_form_instance.fields.each do |field| %>
     <%= f.input field.column_key,

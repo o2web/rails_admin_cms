@@ -36,7 +36,7 @@ RailsAdmin.config do |config|
       except Viewable.models + %w[ UniqueKey ]
     end
     bulk_delete do
-      except %w[
+      except Viewable.models + %w[
         UniqueKey
         Setting
         Form::Field

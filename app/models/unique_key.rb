@@ -7,7 +7,10 @@ class UniqueKey < ActiveRecord::Base
 
   before_update ::Callbacks::UniqueKeyBeforeUpdate.new
 
-  validates :position, numericality: { greater_than: 0, less_than_or_equal_to: :list_count }, on: :update
+  with_options on: :update do
+    validates :position, numericality: { greater_than: 0 }
+    validates :position, numericality: { less_than_or_equal_to: :list_count }
+  end
 
   delegate :count, to: :list, prefix: true
 

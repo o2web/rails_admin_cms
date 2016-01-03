@@ -20,8 +20,8 @@ module Form
 
     def labelled_values
       columns = fields.count.times.map{ |i| "column_#{i}" }
-      header = structure.header.attributes.slice(*columns)
-      header.reduce({}) do |values, (column_key, label)|
+      values = header.attributes.slice(*columns)
+      values.reduce({}) do |values, (column_key, label)|
         values[label] = send(column_key)
         values
       end

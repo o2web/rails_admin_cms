@@ -4,7 +4,6 @@ module Callbacks
       include Callback
 
       def call
-        # TODO encapsulate for reuse in UniqueKeyBeforeUpdate
         if m.position_was < m.position
           # move list range downward
           range = (m.position_was + 1)..m.position
@@ -23,6 +22,7 @@ module Callbacks
 
           field.update_column(:position, position)
         end
+        m.update_header
       end
     end
   end

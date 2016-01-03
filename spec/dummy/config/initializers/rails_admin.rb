@@ -1,5 +1,6 @@
 RailsAdmin.config do |config|
   ### Popular gems integration
+  config.browser_validations = false
 
   ## == Devise ==
   # config.authenticate_with do
@@ -27,6 +28,7 @@ RailsAdmin.config do |config|
         Setting
         Rich::RichFile
         Form::Row
+        Form::Field
         Form::Structure
       ]
     end
@@ -38,11 +40,15 @@ RailsAdmin.config do |config|
         UniqueKey
         Setting
         Form::Row
+        Form::Field
+        Form::Structure
       ]
     end
     show do
       except Viewable.models + %w[
         UniqueKey
+        Form::Field
+        Form::Structure
       ]
     end
     edit do
@@ -55,6 +61,8 @@ RailsAdmin.config do |config|
         UniqueKey
         Setting
         Form::Row
+        Form::Field
+        Form::Structure
       ]
     end
     show_in_app

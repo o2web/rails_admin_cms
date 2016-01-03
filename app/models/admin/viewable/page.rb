@@ -13,6 +13,12 @@ module Admin
           field :title
           fields :meta_keywords, :meta_description
 
+          configure :url do
+            pretty_value do
+              bindings[:view].link_to value, value, target: '_blank'
+            end
+          end
+
           list do
             scopes [:localized]
           end

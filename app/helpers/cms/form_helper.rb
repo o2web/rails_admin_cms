@@ -27,7 +27,7 @@ module CMS
     end
 
     def cms_validates(options = {})
-      type, required = options.extract!(*Form::Field.names).first
+      type, required = options.extract!(*Form::Field::TYPES.map(&:to_sym)).first
       unless type
         return cms_validate_presence(options)
       end

@@ -18,7 +18,7 @@ module Admin
       end
 
       def rails_admin_label
-        position
+        default_label.presence || position
       end
     end
   end

@@ -5,10 +5,7 @@ module Form
     self.table_name_prefix = 'form_'
 
     has_one :viewable, class_name: 'Viewable::Form'
-    has_many :fields, -> { order(:position) },
-      dependent: :destroy,
-      after_add: :update_header,
-      after_remove: :update_header
+    has_many :fields, -> { order(:position) }, dependent: :destroy
     has_many :rows, -> { order(:id) }, dependent: :destroy
 
     validates :fields, length: { maximum: RailsAdminCMS::Config.custom_form_max_size }
@@ -16,7 +13,7 @@ module Form
     after_create :create_header
     after_commit :expire_cache
 
-    accepts_nested_attributes_for :fields
+    accepts_nested_attributes_for :fields, allow_destroy: true
 
     def send_subject
       send("send_subject_#{I18n.locale}").presence || I18n.t('cms.form.email.default_subject')
@@ -38,18 +35,6 @@ module Form
 
     def create_header
       rows.create!
-    end
-
-    def update_header(_field)
-      attributes = RailsAdminCMS::Config.custom_form_max_size.times.map do |i|
-        [:"column_#{i}", '']
-      end.to_h
-
-      fields.map do |field|
-        attributes[field.column_key] = field.default_label
-      end
-
-      header.update! attributes
     end
 
     def expire_cache

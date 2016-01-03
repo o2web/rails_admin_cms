@@ -5,6 +5,8 @@ module Admin
 
       included do
         rails_admin do
+          visible false
+
           object_label_method do
             :rails_admin_label
           end

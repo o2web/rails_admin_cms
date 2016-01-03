@@ -23,7 +23,9 @@ module Admin
           end
 
           list do
-            sort_reverse false
+            configure :id do
+              sort_reverse false
+            end
           end
         end
       end

@@ -3,7 +3,8 @@
 <% cms_cache do
    links = cms_link(0, Float::INFINITY)
    texts = cms_text(0, Float::INFINITY)
-   image = cms_image
+   image = cms_view_image
+   block = cms_view_example
 -%>
 
 <div>
@@ -32,6 +33,11 @@
 <div>
   <%= image_tag image.path %>
   <%= image.edit_link %>
+</div>
+
+<div>
+  <%= block.render %>
+  <%= block.edit_link %>
 </div>
 
 <% end %>

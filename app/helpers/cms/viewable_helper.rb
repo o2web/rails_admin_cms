@@ -1,21 +1,32 @@
 module CMS
   module ViewableHelper
+    def self.define_cms_view_helper(type)
+      define_method "cms_view_#{type}" do |name = 'cms', min = 1, max = nil|
+        name, min, max = adjust_arguments(name, min, max)
+
+        public_send("cms_#{type}", @cms_view.uuid_with(name), min, max)
+      end
+    end
+
     Viewable::Block.names.each do |type|
-      define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil|
+      define_cms_view_helper(type)
+
+      define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
+        name, min, max = adjust_arguments(name, min, max)
+
         cms_block("#{type}/#{name}", min, max)
       end
     end
 
     Viewable.names.each do |type|
+      define_cms_view_helper(type)
+
       define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
-        if !name.is_a?(String) && !name.is_a?(Symbol)
-          max, min = min, name
-          name = 'cms'
-        end
+        name, min, max = adjust_arguments(name, min, max)
 
-        validate_min_max! min, max
+        validate_arguments! type, min, max
 
-        name, presenter = validate_type_and_adjust_name_or_return! type, name
+        name, presenter = adjust_name_or_build_view_presenter type, name
 
         return presenter if presenter
 
@@ -64,7 +75,15 @@ module CMS
 
     private
 
-    def validate_min_max!(min, max)
+    def adjust_arguments(name, min, max)
+      if !name.is_a?(String) && !name.is_a?(Symbol)
+        max, min = min, name
+        name = 'cms'
+      end
+      [name, min, max]
+    end
+
+    def validate_arguments!(type, min, max)
       if min == Float::INFINITY
         raise ArgumentError, "'min' can not be Float::INFINITY"
       end
@@ -75,9 +94,12 @@ module CMS
       elsif max < 1
         raise ArgumentError, "'max' must be greater than 0 or nil"
       end
+      if type == 'block' && @cms_view_partial
+        raise ArgumentError, "can not have cms_block(...) within block partials"
+      end
     end
 
-    def validate_type_and_adjust_name_or_return!(type, name)
+    def adjust_name_or_build_view_presenter(type, name)
       case type
       when 'page'
         if @cms_view
@@ -87,19 +109,9 @@ module CMS
         if @cms_view
           presenter = Viewable::FormPresenter.new(@cms_view, self)
         end
-      when 'block'
-        if @cms_view_partial
-          raise ArgumentError, "can not have cms_block(...) within block partials"
-        end
-        if @cms_view
-          name = @cms_view.uuid_with(name)
-        end
       else
         if @cms_view_partial
           name = @cms_view_partial.uuid_with(name)
-        end
-        if @cms_view
-          name = @cms_view.uuid_with(name)
         end
       end
       [name, presenter]

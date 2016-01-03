@@ -22,10 +22,10 @@ module Viewable
 
     def set_meta_tags
       tags = %w[
-          title
-          meta_keywords
-          meta_description
-        ]
+        title
+        meta_keywords
+        meta_description
+      ]
       tags.each do |tag|
         h.instance_variable_set("@cms_page_#{tag}", m.send(tag).presence)
       end

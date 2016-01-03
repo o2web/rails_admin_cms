@@ -19,6 +19,7 @@ module Viewable
     after_touch  :expire_cache
 
     scope :localized, -> { includes(:unique_key).where(unique_keys: { locale: I18n.locale }) }
+    scope :other_locale, ->(locale) { includes(:unique_key).where(unique_keys: { locale: locale }) }
 
     delegate :has_unlocalized_fields?, :unlocalized_fields, :viewable_type, :dashed_name, :underscored_name, to: :class
   end

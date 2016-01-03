@@ -10,9 +10,13 @@ module CMS
 
         viewable = UniqueKey.create_localized_viewable!(unique_key)
 
-        path = rails_admin.edit_path(model_name: unique_key[:viewable_type].to_s.underscore.gsub('/', '~'), id: viewable.id)
+        if unique_key[:viewable_type] != 'Viewable::Block'
+          path = rails_admin.edit_path(model_name: unique_key[:viewable_type].to_s.underscore.gsub('/', '~'), id: viewable.id)
 
-        redirect_to path
+          redirect_to path
+        else
+          redirect_to :back
+        end
       else
         redirect_to :back
       end

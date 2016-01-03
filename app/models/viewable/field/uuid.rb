@@ -8,8 +8,8 @@ module Viewable
       end
 
       class_methods do
-        def uuid_with_prefix
-          @_uuid_with_prefix ||= model_name.human[0]
+        def uuid_prefix
+          @_uuid_prefix ||= model_name.human[0]
         end
 
         def find_by_uuid(uuid)
@@ -32,17 +32,20 @@ module Viewable
       end
 
       def uuid_with(name)
-        "#{self.class.uuid_with_prefix}[#{uuid}]/#{name}"
+        "#{self.class.uuid_prefix}[#{uuid}]/#{name}"
       end
 
       def other_uuid(locale)
-        self.class.where(uuid: uuid).includes(:unique_key).where(unique_keys: { locale: locale }).first
+        self.class.other_locale(locale).where(uuid: uuid).first
       end
 
       private
 
       def destroy_other_uuids
-        UniqueKey.where('name LIKE :uuid', uuid: "%#{self.class.uuid_with_prefix}[#{uuid}]%").destroy_all
+        query = UniqueKey.where('name LIKE :uuid', uuid: "%#{self.class.uuid_prefix}[#{uuid}]%")
+        query.map(&:viewable).each do |viewable|
+          viewable.destroy!
+        end
       end
 
       def update_uuid_columns(value)

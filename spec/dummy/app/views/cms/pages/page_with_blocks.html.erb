@@ -1,6 +1,8 @@
 <%
-  block = cms_example('simple-block')
+  blocks = cms_example('simple-block', 1, Float::INFINITY)
 -%>
 
-<%= block.render %>
-<%= block.edit_link %>
+<% blocks.each do |block| %>
+  <%= block.render %>
+<% end %>
+<%= blocks.edit_links(:position) %>

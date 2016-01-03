@@ -2,6 +2,8 @@ module Form
   class Field < ActiveRecord::Base
     include Admin::Form::Field
 
+    TYPES ||= %W[ string text email ]
+
     self.table_name_prefix = 'form_'
     self.inheritance_column = nil
 
@@ -10,6 +12,8 @@ module Form
     acts_as_list scope: :structure, top_of_list: 0
 
     after_update :update_header, if: :default_label_changed?
+
+    validates :type, inclusion: { in: TYPES }
 
     def column_key
       :"column_#{position}"
@@ -28,7 +32,7 @@ module Form
     end
 
     def type_enum
-      [:string, :text, :email]
+      TYPES
     end
 
     class << self

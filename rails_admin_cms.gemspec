@@ -39,7 +39,6 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-form-validator-rails"
   s.add_dependency "bootstrap_flash_messages", "~> 1.0.1"
   s.add_dependency "acts_as_list"
-  s.add_dependency "rails_admin_nestable", "~> 0.3.2"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"

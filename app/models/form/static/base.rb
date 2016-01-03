@@ -4,7 +4,7 @@ module Form
       include Form
       include Static
 
-      self.table_name_prefix = 'form_'
+      self.table_name_prefix = 'form_static_'
     end
   end
 end

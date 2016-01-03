@@ -16,8 +16,6 @@ module Form
     after_create :create_header
     after_commit :expire_cache
 
-    delegate :title, to: :viewable
-
     def send_subject
       send("send_subject_#{I18n.locale}").presence || I18n.t('cms.form.email.default_subject')
     end

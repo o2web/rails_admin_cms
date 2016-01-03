@@ -4,7 +4,7 @@ class Setting < ActiveRecord::Base
   has_paper_trail if RailsAdminCMS::Config.with_paper_trail?
 
   cattr_accessor :cache
-  @@cache = Rails.cache
+  self.cache = Rails.cache
 
   after_commit :expire_cache
 

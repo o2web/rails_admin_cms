@@ -9,4 +9,10 @@ class ApplicationController < ActionController::Base
   def authenticate_admin_user!
     true
   end
+
+  # rescue_from Exception, with: :debug_breakpoint
+
+  def debug_breakpoint(exception = nil)
+    exception
+  end
 end

@@ -17,7 +17,7 @@ module CMS
     end
 
     def cache_key(name)
-      key = [locale, @virtual_path]
+      key = [@virtual_path, locale]
       key << @cms_view.uuid if @cms_view
       key << name if name
       key

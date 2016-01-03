@@ -26,6 +26,8 @@ RailsAdmin.config do |config|
         UniqueKey
         Setting
         Rich::RichFile
+        Form::Row
+        Form::Structure
       ]
     end
     export do
@@ -35,6 +37,7 @@ RailsAdmin.config do |config|
       except %w[
         UniqueKey
         Setting
+        Form::Row
       ]
     end
     show do
@@ -47,11 +50,10 @@ RailsAdmin.config do |config|
       except %w[
         UniqueKey
         Setting
+        Form::Row
       ]
     end
     show_in_app
-
-    nestable
 
     ## With an audit adapter, you can add:
     # history_index

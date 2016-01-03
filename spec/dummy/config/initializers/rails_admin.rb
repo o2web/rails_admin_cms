@@ -41,10 +41,14 @@ RailsAdmin.config do |config|
       ]
     end
     show do
-      except %w[ UniqueKey ]
+      except Viewable.models + %w[
+        UniqueKey
+      ]
     end
     edit do
-      except %w[ UniqueKey ]
+      except %w[
+        UniqueKey
+      ]
     end
     delete do
       except %w[

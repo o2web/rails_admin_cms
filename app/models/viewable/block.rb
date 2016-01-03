@@ -5,7 +5,11 @@ module Viewable
     include Admin::Viewable::Block
 
     def partial_path
-      @_partial_path ||= "cms/blocks/#{unique_key_name.partition('/').first}"
+      @_partial_path ||= "cms/blocks/#{partial_name}"
+    end
+
+    def partial_name
+      @_partial_name ||= unique_key_name.partition('/').first
     end
 
     class << self

@@ -14,6 +14,20 @@ module Admin
           field :title
           fields :meta_keywords, :meta_description
 
+          configure :structure do
+            pretty_value do
+              h = bindings[:view]
+              p = ViewablePresenter.new value, h
+              h.link_to value.rails_admin_label, p.__send__(:edit_path)
+            end
+          end
+
+          configure :url do
+            pretty_value do
+              bindings[:view].link_to value, value, target: '_blank'
+            end
+          end
+
           list do
             scopes [:localized]
           end

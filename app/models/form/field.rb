@@ -8,12 +8,16 @@ module Form
     self.inheritance_column = nil
 
     belongs_to :structure, touch: true
+    has_many :fields, through: :structure
 
-    acts_as_list scope: :structure, top_of_list: 0
+    delegate :count, to: :fields, prefix: true
 
+    before_update ::Callbacks::Form::FieldBeforeUpdate.new
     after_update :update_header, if: :default_label_changed?
 
-    validates :type, inclusion: { in: TYPES }
+    validates :type, presence: true, inclusion: { in: TYPES }
+    validates :structure, presence: true
+    validates :position, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: :fields_count }
 
     def column_key
       :"column_#{position}"

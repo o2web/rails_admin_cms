@@ -9,6 +9,8 @@ module Form
     has_many :fields, through: :structure
     has_one :viewable, through: :structure, class_name: 'Viewable::Form'
 
+    validates :structure, presence: true
+
     delegate :send_email?, :send_to, :send_subject, :email_column_key, :header, to: :structure
     delegate :form_name, to: :viewable
 

@@ -17,7 +17,6 @@ require "i18n_country_select"
 require "invisible_captcha"
 require "jquery-form-validator-rails"
 require "bootstrap_flash_messages"
-require "acts_as_list"
 
 require "rails_admin_cms/engine"
 require "rails_admin_cms/inflections"

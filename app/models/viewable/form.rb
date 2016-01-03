@@ -8,6 +8,8 @@ module Viewable
     belongs_to :structure, class_name: 'Form::Structure'
     has_many :rows, through: :structure, class_name: 'Form::Row'
 
+    accepts_nested_attributes_for :structure
+
     has_unlocalized_fields :structure
 
     class << self

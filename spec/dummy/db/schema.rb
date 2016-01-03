@@ -26,23 +26,6 @@ ActiveRecord::Schema.define(version: 20160102010317) do
 
   add_index "form_fields", ["structure_id"], name: "index_form_fields_on_structure_id"
 
-  create_table "form_jobs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "country"
-    t.text     "periods"
-    t.string   "letter_file_name"
-    t.string   "letter_content_type"
-    t.integer  "letter_file_size"
-    t.datetime "letter_updated_at"
-    t.string   "resume_file_name"
-    t.string   "resume_content_type"
-    t.integer  "resume_file_size"
-    t.datetime "resume_updated_at"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
   create_table "form_rows", force: :cascade do |t|
     t.integer  "structure_id"
     t.text     "column_0"
@@ -70,6 +53,23 @@ ActiveRecord::Schema.define(version: 20160102010317) do
   end
 
   add_index "form_rows", ["structure_id"], name: "index_form_rows_on_structure_id"
+
+  create_table "form_static_jobs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "country"
+    t.text     "periods"
+    t.string   "letter_file_name"
+    t.string   "letter_content_type"
+    t.integer  "letter_file_size"
+    t.datetime "letter_updated_at"
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "form_structures", force: :cascade do |t|
     t.boolean  "send_email",      default: false
@@ -119,7 +119,6 @@ ActiveRecord::Schema.define(version: 20160102010317) do
 
   create_table "viewable_blocks", force: :cascade do |t|
     t.string   "uuid"
-    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -27,7 +27,6 @@ PATH
     rails_admin_cms (0.0.1)
       active_link_to
       active_type
-      acts_as_list
       bootstrap_flash_messages (~> 1.0.1)
       country_select
       email_validator
@@ -89,8 +88,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.7.2)
-      activerecord (>= 3.0)
     addressable (2.4.0)
     arel (6.0.3)
     babosa (1.0.2)

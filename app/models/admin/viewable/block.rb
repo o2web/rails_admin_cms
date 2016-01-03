@@ -8,15 +8,17 @@ module Admin
           visible false
 
           object_label_method do
-            :id
+            :rails_admin_label
           end
 
-          edit do
-            group :default do
-              hide
-            end
+          group :default do
+            hide
           end
         end
+      end
+
+      def rails_admin_label
+        "#{partial_name}-#{id}"
       end
     end
   end

@@ -27,6 +27,7 @@ RailsAdmin.config do |config|
         UniqueKey
         Setting
         Rich::RichFile
+        Form::Row
         Form::Field
         Form::Structure
       ]

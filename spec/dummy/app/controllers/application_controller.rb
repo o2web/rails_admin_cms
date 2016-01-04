@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   include CMS::Localize
   include CMS::Editing
-  include Authenticate
+  include CMS::Authenticate
 
   # rescue_from Exception, with: :debug_breakpoint
 

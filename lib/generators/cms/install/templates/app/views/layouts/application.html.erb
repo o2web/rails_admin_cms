@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= cms_title 'AppRailsAdminCMS' %></title>
+  <%= cms_meta_data_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="<%= cms_body_class %>">
+
+<%= cms_flash_messages %>
+<div>
+  <%= cms_locale_selector %>
+</div>
+<div>
+  <%= cms_link_to_edit_mode %>
+</div>
+
+<%= yield %>
+
+</body>
+</html>

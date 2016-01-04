@@ -1,0 +1,29 @@
+<%# cms_page %>
+
+<% cms_cache do
+   menu = cms_link(0, Float::INFINITY)
+   image = cms_image
+   blocks = cms_example(1, 4)
+   # view_image = cms_view_image
+   # view_block = cms_view_example
+-%>
+
+<%#= @cms_view.edit_link %>
+<%#= @cms_view.add_link %>
+
+<%= menu.ul_sortable_tag do %>
+  <% menu.each do |link| %>
+    <%= link.li_link_to_with_edit %>
+  <% end %>
+<% end %>
+<%= menu.add_link %>
+
+<%= image_tag image.path %>
+<%= image.edit_link %>
+
+<% blocks.each do |block| %>
+  <%= block.render %>
+<% end %>
+<%= blocks.edit_links(:position) %>
+
+<% end %>

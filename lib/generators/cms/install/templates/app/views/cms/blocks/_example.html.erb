@@ -1,0 +1,13 @@
+<%
+   text = cms_text
+   image = cms_image
+   links = cms_link(0, 2)
+-%>
+
+<%= text.html %>
+<%= text.edit_link %>
+
+<%= image_tag image.path %>
+<%= image.edit_link %>
+
+<%= links.ul_sortable_tag { links.menu } %>

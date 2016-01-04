@@ -1,0 +1,19 @@
+<% cms_cache('top') do
+  text = cms_text('top')
+-%>
+
+<%= text.html %>
+<%= text.edit_link %>
+
+<% end %>
+
+<%= render cms_form_partial %>
+
+<% cms_cache('bottom') do
+  text = cms_text('bottom')
+-%>
+
+<%= text.html %>
+<%= text.edit_link %>
+
+<% end %>

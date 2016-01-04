@@ -12,7 +12,6 @@ module RailsAdminCMS
 
     attr_writer(
       :parent_controller,
-      :authorized_user_method,
       :parent_mailer,
       :with_paper_trail,
       :custom_form_max_size,
@@ -23,12 +22,12 @@ module RailsAdminCMS
       @parent_controller || ::ApplicationController
     end
 
-    def authorized_user_method
-      @authorized_user_method || :current_admin
-    end
-
     def parent_mailer
-      @parent_mailer || ::ApplicationMailer
+      @parent_mailer || "::ApplicationMailers".safe_constantize || Struct.new do
+        def send_email(_form)
+          Struct.new(:deliver_now).new
+        end
+      end
     end
 
     def with_paper_trail?

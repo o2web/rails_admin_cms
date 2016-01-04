@@ -9,7 +9,7 @@ module CMS
     end
 
     def cms_edit_mode?
-      @_editing ||= RailsAdminCMS::Config.authorized_user_method && session[:edit_mode].to_b
+      @_editing ||= current_admin? && session[:edit_mode].to_b
     end
 
     private

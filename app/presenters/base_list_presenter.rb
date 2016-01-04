@@ -31,6 +31,7 @@ class BaseListPresenter
     :slice,
     :sort,
     :sort_by,
+    :take_while,
     :zip,
     to: :list
   )

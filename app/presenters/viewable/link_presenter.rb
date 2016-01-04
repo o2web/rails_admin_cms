@@ -1,33 +1,16 @@
 module Viewable
   class LinkPresenter < ViewablePresenter
     def link_to(name = nil, options = {})
-      h.link_to *normalize_link_options(name, options)
-    end
-
-    def li_link_to(name = nil, options = {})
-      li_sortable_tag options[:li] do
-        h.link_to *normalize_link_options(name, options)
-      end
-    end
-
-    def li_link_to_with_edit(name = nil, options = {})
-      li_sortable_tag options[:li] do
-        h.concat h.link_to(*normalize_link_options(name, options))
-        h.concat edit_link
-      end
-    end
-
-    def active_link_to(name = nil, options = {})
       h.active_link_to *normalize_link_options(name, options)
     end
 
-    def li_active_link_to(name = nil, options = {})
+    def li_link_to(name = nil, options = {})
       li_sortable_tag options[:li] do
         h.active_link_to *normalize_link_options(name, options)
       end
     end
 
-    def li_active_link_to_with_edit(name = nil, options = {})
+    def li_link_to_with_edit(name = nil, options = {})
       li_sortable_tag options[:li] do
         h.concat h.active_link_to(*normalize_link_options(name, options))
         h.concat edit_link
@@ -45,10 +28,23 @@ module Viewable
     end
 
     def url(options = {})
-      if m.file.present?
-        h.main_app.file_path(id: m)
-      else
-        m.page.presence || m.url.presence || options[:path] || options[:url] || '#'
+      @url ||= begin
+        if m.file.present?
+          h.main_app.file_path(id: m)
+        else
+          m.page.presence || m.url.presence || options[:path] || options[:url] || '#'
+        end
+      end
+    end
+
+    def active?(options = {})
+      @active ||= begin
+        path = url(options)
+        if path == '#' || path[/^http/]
+          false
+        else
+          !!(h.request.path =~ /^#{path}/)
+        end
       end
     end
 

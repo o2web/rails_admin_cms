@@ -22,7 +22,6 @@ Seamlessly adds some useful classes to the body tag within your layout in order 
 ## TODO
 
 * Published Pages/Forms
-* Breadcrumbs Helpers
 
 ## Notes
 

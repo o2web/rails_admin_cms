@@ -23,7 +23,7 @@ module RailsAdminCMS
     end
 
     def parent_mailer
-      @parent_mailer || "::ApplicationMailers".safe_constantize || Struct.new(:mailer) {
+      @parent_mailer || "::ApplicationMailer".safe_constantize || Struct.new(:mailer) {
         def send_email(_form)
           mailer
         end

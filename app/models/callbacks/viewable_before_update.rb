@@ -1,6 +1,6 @@
 module Callbacks
   class ViewableBeforeUpdate
-    include Callback
+    include Restrictor
 
     def call
       return unless m.has_unlocalized_fields?

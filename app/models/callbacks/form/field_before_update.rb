@@ -1,7 +1,7 @@
 module Callbacks
   module Form
     class FieldBeforeUpdate
-      include Callback
+      include Restrictor
 
       def call
         if m.position_was < m.position

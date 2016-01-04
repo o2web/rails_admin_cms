@@ -1,7 +1,7 @@
 module Callbacks
   module Form
     class FieldAfterCreate
-      include Callback
+      include Restrictor
 
       def call
         range = m.position..Float::INFINITY

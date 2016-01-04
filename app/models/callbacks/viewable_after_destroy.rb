@@ -1,6 +1,6 @@
 module Callbacks
   class ViewableAfterDestroy
-    include Callback
+    include Restrictor
 
     def init
       @range = (m.position + 1)..Float::INFINITY

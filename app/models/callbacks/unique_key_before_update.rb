@@ -1,6 +1,6 @@
 module Callbacks
   class UniqueKeyBeforeUpdate
-    include Callback
+    include Restrictor
 
     def init
       # keep position and position_was, because buffered_position rewrites them

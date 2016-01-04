@@ -1,5 +1,5 @@
 module Callbacks
-  module Callback
+  module Restrictor
     extend ActiveSupport::Concern
 
     included do

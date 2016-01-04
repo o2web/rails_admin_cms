@@ -1,7 +1,7 @@
 module Callbacks
   module Form
     class FieldAfterDestroy
-      include Callback
+      include Restrictor
 
       def call
         range = (m.position + 1)..Float::INFINITY

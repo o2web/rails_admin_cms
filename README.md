@@ -22,6 +22,7 @@ Seamlessly adds some useful classes to the body tag within your layout in order 
 ## TODO
 
 * Documentation
+* Generators
 * Published Pages/Forms
 * Keep the Locale within the DB after form submission
 * Mailchimp integration

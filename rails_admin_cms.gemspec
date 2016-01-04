@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = RailsAdminCMS::VERSION
   s.authors     = ["Patrice Lebel"]
   s.email       = ["patrice@lebel.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RailsAdminCMS."
-  s.description = "TODO: Description of RailsAdminCMS."
+  s.homepage    = "https://github.com/o2web/rails_admin_cms"
+  s.summary     = "Flexible Content Management Framework for RailsAdmin"
+  s.description = "Flexible Content Management Framework for RailsAdmin."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

@@ -12,7 +12,6 @@ module RailsAdminCMS
 
     attr_writer(
       :parent_controller,
-      :authentication_method,
       :authorized_user_method,
       :parent_mailer,
       :with_paper_trail,
@@ -22,10 +21,6 @@ module RailsAdminCMS
 
     def parent_controller
       @parent_controller || ::ApplicationController
-    end
-
-    def authentication_method
-      @authentication_method || :authenticate_admin_user!
     end
 
     def authorized_user_method

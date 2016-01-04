@@ -5,10 +5,7 @@ class ApplicationController < ActionController::Base
 
   include CMS::Localize
   include CMS::Editing
-
-  def authenticate_admin_user!
-    true
-  end
+  include Authenticate
 
   # rescue_from Exception, with: :debug_breakpoint
 

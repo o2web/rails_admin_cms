@@ -1,6 +1,6 @@
 module CMS
   class AttachmentsController < RailsAdminCMS::Config.parent_controller
-    before_action RailsAdminCMS::Config.authentication_method
+    before_action :authenticate_admin_user!
 
     def show
       name, format = params[:file].sub(/\?.+$/, ''), params[:format]

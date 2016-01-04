@@ -1,6 +1,6 @@
 module CMS
   class ViewablesController < RailsAdminCMS::Config.parent_controller
-    before_action RailsAdminCMS::Config.authentication_method
+    before_action :authenticate_admin_user!
 
     def create
       current_count = UniqueKey.where(list_key_params).count

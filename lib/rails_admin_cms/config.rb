@@ -23,11 +23,11 @@ module RailsAdminCMS
     end
 
     def parent_mailer
-      @parent_mailer || "::ApplicationMailers".safe_constantize || Struct.new do
+      @parent_mailer || "::ApplicationMailers".safe_constantize || Struct.new(:mailer) {
         def send_email(_form)
-          Struct.new(:deliver_now).new
+          mailer
         end
-      end
+      }.new(Struct.new(:deliver_now).new(nil))
     end
 
     def with_paper_trail?

@@ -11,3 +11,4 @@ spec/dummy/public/system/*
 spec/dummy/private/attachments/*
 
 .ruby-version
+rails_admin_cms-*.gem

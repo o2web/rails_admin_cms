@@ -2,6 +2,7 @@ module Form
   class Field < ActiveRecord::Base
     include Admin::Form::Field
 
+    # mapped to simple_form 'as:' option
     TYPES ||= %w[ string text email ]
 
     self.table_name_prefix = 'form_'

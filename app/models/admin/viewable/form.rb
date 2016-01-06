@@ -11,9 +11,9 @@ module Admin
 
           field :structure do
             pretty_value do
-              h = bindings[:view]
-              p = ViewablePresenter.new value, h
-              h.link_to value.name, p.__send__(:edit_path)
+              h, name = bindings[:view], value.name
+              path = "#{h.dashboard_path}form~row?model_name=form~row&scope#{name}"
+              h.link_to name, path
             end
 
             inline_add false

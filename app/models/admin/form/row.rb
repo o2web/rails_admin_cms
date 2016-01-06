@@ -9,18 +9,7 @@ module Admin
             :id
           end
 
-          configure :structure do
-            read_only true
-            pretty_value do
-              h = bindings[:view]
-              p = ViewablePresenter.new value, h
-              h.link_to value.name, p.__send__(:edit_path)
-            end
-          end
-
-          edit do
-            exclude_fields :fields, :viewable
-          end
+          exclude_fields :fields, :viewable, :structure
 
           list do
             configure :id do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103120544) do
+ActiveRecord::Schema.define(version: 20160106035361) do
 
   create_table "form_emails", force: :cascade do |t|
     t.boolean  "with_email", default: false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160103120544) do
 
   create_table "form_rows", force: :cascade do |t|
     t.integer  "structure_id"
+    t.string   "locale"
     t.text     "column_0"
     t.text     "column_1"
     t.text     "column_2"
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160103120544) do
   add_index "form_rows", ["structure_id"], name: "index_form_rows_on_structure_id"
 
   create_table "form_static_jobs", force: :cascade do |t|
+    t.string   "locale"
     t.string   "name"
     t.string   "email"
     t.string   "country"

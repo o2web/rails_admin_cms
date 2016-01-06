@@ -15,6 +15,7 @@ en:
       navigation: Site
       one: Form
       other: Forms
+      header: Columns
     locale_selector:
       language: En
     page:

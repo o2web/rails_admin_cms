@@ -36,7 +36,7 @@ module Form
     private
 
     def create_header
-      rows.create!
+      rows.create!(locale: I18n.t('cms.form.header', locale: I18n.default_locale))
     end
 
     def expire_cache

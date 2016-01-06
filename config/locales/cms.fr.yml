@@ -15,6 +15,7 @@ fr:
       navigation: Site
       one: Formulaire
       other: Formulaires
+      header: Colonnes
     locale_selector:
       language: Fr
     page:

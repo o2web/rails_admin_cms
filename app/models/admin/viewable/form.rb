@@ -12,7 +12,7 @@ module Admin
           field :structure do
             pretty_value do
               h, name = bindings[:view], value.name
-              path = "#{h.dashboard_path}form~row?model_name=form~row&scope#{name}"
+              path = "#{h.dashboard_path}form~row?model_name=form~row&scope=#{name}"
               h.link_to name, path
             end
 

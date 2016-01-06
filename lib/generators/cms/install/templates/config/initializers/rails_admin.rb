@@ -69,6 +69,10 @@ RailsAdmin.config do |config|
     label I18n.t('rich.file.one')
     label_plural I18n.t('rich.file.other')
 
+    object_label_method do
+      :name
+    end
+
     configure :rich_file, :jcrop
 
     list do

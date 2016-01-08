@@ -11,6 +11,7 @@ require "rails_admin_jcrop"
 
 require "simple_form"
 require "active_type"
+require "active_type/virtual_attributes_decorator"
 require "email_validator"
 require "country_select"
 require "i18n_country_select"

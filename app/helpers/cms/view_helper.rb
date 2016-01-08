@@ -14,7 +14,7 @@ module CMS
     end
 
     def cms_flash_messages(*args)
-      content_tag :div, class: 'cms-flash-messages', 'data-cms-flash' => true do
+      content_tag :div, cms_js_element('cms-flash', true, class: 'cms-flash-messages') do
         flash_messages(*args)
       end
     end

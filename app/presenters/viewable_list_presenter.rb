@@ -11,7 +11,7 @@ class ViewableListPresenter < BaseListPresenter
     h.content_tag(:ul, sortable(class: "cms-wrapped-edit")) do
       list.each.with_index(1) do |m, i|
         name = method_name ? m.__send__(method_name) : i
-        h.concat(h.content_tag(:li, 'data-cms-sortable-id' => m.unique_key.id) do
+        h.concat(h.content_tag(:li, h.cms_js_element('cms-sortable-id', m.unique_key.id)) do
           m.edit_link(name)
         end)
       end
@@ -30,7 +30,7 @@ class ViewableListPresenter < BaseListPresenter
 
   def sortable(options = {})
     if h.cms_edit_mode?
-      { 'data-cms-sortable' => { url: h.main_app.edit_viewable_url(format: :js) }.to_json }.merge(options)
+      h.cms_js_element('cms-sortable', { url: h.main_app.edit_viewable_url(format: :js) }, options)
     else
       options
     end

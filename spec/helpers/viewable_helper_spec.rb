@@ -39,14 +39,14 @@ describe CMS::ViewableHelper, type: :helper do
       it { is_expected.to respond_to(:edit_links, :add_link, :sortable, :sortable_html, :ul_sortable_tag) }
       it { expect(subject.count).to eql(0) }
       it { expect(subject.add_link).to match /<a class="cms-add" data-no-turbolink="true" href=".+">/ }
-      it { expect(subject.sortable_html).to match /data-cms-sortable={\".+\"}/ }
+      it { expect(subject.sortable_html).to match /data-js-cms-sortable={\".+\"}/ }
     end
 
     context "with min = 2 and max = 2" do
       subject { helper.cms_link('test', 2, 2) }
       it { expect(subject.count).to eql(2) }
       it { expect(subject.add_link).to be_nil }
-      it { expect(subject.edit_links).to match /<ul data-cms-sortable=\"{.+}\" class="cms-wrapped-edit"><li data-cms-sortable-id="\d">/ }
+      it { expect(subject.edit_links).to match /<ul data-js-cms-sortable=\"{.+}\" class="cms-wrapped-edit"><li data-js-cms-sortable-id="\d">/ }
     end
 
     context "with min = 2 and without max" do

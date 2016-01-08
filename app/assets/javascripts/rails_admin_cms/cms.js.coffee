@@ -1,78 +1,100 @@
-window.CMS ||= {}
-
-# https://github.com/gemgento/rails_script/blob/master/lib/generators/rails_script/install/templates/base.js.coffee
-CMS.clear_event_handlers = ->
-  $(document).on 'page:before-change', ->
-    for element in [window, document]
-      for event, handlers of ($._data(element, 'events') || {})
-        for handler in handlers
-          if handler? && handler.namespace == ''
-            $(element).off event, handler.handler
-
-#------------------------------------------------------------------------------#
-
-CMS.with_scope_any = (body_classes..., handler) ->
-  for body_class in body_classes
-    if CMS.with_scope(body_class, handler)
-      return
-
-CMS.with_scope_all = (body_classes..., handler) ->
-  for body_class in body_classes
-    if !$('body').hasClass(body_class)
-      return
-  handler()
-
-CMS.with_scope_none = (body_classes..., handler) ->
-  without_scope = true
-  for body_class in body_classes
-    if $('body').hasClass(body_class)
-      without_scope = false
-  if without_scope
-    handler()
-
-CMS.with_scope = (body_class, handler) ->
-  if $('body').hasClass(body_class)
-    handler()
-    true
-  else
-    false
-
-#------------------------------------------------------------------------------#
-
-CMS.ready_with_scope_any = (body_classes..., handler) ->
-  CMS.ready ->
-    CMS.with_scope_any(body_classes..., handler)
-
-CMS.ready_with_scope_all = (body_classes..., handler) ->
-  CMS.ready ->
-    CMS.with_scope_all(body_classes..., handler)
-
-CMS.ready_with_scope_none = (body_classes..., handler) ->
-  CMS.ready ->
-    CMS.with_scope_none(body_classes..., handler)
-
-CMS.ready_with_scope = (body_class, handler) ->
-  CMS.ready ->
-    CMS.with_scope(body_class, handler)
-
-CMS.ready = (handler) ->
-  $(document).on 'ready page:change', ->
-    handler()
-
-#------------------------------------------------------------------------------#
-
-CMS.element_on = (name, events, handler) ->
-  $(document).on(events, "[data-js-#{ name }]", handler)
-
-CMS.element = (name) ->
-  $("[data-js-#{ name }]")
-
 $.fn.extend
-  cms_data: (name) ->
-    $(this).data("js-#{ name }")
+  cms_data: (name = null) ->
+    if name?
+      $(this).data("js-#{ name }")
+    else
+      for key, value of $(this).data()
+        if key.match /^js/
+          return value
 
-#------------------------------------------------------------------------------#
+class CMS
+  @start: =>
+    @ready =>
+      @clear_event_handlers()
+      @flash_messages()
 
-CMS.ready ->
-  CMS.clear_event_handlers()
-  CMS.flash_messages()
+    @ready_with_scope 'cms-forms', =>
+      @validate()
+
+    @ready_with_scope 'cms-edit-mode', =>
+      @element('cms-sortable').each ->
+        $(this).sortable
+          update: (event, ui) ->
+            url = $(this).cms_data()['url']
+
+            target = $(ui.item)
+            id = target.cms_data('cms-sortable-id')
+            unique_key = { position: target.index() + 1 }
+            payload = $.param(id: id, unique_key: unique_key)
+
+            $.post(url, payload)
+
+
+  # https://github.com/gemgento/rails_script/blob/master/lib/generators/rails_script/install/templates/base.js.coffee
+  @clear_event_handlers: =>
+    $(document).on 'page:before-change', ->
+      for element in [window, document]
+        for event, handlers of ($._data(element, 'events') || {})
+          for handler in handlers
+            if handler? && handler.namespace == ''
+              $(element).off event, handler.handler
+
+  @flash_messages: =>
+    @element('cms-flash').fadeIn().delay(3500).fadeOut(800)
+
+  @validate: =>
+    $.validate(validateOnBlur: false)
+
+  @with_scope_any: (body_classes..., handler) =>
+    for body_class in body_classes
+      if @with_scope(body_class, handler)
+        return
+
+  @with_scope_all: (body_classes..., handler) =>
+    for body_class in body_classes
+      if !$('body').hasClass(body_class)
+        return
+    handler()
+
+  @with_scope_none: (body_classes..., handler) =>
+    without_scope = true
+    for body_class in body_classes
+      if $('body').hasClass(body_class)
+        without_scope = false
+    if without_scope
+      handler()
+
+  @with_scope: (body_class, handler) =>
+    if $('body').hasClass(body_class)
+      handler()
+      true
+    else
+      false
+
+  @ready_with_scope_any: (body_classes..., handler) =>
+    @ready =>
+      @with_scope_any(body_classes..., handler)
+
+  @ready_with_scope_all: (body_classes..., handler) =>
+    @ready =>
+      @with_scope_all(body_classes..., handler)
+
+  @ready_with_scope_none: (body_classes..., handler) =>
+    @ready =>
+      @with_scope_none(body_classes..., handler)
+
+  @ready_with_scope: (body_class, handler) =>
+    @ready =>
+      @with_scope(body_class, handler)
+
+  @ready: (handler) =>
+    $(document).on 'ready page:change', ->
+      handler()
+
+  @element_on: (name, events, handler) =>
+    $(document).on(events, "[data-js-#{ name }]", handler)
+
+  @element: (name) =>
+    $("[data-js-#{ name }]")
+
+window.CMS = CMS

@@ -1,2 +1,3 @@
+#= require jquery.form-validator
+#= require jquery-ui/sortable
 #= require ./cms
-#= require_tree ./cms

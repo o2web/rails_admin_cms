@@ -1,11 +1,6 @@
-<%# cms_form %>
-
 <% cms_cache do
    select = cms_select(1, Float::INFINITY)
 -%>
-
-<%#= @cms_view.edit_link %>
-<%#= @cms_view.add_link %>
 
 <%= cms_form_for do |f| %>
   <%= f.input :name, input_html: cms_validate_presence %>
@@ -21,8 +16,6 @@
       input_html: cms_validates(field.input_type => field.required?)
     -%>
   <%# end %>
-
-  <%#= f.input :structure_id, as: :hidden, input_html: { value: cms_form_instance.structure_id } %>
 
   <%= f.submit cms_form_send, cms_form_sending %>
 <% end %>

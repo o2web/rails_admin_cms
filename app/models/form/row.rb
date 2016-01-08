@@ -14,6 +14,10 @@ module Form
     delegate :with_email?, :send_to, :subject, :body, :email_column_key, :header, to: :structure
     delegate :form_name, to: :viewable
 
+    def js_form_selector
+      "#new_form_#{model_name.element}"
+    end
+
     def send_from
       send(email_column_key) if email_column_key
     end

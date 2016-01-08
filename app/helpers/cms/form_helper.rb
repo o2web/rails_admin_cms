@@ -4,6 +4,9 @@ module CMS
       simple_form_for(cms_form_instance, cms_form_options(options)) do |f|
         concat f.invisible_captcha(:_subtitle)
         yield f
+        if @cms_view
+          concat f.input(:structure_id, as: :hidden, input_html: { value: cms_form_instance.structure_id })
+        end
       end
     end
 

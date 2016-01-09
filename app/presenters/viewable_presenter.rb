@@ -2,7 +2,7 @@ class ViewablePresenter < BasePresenter
   def edit_link(name = nil)
     return unless h.cms_edit_mode?
 
-    h.link_to edit_path, class: "cms-edit cms-edit-#{m.dashed_name}", 'data-no-turbolink' => true do
+    h.link_to edit_path, class: "cms-edit cms-edit-#{dashed_name}", 'data-no-turbolink' => true do
       h.concat h.content_tag(:span, h.t('cms.edit'), class: "cms-edit-action")
       h.concat " "
       h.concat h.content_tag(:span, name, class: "cms-edit-name")
@@ -30,6 +30,6 @@ class ViewablePresenter < BasePresenter
   end
 
   def underscored_name
-    @_underscored_name ||= m.name.underscore.gsub('/', '_')
+    @_underscored_name ||= m.class.name.underscore.gsub('/', '_')
   end
 end

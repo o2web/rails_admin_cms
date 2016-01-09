@@ -1,5 +1,5 @@
 module Form
-  class Header < Row
+  class Row::AsHeader < Row
     def with_email?
       false
     end

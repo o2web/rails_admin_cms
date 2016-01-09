@@ -32,13 +32,13 @@ module Form
     end
 
     def header
-      rows.first.becomes Header
+      rows.first.becomes Row::AsHeader
     end
 
     private
 
     def create_header
-      Header.create!(structure: self, locale: I18n.t('cms.form.header', locale: I18n.default_locale))
+      Row::AsHeader.create!(structure: self, locale: I18n.t('cms.form.header', locale: I18n.default_locale))
     end
 
     def expire_cache

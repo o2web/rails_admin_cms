@@ -32,7 +32,11 @@ module Viewable
     end
 
     def add_path
-      h.main_app.new_viewable_url(list_key: h.cms_list_key(m.short_type, m.unique_key_name), max: Float::INFINITY)
+      h.main_app.new_viewable_url(list_key: h.cms_list_key(short_type, m.unique_key_name), max: Float::INFINITY)
+    end
+
+    def short_type
+      m.viewable_type.demodulize.underscore
     end
   end
 end

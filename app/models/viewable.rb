@@ -44,10 +44,6 @@ module Viewable
     end
   end
 
-  def short_type
-    viewable_type.demodulize.underscore
-  end
-
   def list(locale = nil)
     self.class.includes(:unique_key)
       .where(unique_keys: { viewable_type: viewable_type, view_path: view_path, name: unique_key_name })

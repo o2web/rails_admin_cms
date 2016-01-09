@@ -10,6 +10,8 @@ module Form
     belongs_to :email, dependent: :destroy
 
     validates :fields, length: { maximum: RailsAdminCMS::Config.custom_form_max_size }
+    validates :viewable, presence: true, on: :create
+    validates :email, presence: true, on: :create
 
     after_create :create_header
     after_update :expire_cache

@@ -34,16 +34,6 @@ module Form
     end
   end
 
-  class << self
-    def structure_models
-      %w[
-        Form::Structure
-        Form::Field
-        Form::Email
-      ]
-    end
-  end
-
   private
 
   def set_locale

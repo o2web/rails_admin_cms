@@ -23,7 +23,7 @@ RailsAdmin.config do |config|
     dashboard                     # mandatory
     index                         # mandatory
     new do
-      except Viewable.models + Form.structure_models + %w[
+      except Naming::Viewable.models + Naming::Form.structure_models + %w[
         UniqueKey
         Setting
         Rich::RichFile
@@ -31,18 +31,18 @@ RailsAdmin.config do |config|
       ]
     end
     export do
-      except Viewable.models + Form.structure_models + %w[
+      except Naming::Viewable.models + Naming::Form.structure_models + %w[
         UniqueKey
       ]
     end
     bulk_delete do
-      except Viewable.models + Form.structure_models + %w[
+      except Naming::Viewable.models + Naming::Form.structure_models + %w[
         UniqueKey
         Setting
       ]
     end
     show do
-      except Viewable.models + Form.structure_models + %w[
+      except Naming::Viewable.models + Naming::Form.structure_models + %w[
         UniqueKey
       ]
     end
@@ -52,7 +52,7 @@ RailsAdmin.config do |config|
       ]
     end
     delete do
-      except Form.structure_models + %w[
+      except Naming::Form.structure_models + %w[
         UniqueKey
         Setting
       ]

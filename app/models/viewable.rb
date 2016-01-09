@@ -75,12 +75,6 @@ module Viewable
       .merge(locale: locale || self.locale)
   end
 
-  class << self
-    def models
-      @_models ||= Naming::Viewable.names.map{ |name| "Viewable::#{name.camelize}" }
-    end
-  end
-
   private
 
   def expire_cache

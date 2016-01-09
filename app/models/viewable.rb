@@ -77,11 +77,7 @@ module Viewable
 
   class << self
     def models
-      @_models ||= names.map{ |name| "Viewable::#{name.camelize}" }
-    end
-
-    def names
-      @_names ||= CMS.rb_all_names 'app/models/viewable'
+      @_models ||= Naming::Viewable.names.map{ |name| "Viewable::#{name.camelize}" }
     end
   end
 

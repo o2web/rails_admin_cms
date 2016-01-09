@@ -8,7 +8,7 @@ module CMS
       end
     end
 
-    Viewable::Block.names.each do |type|
+    Naming::Viewable::Block.names.each do |type|
       define_cms_view_helper(type)
 
       define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
@@ -18,7 +18,7 @@ module CMS
       end
     end
 
-    Viewable.names.each do |type|
+    Naming::Viewable.names.each do |type|
       define_cms_view_helper(type)
 
       define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY

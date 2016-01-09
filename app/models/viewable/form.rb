@@ -13,16 +13,8 @@ module Viewable
     has_unlocalized_fields :structure
 
     class << self
-      def names
-        @_names ||= CMS.dir_names 'app/views/cms/forms'
-      end
-
-      def static_names
-        @_static_names ||= CMS.rb_names 'app/models/form'
-      end
-
       def static?(name)
-        name.in? static_names
+        name.in? Naming::Viewable::Form.static_names
       end
 
       def not_static?(name)
@@ -35,7 +27,7 @@ module Viewable
     end
 
     def static?
-      form_name.in? self.class.static_names
+      form_name.in? Naming::Viewable::Form.static_names
     end
 
     def not_static?

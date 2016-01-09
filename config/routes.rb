@@ -20,12 +20,12 @@ Rails.application.routes.draw do
     localized do
       resources :files, format: false, only: [:show]
 
-      Viewable::Page.names.each do |name|
+      Naming::Viewable::Page.names.each do |name|
         get name => 'pages#show', format: false,
           defaults: { cms_view_type: name, cms_body_class: name }
       end
 
-      Viewable::Form.names.each do |name|
+      Naming::Viewable::Form.names.each do |name|
         get name => 'forms#new', format: false,
           defaults: { cms_view_type: name, cms_body_class: name }
         post name => 'forms#create',

@@ -7,6 +7,7 @@ module Form
     validates :_subtitle, invisible_captcha: true
 
     before_save :set_locale
+    after_save  :send_email, if: :with_email?
 
     delegate :virtual?, :has_attachments?, :has_collections?, to: :class
   end
@@ -49,5 +50,9 @@ module Form
     if has_attribute?(:locale) && locale.nil?
       self.locale = I18n.locale
     end
+  end
+
+  def send_email
+    FormsMailer.send_email(self).deliver_later
   end
 end

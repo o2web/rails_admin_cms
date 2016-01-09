@@ -13,9 +13,6 @@ module CMS
       load_form
 
       if cms_form_instance.save
-        if cms_form_instance.with_email?
-          FormsMailer.send_email(cms_form_instance).deliver_now
-        end
         reset_form
         flash_now!(:success)
       else

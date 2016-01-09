@@ -1,11 +1,11 @@
-<%# cms_form %>
+<%# view = cms_form %>
 
 <% cms_cache('top') do
   text = cms_text('top')
 -%>
 
-<%#= @cms_view.edit_link %>
-<%#= @cms_view.add_link %>
+<%#= view.edit_link %>
+<%#= view.add_link %>
 
 <%= text.html %>
 <%= text.edit_link %>

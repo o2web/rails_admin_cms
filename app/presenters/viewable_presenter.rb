@@ -24,4 +24,12 @@ class ViewablePresenter < BasePresenter
   def edit_path
     h.rails_admin.edit_path(model_name: m.class.name.underscore.gsub('/', '~'), id: m.id)
   end
+
+  def dashed_name
+    @_dashed_name ||= underscored_name.dasherize
+  end
+
+  def underscored_name
+    @_underscored_name ||= m.name.underscore.gsub('/', '_')
+  end
 end

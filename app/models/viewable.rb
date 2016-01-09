@@ -42,14 +42,6 @@ module Viewable
     def viewable_type
       name
     end
-
-    def dashed_name
-      @_dashed_name ||= underscored_name.dasherize
-    end
-
-    def underscored_name
-      @_underscored_name ||= name.underscore.gsub('/', '_')
-    end
   end
 
   def short_type

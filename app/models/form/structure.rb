@@ -38,7 +38,7 @@ module Form
     private
 
     def create_header
-      Row::AsHeader.create!(structure: self, locale: I18n.t('cms.form.header', locale: I18n.default_locale))
+      Row::AsHeader.create!(structure: self)
     end
 
     def expire_cache

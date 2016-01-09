@@ -42,6 +42,15 @@ module Viewable
       !static?
     end
 
+    def fetch_row(form)
+      if structure.nil?
+        create_structure!(viewable: self, email: ::Form::Email.new)
+      end
+      attributes = form.attributes
+      attributes['structure_id'] = structure_id
+      rows.build(attributes)
+    end
+
     private
 
     def uuid_columns

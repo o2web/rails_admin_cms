@@ -42,7 +42,7 @@ module Form
     end
 
     def expire_cache
-      viewable.touch
+      viewable.try(:touch)
     end
 
     module Splitter

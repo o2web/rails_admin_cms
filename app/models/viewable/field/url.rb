@@ -12,7 +12,7 @@ module Viewable
 
       class_methods do
         def names
-          raise NotImplementedError
+          "Naming::#{name}".constantize.names
         end
 
         def urls

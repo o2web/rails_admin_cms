@@ -1,4 +1,4 @@
-class AddCmsOgTagsSettings < ActiveRecord::Migration
+class AddCMSOgTagsSettings < ActiveRecord::Migration
   def change
     def up
       Setting.apply_all(

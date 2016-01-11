@@ -1,6 +1,6 @@
 module RailsAdmin
   ApplicationController.class_eval do
-    include CMS::Localize
+    include ::CMS::Localize
 
     before_action :set_paper_trail_whodunnit
 

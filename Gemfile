@@ -5,7 +5,8 @@ source 'https://rubygems.org'
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rich', github: 'o2web/rich'
+gem 'rich', github: 'o2web/rich', branch: 'master'
+gem 'rails_admin', github: 'o2web/rails_admin', branch: 'master'
 gem 'rails_admin_jcrop', github: 'o2web/rails_admin_jcrop', branch: 'feature/one_crop_per_page'
 
 # Declare any dependencies that are still in development here instead of in

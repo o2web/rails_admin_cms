@@ -33,8 +33,5 @@ require "rails_admin_cms/core_ext/boolean"
 require "rails_admin_cms/config"
 require "rails_admin_cms/utils"
 
-require "rails_admin/application_controller_decorator"
-require "rails_admin/form_builder_decorator"
-
 module RailsAdminCMS
 end

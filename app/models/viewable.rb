@@ -4,7 +4,7 @@ module Viewable
   included do
     self.table_name_prefix = 'viewable_'
 
-    has_paper_trail if RailsAdminCMS::Config.with_paper_trail?
+    has_paper_trail
 
     has_one :unique_key, as: :viewable, dependent: :destroy
 

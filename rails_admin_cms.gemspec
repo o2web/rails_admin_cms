@@ -39,6 +39,10 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-form-validator-rails", "~> 0.0", ">= 0.0.2"
   s.add_dependency "bootstrap_flash_messages", "~> 1.0", ">= 1.0.1"
 
+  s.add_dependency "paper_trail", "~> 4.0.0"
+  s.add_dependency "rails_admin_history_rollback", "~> 0.0.6"
+  s.add_dependency "naught", "~> 1.0.0"
+
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "capybara"

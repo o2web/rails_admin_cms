@@ -6,4 +6,9 @@ class ApplicationController < ActionController::Base
   include CMS::Localize
   include CMS::Editing
   include CMS::Authenticate
+  include CMS::Logger
+
+  def paper_trail_enabled_for_controller
+    false
+  end
 end

@@ -13,7 +13,6 @@ module RailsAdminCMS
     attr_writer(
       :parent_controller,
       :parent_mailer,
-      :with_paper_trail,
       :custom_form_max_size,
       :with_email_body
     )
@@ -23,15 +22,7 @@ module RailsAdminCMS
     end
 
     def parent_mailer
-      @parent_mailer || "::ApplicationMailer".safe_constantize || Struct.new(:mailer) {
-        def send_email(_form)
-          mailer
-        end
-      }.new(Struct.new(:deliver_now).new(nil))
-    end
-
-    def with_paper_trail?
-      @with_paper_trail
+      @parent_mailer || "::ApplicationMailer".safe_constantize || BlackHole
     end
 
     def custom_form_max_size

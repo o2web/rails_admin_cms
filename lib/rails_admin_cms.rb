@@ -19,6 +19,14 @@ require "invisible_captcha"
 require "jquery-form-validator-rails"
 require "bootstrap_flash_messages"
 
+require "paper_trail"
+require "rails_admin_history_rollback"
+require "naught"
+
+BlackHole = Naught.build do |config|
+  config.black_hole
+end
+
 require "rails_admin_cms/engine"
 require "rails_admin_cms/inflections"
 require "rails_admin_cms/core_ext/boolean"

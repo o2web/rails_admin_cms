@@ -1,7 +1,7 @@
 class Setting < ActiveRecord::Base
   include Admin::Setting
 
-  has_paper_trail if RailsAdminCMS::Config.with_paper_trail?
+  has_paper_trail
 
   cattr_accessor :cache
   self.cache = Rails.cache

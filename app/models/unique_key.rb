@@ -1,7 +1,7 @@
 class UniqueKey < ActiveRecord::Base
   include Admin::UniqueKey
 
-  has_paper_trail if RailsAdminCMS::Config.with_paper_trail?
+  has_paper_trail
 
   belongs_to :viewable, polymorphic: true
 

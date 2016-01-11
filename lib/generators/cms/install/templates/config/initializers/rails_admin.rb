@@ -1,6 +1,21 @@
 RailsAdmin.config do |config|
+  config.main_app_name = ["Dashboard", ""]
+
   ### Popular gems integration
+  ## == Devise ==
+  # config.authenticate_with do
+  #   warden.authenticate! scope: :user
+  # end
+  config.current_user_method(&:current_admin)
+
+  config.authorize_with do
+    redirect_to '/' unless current_admin?
+  end
+
   config.browser_validations = false
+  config.compact_show_view = false
+
+  ### Popular gems integration
 
   ## == Devise ==
   # config.authenticate_with do

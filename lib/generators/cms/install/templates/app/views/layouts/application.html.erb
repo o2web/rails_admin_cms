@@ -14,7 +14,7 @@
   <%= cms_locale_selector %>
 </div>
 <div>
-  <%= cms_link_to_edit_mode %>
+  <%= cms_link_to_edit_mode if current_admin? %>
 </div>
 
 <%= yield %>

@@ -22,6 +22,7 @@ require "bootstrap_flash_messages"
 require "paper_trail"
 require "rails_admin_history_rollback"
 require "naught"
+require "rails_admin_globalize_field"
 
 BlackHole = Naught.build do |config|
   config.black_hole

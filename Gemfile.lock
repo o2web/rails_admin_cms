@@ -19,6 +19,16 @@ GIT
       sass-rails (>= 4.0, < 6)
 
 GIT
+  remote: git://github.com/o2web/rails_admin_globalize_field.git
+  revision: 1182d3342ec9181315bb22c8b50101b93db9300d
+  branch: master
+  specs:
+    rails_admin_globalize_field (0.4.0)
+      globalize (>= 5.0)
+      rails (>= 4.2)
+      rails_admin (>= 0.6.2)
+
+GIT
   remote: git://github.com/o2web/rails_admin_jcrop.git
   revision: 0454a6aae243c3cdd5fbe639891bf62a30857a08
   branch: feature/one_crop_per_page
@@ -45,7 +55,7 @@ GIT
 PATH
   remote: .
   specs:
-    rails_admin_cms (0.0.4)
+    rails_admin_cms (0.0.5)
       active_link_to (~> 1.0, >= 1.0.3)
       active_type (~> 0.4, >= 0.4.3)
       bootstrap_flash_messages (~> 1.0, >= 1.0.1)
@@ -63,6 +73,7 @@ PATH
       rails-i18n (~> 4.0, >= 4.0.8)
       rails_admin (~> 0.8, >= 0.8.1)
       rails_admin-i18n (~> 0.0, >= 0.0.9)
+      rails_admin_globalize_field (~> 0.4.0)
       rails_admin_history_rollback (~> 0.0.6)
       rails_admin_jcrop
       rich
@@ -160,6 +171,9 @@ GEM
       railties (>= 3.2, < 5.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    globalize (5.0.1)
+      activemodel (>= 4.2.0, < 4.3)
+      activerecord (>= 4.2.0, < 4.3)
     haml (4.0.7)
       tilt
     i18n (0.7.0)
@@ -343,6 +357,7 @@ DEPENDENCIES
   quiet_assets
   rails_admin!
   rails_admin_cms!
+  rails_admin_globalize_field!
   rails_admin_jcrop!
   rich!
   rspec-rails

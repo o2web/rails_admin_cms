@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paper_trail", "~> 4.0.0"
   s.add_dependency "rails_admin_history_rollback", "~> 0.0.6"
   s.add_dependency "naught", "~> 1.0.0"
+  s.add_dependency "rails_admin_globalize_field", "~> 0.4.0"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"

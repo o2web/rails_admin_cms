@@ -24,7 +24,7 @@ RailsAdmin.config do |config|
   # config.authorize_with :pundit
 
   ## == PaperTrail ==
-  if defined?(Spree::User) # TODO: move to Solidus connector
+  if 'Spree::User'.safe_constantize # TODO: move to Solidus connector
     config.audit_with :paper_trail, 'Spree::User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
   else
     config.audit_with :paper_trail, 'BlackHole', 'PaperTrail::Version'

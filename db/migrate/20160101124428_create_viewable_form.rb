@@ -3,7 +3,7 @@ class CreateViewableForm < ActiveRecord::Migration
     create_table :viewable_forms do |t|
       t.references :structure, index: true
 
-      t.string     :uuid
+      t.string     :uuid,      index: true
       t.text       :url,       index: true
       t.string     :title
       t.text       :meta_keywords

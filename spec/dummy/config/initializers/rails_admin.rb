@@ -19,15 +19,20 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
+  config.included_models = Naming::Viewable.models + Naming::Form.models + %w[
+    UniqueKey
+    Setting
+    Rich::RichFile
+  ]
+
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
     new do
-      except Naming::Viewable.models + Naming::Form.structure_models + %w[
+      except Naming::Viewable.models + Naming::Form.models + %w[
         UniqueKey
         Setting
         Rich::RichFile
-        Form::Row
       ]
     end
     export do
@@ -68,6 +73,10 @@ RailsAdmin.config do |config|
     navigation_label I18n.t('rich.file.navigation')
     label I18n.t('rich.file.one')
     label_plural I18n.t('rich.file.other')
+
+    object_label_method do
+      :name
+    end
 
     configure :rich_file, :jcrop
 

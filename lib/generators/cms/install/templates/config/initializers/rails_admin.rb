@@ -19,15 +19,20 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
+  config.included_models = Naming::Viewable.models + Naming::Form.models + %w[
+    UniqueKey
+    Setting
+    Rich::RichFile
+  ]
+
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
     new do
-      except Naming::Viewable.models + Naming::Form.structure_models + %w[
+      except Naming::Viewable.models + Naming::Form.models + %w[
         UniqueKey
         Setting
         Rich::RichFile
-        Form::Row
       ]
     end
     export do

@@ -23,10 +23,14 @@ Seamlessly adds some useful classes to the body tag within your layout in order 
 
 * Documentation
 * Generators
-* Setup PaperTrail
+* Setup CanCanCan
 * Setup Globalize on Form::Field and Form::Email
 * Published Pages/Forms
 * Mailchimp integration
+* Redirector
+* Setting fetched from Yaml file
+* Pretty Url for Viewable::LinkPresenter#url as file_url
+* Fetch image size based on Screen size
 * More Specs
 
 ## Notes

@@ -55,7 +55,7 @@ GIT
 PATH
   remote: .
   specs:
-    rails_admin_cms (0.0.5)
+    rails_admin_cms (0.0.6)
       active_link_to (~> 1.0, >= 1.0.3)
       active_type (~> 0.4, >= 0.4.3)
       bootstrap_flash_messages (~> 1.0, >= 1.0.1)

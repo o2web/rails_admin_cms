@@ -8,7 +8,7 @@ module CMS
       end
     end
 
-    Naming::Viewable::Block.names.each do |type|
+    ::Naming::Viewable::Block.names.each do |type|
       define_cms_view_helper(type)
 
       define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
@@ -18,7 +18,7 @@ module CMS
       end
     end
 
-    Naming::Viewable.names.each do |type|
+    ::Naming::Viewable.names.each do |type|
       define_cms_view_helper(type)
 
       define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
@@ -103,11 +103,11 @@ module CMS
       case type
       when 'page'
         if @cms_view
-          presenter = Viewable::PagePresenter.new(@cms_view, self)
+          presenter = ::Viewable::PagePresenter.new(@cms_view, self)
         end
       when 'form'
         if @cms_view
-          presenter = Viewable::FormPresenter.new(@cms_view, self)
+          presenter = ::Viewable::FormPresenter.new(@cms_view, self)
         end
       else
         if @cms_view_partial
@@ -119,32 +119,32 @@ module CMS
 
     def find_presenter(type, name, position)
       unique_key = to_unique_key(type, name, position)
-      if (viewable = UniqueKey.find_viewable(unique_key))
+      if (viewable = ::UniqueKey.find_viewable(unique_key))
         build_presenter(unique_key, viewable)
       end
     end
 
     def find_or_create_presenter(type, name, position)
       unique_key = to_unique_key(type, name, position)
-      viewable = UniqueKey.find_or_create_viewable!(unique_key)
+      viewable = ::UniqueKey.find_or_create_viewable!(unique_key)
       build_presenter(unique_key, viewable)
     end
 
     def build_presenter(unique_key, viewable)
-      presenter_class = "#{unique_key[:viewable_type]}Presenter".safe_constantize
+      presenter_class = "::#{unique_key[:viewable_type]}Presenter".safe_constantize
       if presenter_class
         presenter_class.new(viewable, self)
       else
-        ViewablePresenter.new(viewable, self)
+        ::ViewablePresenter.new(viewable, self)
       end
     end
 
     def build_list_presenter(viewables, list_key, max)
-      list_presenter_class = "#{list_key[:viewable_type]}ListPresenter".safe_constantize
+      list_presenter_class = "::#{list_key[:viewable_type]}ListPresenter".safe_constantize
       if list_presenter_class
         list_presenter_class.new(viewables, self, list_key, max)
       else
-        ViewableListPresenter.new(viewables, self, list_key, max)
+        ::ViewableListPresenter.new(viewables, self, list_key, max)
       end
     end
 

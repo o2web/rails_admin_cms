@@ -17,7 +17,7 @@ class CMS
       @validate()
 
     @ready_with_scope 'cms-edit-mode', =>
-      @element('cms-sortable').each ->
+      @data_js('cms-sortable').each ->
         $(this).sortable
           update: (event, ui) ->
             url = $(this).cms_data()['url']
@@ -40,7 +40,7 @@ class CMS
               $(element).off event, handler.handler
 
   @flash_messages: =>
-    @element('cms-flash').fadeIn().delay(3500).fadeOut(800)
+    @data_js('cms-flash').fadeIn().delay(3500).fadeOut(800)
 
   @validate: =>
     $.validate(validateOnBlur: false)

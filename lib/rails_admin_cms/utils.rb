@@ -27,4 +27,8 @@ module CMS
       name.split('/').last
     }
   end
+
+  def options_to_html(hash)
+    hash.to_a.map{ |a| %{#{a.first}=#{a.last}} }.join(' ')
+  end
 end

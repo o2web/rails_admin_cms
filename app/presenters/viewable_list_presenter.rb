@@ -37,7 +37,7 @@ class ViewableListPresenter < BaseListPresenter
   end
 
   def sortable_html(options = {})
-    sortable(options).to_a.map{ |a| %{#{a.first}=#{a.last}} }.join(' ')
+    CMS.options_to_html sortable(options)
   end
 
   def ul_sortable_tag(options = {})

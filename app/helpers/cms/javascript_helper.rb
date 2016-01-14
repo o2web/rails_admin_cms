@@ -3,5 +3,9 @@ module CMS
     def cms_js_element(name, data = true, options = {})
       { "data-js-#{name}" => data.to_json }.merge(options)
     end
+
+    def cms_js_element_html(name, data = true, options = {})
+      CMS.options_to_html cms_js_element(name, data, options)
+    end
   end
 end

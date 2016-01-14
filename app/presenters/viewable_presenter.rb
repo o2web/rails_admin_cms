@@ -12,7 +12,7 @@ class ViewablePresenter < BasePresenter
   def li_sortable_tag(options = nil)
     options ||= {}
     if h.cms_edit_mode?
-      options = h.cms_js_element('cms-sortable-id', m.unique_key.id, options)
+      options = h.cms_data_js('cms-sortable-id', m.unique_key.id, options)
     end
     h.content_tag :li, options do
       yield

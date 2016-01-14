@@ -91,10 +91,10 @@ class CMS
     $(document).on 'ready page:change', ->
       handler()
 
-  @element_on: (name, events, handler) =>
+  @data_js_on: (name, events, handler) =>
     $(document).on(events, "[data-js-#{ name }]", handler)
 
-  @element: (name) =>
+  @data_js: (name) =>
     $("[data-js-#{ name }]")
 
 window.CMS = CMS

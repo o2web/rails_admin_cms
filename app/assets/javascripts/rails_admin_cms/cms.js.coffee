@@ -1,5 +1,5 @@
 $.fn.extend
-  cms_data: (name = null) ->
+  data_js: (name = null) ->
     if name?
       $(this).data("js-#{ name }")
     else
@@ -20,10 +20,10 @@ class CMS
       @data_js('cms-sortable').each ->
         $(this).sortable
           update: (event, ui) ->
-            url = $(this).cms_data()['url']
+            url = $(this).data_js()['url']
 
             target = $(ui.item)
-            id = target.cms_data('cms-sortable-id')
+            id = target.data_js('cms-sortable-id')
             unique_key = { position: target.index() + 1 }
             payload = $.param(id: id, unique_key: unique_key)
 

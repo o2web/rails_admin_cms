@@ -1,5 +1,5 @@
 $.fn.extend
-  cms_data: (name = null) ->
+  data_js: (name = null) ->
     if name?
       $(this).data("js-#{ name }")
     else
@@ -17,13 +17,13 @@ class CMS
       @validate()
 
     @ready_with_scope 'cms-edit-mode', =>
-      @element('cms-sortable').each ->
+      @data_js('cms-sortable').each ->
         $(this).sortable
           update: (event, ui) ->
-            url = $(this).cms_data()['url']
+            url = $(this).data_js()['url']
 
             target = $(ui.item)
-            id = target.cms_data('cms-sortable-id')
+            id = target.data_js('cms-sortable-id')
             unique_key = { position: target.index() + 1 }
             payload = $.param(id: id, unique_key: unique_key)
 
@@ -40,7 +40,7 @@ class CMS
               $(element).off event, handler.handler
 
   @flash_messages: =>
-    @element('cms-flash').fadeIn().delay(3500).fadeOut(800)
+    @data_js('cms-flash').fadeIn().delay(3500).fadeOut(800)
 
   @validate: =>
     $.validate(validateOnBlur: false)
@@ -91,10 +91,10 @@ class CMS
     $(document).on 'ready page:change', ->
       handler()
 
-  @element_on: (name, events, handler) =>
+  @data_js_on: (name, events, handler) =>
     $(document).on(events, "[data-js-#{ name }]", handler)
 
-  @element: (name) =>
+  @data_js: (name) =>
     $("[data-js-#{ name }]")
 
 window.CMS = CMS

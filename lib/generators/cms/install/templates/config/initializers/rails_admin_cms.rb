@@ -11,4 +11,7 @@ RailsAdminCMS.config do |config|
 
   # Defines if Forms defined admin side need their body to be editable
   # config.with_email_body = false
+
+  # Defines if there is the current locale in the locale selector
+  # config.hide_current_locale = false
 end

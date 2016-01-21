@@ -14,7 +14,8 @@ module RailsAdminCMS
       :parent_controller,
       :parent_mailer,
       :custom_form_max_size,
-      :with_email_body
+      :with_email_body,
+      :hide_current_locale,
     )
 
     def parent_controller
@@ -31,6 +32,10 @@ module RailsAdminCMS
 
     def with_email_body?
       @with_email_body
+    end
+
+    def hide_current_locale?
+      @hide_current_locale
     end
   end
 end

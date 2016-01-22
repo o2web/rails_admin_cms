@@ -27,6 +27,7 @@ Seamlessly adds some useful classes to the body tag within your layout in order 
 * Setup Globalize on Form::Field and Form::Email
 * Improve breadcrumbs functionality
 * Link to image edit in edit form (for cropping)
+* Confirmation email for forms
 * Published Pages/Forms
 * Mailchimp integration
 * Redirector

@@ -27,6 +27,7 @@ module RailsAdmin
       end.join.html_safe
     end
 
+    # TODO: simplify by adding a reference param on 'link to edit' client-side
     def admin_back_home
       if request.path =~ CMSViewableEdit
         viewable = extract_viewable($1, $2)

@@ -7,7 +7,7 @@ module Viewable
         before_update :normalize_url
         after_commit :reload_routes
 
-        scope :with_url, -> { where('url LIKE :url', url: '/%') }
+        scope :with_url, -> { where("url LIKE '/%'") }
       end
 
       class_methods do

@@ -36,7 +36,7 @@ module Viewable
       end
 
       def other_uuid(locale)
-        self.class.other_locale(locale).where(uuid: uuid).first
+        self.class.localized(locale).where(uuid: uuid).first
       end
 
       private

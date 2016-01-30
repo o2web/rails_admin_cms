@@ -88,7 +88,7 @@ class CMS
       @with_scope(body_class, handler)
 
   @ready: (handler) =>
-    $(document).on 'ready page:change', ->
+    $(document).on 'ready, page:change', ->
       handler()
 
   @data_js_on: (name, events, handler) =>

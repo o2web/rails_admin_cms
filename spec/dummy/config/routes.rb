@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   mount Rich::Engine => '/rich', :as => 'rich'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  root 'home#show', defaults: { cms_body_class: 'show' }
+  root 'home#show', defaults: { cms_view_type: 'show' }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

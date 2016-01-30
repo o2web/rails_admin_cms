@@ -3,7 +3,7 @@ module CMS
     def cms_body_class(*args)
       controller_name = controller_path.gsub('/','-')
       classes = [
-        params[:cms_body_class],
+        params[:cms_view_type],
         controller_name,
         "#{controller_name}-#{action_name}",
         I18n.locale,

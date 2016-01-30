@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount Rich::Engine => '/rich', :as => 'rich'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  root to: "cms/pages#show", format: false, defaults: { cms_view_type: 'page', cms_body_class: 'page', locale: I18n.default_locale }
+  root to: "cms/pages#show", defaults: { cms_view_type: 'page', locale: I18n.default_locale }, format: false
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

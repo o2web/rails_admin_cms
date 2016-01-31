@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   root 'home#show', defaults: { cms_view_type: 'show' }
 
+  match '*not_found', via: :all, to: 'application#render_404'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

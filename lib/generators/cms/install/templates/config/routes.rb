@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root to: "cms/pages#show", defaults: { cms_view_type: 'page', locale: I18n.default_locale }, format: false
 
+  match '*not_found', via: :all, to: 'application#render_404'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

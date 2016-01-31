@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include CMS::Editing
   include CMS::Authenticate
   include CMS::Logger
+  include CMS::Rescue
 
   def paper_trail_enabled_for_controller
     false

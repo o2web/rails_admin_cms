@@ -16,6 +16,7 @@ module RailsAdminCMS
       :custom_form_max_size,
       :with_email_body,
       :hide_current_locale,
+      :exception_backtrace_size
     )
 
     attr_accessor(
@@ -40,6 +41,10 @@ module RailsAdminCMS
 
     def hide_current_locale?
       @hide_current_locale
+    end
+
+    def exception_backtrace_size
+      @exception_backtrace_size || 10
     end
   end
 end

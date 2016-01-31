@@ -19,4 +19,7 @@ RailsAdminCMS.config do |config|
   # config.allow_iframe_from = 'SAMEORIGIN'
   # config.allow_iframe_from = 'ALLOW-FROM https://www.google.com'
   # config.allow_iframe_from = 'ALLOWALL'
+
+  # Defines the number of lines picked from exception backtrace in 'cms_logger'
+  # config.exception_backtrace_size = 10
 end

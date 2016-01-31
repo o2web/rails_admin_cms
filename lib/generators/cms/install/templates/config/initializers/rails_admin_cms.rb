@@ -14,4 +14,9 @@ RailsAdminCMS.config do |config|
 
   # Defines if there is the current locale in the locale selector
   # config.hide_current_locale = false
+
+  # Defines iframe permissions: same host, different host or all
+  # config.allow_iframe_from = 'SAMEORIGIN'
+  # config.allow_iframe_from = 'ALLOW-FROM https://www.google.com'
+  # config.allow_iframe_from = 'ALLOWALL'
 end

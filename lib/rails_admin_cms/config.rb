@@ -18,6 +18,10 @@ module RailsAdminCMS
       :hide_current_locale,
     )
 
+    attr_accessor(
+      :allow_iframe_from,
+    )
+
     def parent_controller
       @parent_controller || ::ApplicationController
     end

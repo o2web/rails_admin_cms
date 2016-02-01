@@ -1,10 +1,12 @@
 module CMS
   module Rescue
-    extend ActiveSupport
+    extend ActiveSupport::Concern
 
-    skip_filter *_process_action_callbacks.map(&:filter), only: [:render_404, :render_500]
+    included do
+      skip_filter *_process_action_callbacks.map(&:filter), only: [:render_404, :render_500]
 
-    rescue_from Exception, with: :render_500 unless Rails.env.development?
+      rescue_from Exception, with: :render_500 unless Rails.env.development?
+    end
 
     def render_404
       render file: 'public/404.html', status: 404, layout: false

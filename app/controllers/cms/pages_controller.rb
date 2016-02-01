@@ -1,6 +1,6 @@
 module CMS
   class PagesController < RailsAdminCMS::Config.parent_controller
-    after_action :allow_iframe, if: RailsAdminCMS::Config.allow_iframe_from
+    after_action :allow_iframe
 
     def show
       @cms_view = Viewable::Page.find(params[:id]) if params[:id].present?
@@ -15,7 +15,9 @@ module CMS
     private
 
     def allow_iframe
-      response.headers['X-FRAME-OPTIONS'] = RailsAdminCMS::Config.allow_iframe_from
+      if RailsAdminCMS::Config.allow_iframe_from.present?
+        response.headers['X-FRAME-OPTIONS'] = RailsAdminCMS::Config.allow_iframe_from
+      end
     end
   end
 end

@@ -1,0 +1,5 @@
+en:
+  simple_form:
+    placeholders:
+      mailchimp:
+        email: Email address

@@ -47,6 +47,19 @@ What's going on:
 1. `cms_link_to_edit_mode`
 1. `current_admin?`
 
+## Mailchimp
+
+First, `mailchimp_api_key` and `mailchimp_list_id_en` (and `mailchimp_list_id_xx` where `xx` is the locale) need to be defined within `config/secrets.yml`.
+Then, use the partial `app/views/cms/shared/_mailchimp.html.erb` to output the mailchimp form:
+
+```ruby
+<%= render 'cms/shared/mailchimp' %>
+```
+
+1. Flash messages could be overriden by the keys `flash_messages.mailchimp.subscribe.(success|error)`.
+1. Input placeholder could be overriden by the key `simple_form.placeholders.mailchimp.email`. 
+1. Input and submit button are wrapper in a div tag with the class `cms-mailchimp`. 
+
 ## TODO
 
 * Documentation
@@ -57,7 +70,6 @@ What's going on:
 * Link to image edit in edit form (for cropping)
 * Confirmation email for forms
 * Published Pages/Forms
-* Mailchimp integration
 * Redirector
 * Setting fetched from Yaml file
 * Pretty Url for Viewable::LinkPresenter#url as file_url

@@ -1,0 +1,7 @@
+<%= simple_form_for :mailchimp, url: main_app.mailchimp_url(format: :js), remote: true, html: { id: 'mailchimp_form' } do |f| %>
+  <%= invisible_captcha %>
+  <div class="cms-mailchimp">
+    <%= f.input :email, label: false, wrapper: false, input_html: cms_validate_email %>
+    <%= f.submit cms_form_send, cms_form_sending %>
+  </div>
+<% end %>

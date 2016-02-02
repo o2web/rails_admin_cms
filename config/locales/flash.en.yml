@@ -18,6 +18,10 @@ en:
     #     error: "Something went wrong. Please take a look at the form to see what went wrong."
     #
     # Add flash messages for controller actions:
+    mailchimp:
+      subscribe:
+        success: Thanks for subscribing to our newsletter.
+        error: Sorry, an error happened (you might already be subscribed or your email is not valid).
     # products:
     #   create:
     #     success: "This is a notification"

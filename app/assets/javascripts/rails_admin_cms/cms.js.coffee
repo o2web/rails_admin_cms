@@ -12,6 +12,7 @@ class CMS
     @ready =>
       @clear_event_handlers()
       @flash_messages()
+      @validate_mailchimp()
 
     @ready_with_scope 'cms-forms', =>
       @validate()
@@ -44,6 +45,9 @@ class CMS
 
   @validate: =>
     $.validate(validateOnBlur: false)
+
+  @validate_mailchimp: =>
+    $.validate(form: '#mailchimp_form', validateOnBlur: false)
 
   @with_scope_any: (body_classes..., handler) =>
     for body_class in body_classes

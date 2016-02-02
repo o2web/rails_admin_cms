@@ -7,7 +7,7 @@ module Admin
         rails_admin do
           visible false
 
-          field :title
+          field :string
         end
       end
     end

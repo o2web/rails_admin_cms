@@ -14,6 +14,7 @@ module CMS
 
     def render_500(exception = nil)
       cms_logger exception
+      self.response_body = nil # make sure that there is no DoubleRenderError
       render file: 'public/500.html', status: 500, layout: false
     end
   end

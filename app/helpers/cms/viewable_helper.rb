@@ -11,7 +11,7 @@ module CMS
     ::Naming::Viewable::Block.names.each do |type|
       define_cms_view_helper(type)
 
-      define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
+      define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil|
         name, min, max = adjust_arguments(name, min, max)
 
         cms_block("#{type}/#{name}", min, max)
@@ -21,6 +21,11 @@ module CMS
     ::Naming::Viewable.names.each do |type|
       define_cms_view_helper(type)
 
+      # access a Viewable within the current context
+      # name(optional):
+      # min (optional): defines how many viewables are created by default
+      # max (optional): defines the limit of viewables that could added (must be greater than min)
+      # * if min = 1, then a single ViewablePresenter is returned, otherwise, a ViewablePresenterList is returned
       define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
         name, min, max = adjust_arguments(name, min, max)
 

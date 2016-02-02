@@ -2,6 +2,7 @@ module CMS
   class ViewablesController < RailsAdminCMS::Config.parent_controller
     before_action :authenticate_admin_user!
 
+    # used by the add viewable link
     def create
       current_count = UniqueKey.where(list_key_params).count
 
@@ -22,6 +23,7 @@ module CMS
       end
     end
 
+    # used by [data-js-cms-sortable] element to modify the viewable position within the list
     def update
       unique_key = UniqueKey.find(params[:id])
 

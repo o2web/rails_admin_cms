@@ -43,6 +43,6 @@ module Form
   end
 
   def send_email
-    CMS::FormsMailer.send_email(self).deliver_later
+    CMS::FormsMailer.send_email(self).deliver_now
   end
 end

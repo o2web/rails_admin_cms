@@ -21,6 +21,7 @@ module RailsAdminCMS
 
     attr_accessor(
       :allow_iframe_from,
+      :class_list,
     )
 
     def parent_controller
@@ -46,5 +47,6 @@ module RailsAdminCMS
     def exception_backtrace_size
       @exception_backtrace_size || 10
     end
+
   end
 end

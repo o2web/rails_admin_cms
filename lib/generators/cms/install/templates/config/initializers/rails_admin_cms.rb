@@ -22,4 +22,8 @@ RailsAdminCMS.config do |config|
 
   # Defines the number of lines picked from exception backtrace in 'cms_logger'
   # config.exception_backtrace_size = 10
+
+  # Defines the list of classes that will appear in 'cms_class_selector'
+  # config.class_list = []
+
 end

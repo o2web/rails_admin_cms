@@ -16,12 +16,12 @@ module RailsAdminCMS
       :custom_form_max_size,
       :with_email_body,
       :hide_current_locale,
-      :exception_backtrace_size
+      :exception_backtrace_size,
+      :class_list,
     )
 
     attr_accessor(
       :allow_iframe_from,
-      :class_list,
     )
 
     def parent_controller
@@ -48,5 +48,8 @@ module RailsAdminCMS
       @exception_backtrace_size || 10
     end
 
+    def class_list
+      @class_list || []
+    end
   end
 end

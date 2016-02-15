@@ -60,6 +60,8 @@ By adding `<% view = cms_page %>` at the top of your page, your page will now be
 
 When creating a new page, you'll be able to assign an URL, a title, the meta-description and meta-keywords for the page.
 
+If you need to have a reusable page template with different contents on each new page, you can create element using `cms_view_image` (or any other viewable) instead of `cms_image`. This way, you'll have a copy of element, without the contents.
+
 #### Blocks
 
 Blocks are the equivalent of a CMS partial that you can add to your page. You use them by creating a template in the `app/views/cms/blocks/` folder. You can then create any CMS element inside those blocks and insert them into your pages.

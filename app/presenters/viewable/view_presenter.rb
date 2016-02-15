@@ -10,7 +10,7 @@ module Viewable
       return unless h.cms_edit_mode?
 
       h.link_to add_path, class: "cms-add cms-add-page", 'data-no-turbolink' => true do
-        h.t('cms.add_page')
+        h.concat h.content_tag(:span, h.t('cms.add'), class: "cms-add-action")
       end
     end
 

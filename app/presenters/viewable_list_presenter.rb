@@ -24,7 +24,7 @@ class ViewableListPresenter < BaseListPresenter
     return unless @max == Float::INFINITY || list.size < @max.to_i
 
     h.link_to add_path, class: "cms-add", 'data-no-turbolink' => true do
-      h.t('cms.add')
+      h.concat h.content_tag(:span, h.t('cms.add'), class: "cms-add-action")
     end
   end
 

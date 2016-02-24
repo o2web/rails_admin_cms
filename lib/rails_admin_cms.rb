@@ -35,4 +35,34 @@ require "rails_admin_cms/config"
 require "rails_admin_cms/utils"
 
 module RailsAdminCMS
+  module Config
+    module Actions
+
+      class CreatePage < RailsAdmin::Config::Actions::Base
+        RailsAdmin::Config::Actions.register(self)
+
+        register_instance_option :collection do
+          true
+        end
+
+        register_instance_option :http_methods do
+          [:get, :post]
+        end
+
+        register_instance_option :bulkable? do
+          true
+        end
+
+        register_instance_option :controller do
+          Proc.new do
+            redirect_to(Rails.application.routes.url_helpers.new_viewable_path(list_key: {locale: I18n.locale, name: 'cms', view_path: 'cms/page', viewable_type: 'Viewable::Page'}, max: 'Infinity'))
+          end
+        end
+
+        register_instance_option :link_icon do
+          'icon-plus'
+        end
+      end
+    end
+  end
 end

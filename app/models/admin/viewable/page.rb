@@ -4,6 +4,8 @@ module Admin
       extend ActiveSupport::Concern
 
       included do
+        has_ancestry
+
         rails_admin do
           navigation_label I18n.t('cms.page.navigation')
           label I18n.t('cms.page.one')
@@ -20,7 +22,20 @@ module Admin
           list do
             scopes [:localized]
           end
+
+          edit do
+            include_all_fields
+            exclude_fields :position, :uuid, :ancestry
+          end
+
+          nestable_tree({
+            position_field: :position
+          })
         end
+      end
+
+      def name
+        "#{title}"
       end
     end
   end

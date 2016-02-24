@@ -1,10 +1,13 @@
 module CMS
   class PagesController < RailsAdminCMS::Config.parent_controller
+    before_action :find_page_view
     after_action :allow_iframe
 
-    def show
+    def find_page_view
       @cms_view = Viewable::Page.find(params[:id]) if params[:id].present?
+    end
 
+    def show
       if @cms_view
         render @cms_view.view_path
       else

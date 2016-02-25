@@ -55,7 +55,11 @@ module RailsAdminCMS
 
         register_instance_option :controller do
           Proc.new do
-            redirect_to(Rails.application.routes.url_helpers.new_viewable_path(list_key: {locale: I18n.locale, name: 'cms', view_path: 'cms/page', viewable_type: 'Viewable::Page'}, max: 'Infinity'))
+            redirect_to(Rails.application.routes.url_helpers.new_viewable_path(list_key: {locale: I18n.locale,
+                                                                                          name: 'cms',
+                                                                                          view_path: 'cms/pages/page',
+                                                                                          viewable_type: 'Viewable::Page'},
+                                                                               max: 'Infinity'))
           end
         end
 

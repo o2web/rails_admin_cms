@@ -7,6 +7,12 @@ module Admin
         has_ancestry
 
         rails_admin do
+          nestable_tree({
+            scope: :breadcrumb_appear,
+            position_field: :tree_position,
+            max_depth: 3
+          })
+
           navigation_label I18n.t('cms.page.navigation')
           label I18n.t('cms.page.one')
           label_plural I18n.t('cms.page.other')
@@ -16,8 +22,8 @@ module Admin
               bindings[:view].link_to value, value, target: '_blank'
             end
           end
-          field :title
-          fields :meta_keywords, :meta_description
+
+          fields :title, :meta_keywords, :meta_description, :breadcrumb_appear
 
           list do
             scopes [:localized]
@@ -25,12 +31,8 @@ module Admin
 
           edit do
             include_all_fields
-            exclude_fields :position, :uuid, :ancestry
+            exclude_fields :position, :uuid, :ancestry, :tree_position
           end
-
-          nestable_tree({
-            position_field: :position
-          })
         end
       end
 

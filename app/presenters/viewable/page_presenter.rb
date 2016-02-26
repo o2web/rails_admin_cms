@@ -1,27 +1,28 @@
 module Viewable
   class PagePresenter < ViewPresenter
-    def tree
-      h.content_tag :nav do
-        h.concat render_tree_master_ul(m.root)
+
+    # build page tree without root
+    def tree(css_class = 'tree')
+      h.content_tag :nav, class: css_class do
+        h.concat render_tree_master_ul(m.second_level_root)
       end
     end
 
-    def breadcrumbs
-      h.content_tag :nav do
+    # build page breadcrumbs
+    def breadcrumbs(css_class = 'breadcrumbs')
+      h.content_tag :nav, class: css_class do
         h.concat breadcrumbs_ul(breadcrumbs_list)
       end
     end
 
     private
 
-    def breadcrumbs_list
-      page = m
-      pages = []
+    def breadcrumbs_list(page = m)
       while page.present?
-        pages.push(page)
+        (pages ||= []).unshift(page)
         page = page.parent
       end
-      pages.reverse!
+      pages
     end
 
     def breadcrumbs_ul(pages)
@@ -34,7 +35,7 @@ module Viewable
 
     def breadcrumbs_li(page)
       h.content_tag :li do
-        h.concat h.link_to(page.title, page.url, class: ('active' if page == m))
+        h.concat (page == m) ? h.content_tag(:span, page.title) : h.link_to(page.title, page.url)
       end
     end
 

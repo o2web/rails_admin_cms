@@ -10,7 +10,7 @@ module Admin
           nestable_tree({
             scope: :breadcrumb_appear,
             position_field: :tree_position,
-            max_depth: 3
+            max_depth: 4
           })
 
           navigation_label I18n.t('cms.page.navigation')

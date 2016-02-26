@@ -31,6 +31,12 @@ module Viewable
       @_view_name ||= view_path.split('/').last
     end
 
+    def second_level_root
+      root.children.each do |child|
+        return child if child.descendants.include? self
+      end
+    end
+
     private
 
     def uuid_columns

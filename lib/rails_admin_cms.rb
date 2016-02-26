@@ -23,6 +23,8 @@ require "paper_trail"
 require "rails_admin_history_rollback"
 require "naught"
 require "rails_admin_globalize_field"
+require "rails_admin_nestable"
+require "ancestry"
 
 BlackHole = Naught.build do |config|
   config.black_hole

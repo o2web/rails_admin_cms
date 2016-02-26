@@ -11,8 +11,17 @@ module Viewable
 
     def set_tree_for_translations
       self.unique_key.other_locales.each do |key|
-        key.viewable.update_columns(tree_position: tree_position)
+
+        translated_ancestors = []
+        self.ancestry.split('/').each do |ancestor_id|
+          ancestor_page = self.class.find(ancestor_id).unique_key.other_locale(key.locale).first
+          translated_ancestors.push(ancestor_page.viewable.id)
+        end if self.ancestry.present?
+
+        key.viewable.update_columns(ancestry: translated_ancestors.present? ? translated_ancestors.join('/') : nil)
+        key.viewable.update_columns(tree_position: self.tree_position)
       end
+
     end
 
     def view_name

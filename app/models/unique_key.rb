@@ -86,6 +86,13 @@ class UniqueKey < ActiveRecord::Base
       .where.not(locale: locale)
   end
 
+  def other_locale(locale = nil)
+    self.class
+      .where(viewable_type: viewable_type, view_path: view_path, name: name)
+      .where(position: self.position)
+      .where(locale: locale)
+  end
+
   def with_buffered_position(new_position)
     update_column(:position, 0)
     yield

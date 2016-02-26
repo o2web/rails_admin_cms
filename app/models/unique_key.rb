@@ -45,8 +45,6 @@ class UniqueKey < ActiveRecord::Base
   end
 
   def list_count
-    Rails.logger.debug self.view_path_changed?
-    Rails.logger.debug "test"
     return self.list.count + 1 if self.view_path_changed?
     self.list.count
   end

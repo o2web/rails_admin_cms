@@ -5,9 +5,12 @@ module Viewable
     include Field::Url
     include Admin::Viewable::Page
 
+    has_ancestry
+
     scope :breadcrumb_appear, -> { localized.where(breadcrumb_appear: true) }
 
     after_save :set_tree_for_translations if :position_changed? || :ancestry_changed?
+
 
     def set_tree_for_translations
       self.unique_key.other_locales.each do |key|

@@ -9,7 +9,7 @@ module Viewable
 
     scope :breadcrumb_appear, -> { localized.where(breadcrumb_appear: true) }
 
-    after_save :set_tree_for_translations if :position_changed? || :ancestry_changed?
+    after_update :set_tree_for_translations if :position_changed? || :ancestry_changed?
 
 
     def set_tree_for_translations

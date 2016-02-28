@@ -8,8 +8,6 @@ module Viewable
 
     has_one :unique_key, as: :viewable, dependent: :destroy
 
-    accepts_nested_attributes_for :unique_key
-
     delegate :view_path, :position, :locale, to: :unique_key
     delegate :name, to: :unique_key, prefix: true
 

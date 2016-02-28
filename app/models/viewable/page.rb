@@ -7,6 +7,8 @@ module Viewable
 
     has_ancestry
 
+    attr_accessor :available_templates
+
     scope :breadcrumb_appear, -> { localized.where(breadcrumb_appear: true) }
 
     after_update :set_tree_for_translations if :position_changed? || :ancestry_changed?
@@ -35,6 +37,11 @@ module Viewable
       root.children.each do |child|
         return child if child.descendants.include? self
       end
+    end
+
+    def available_templates_enum
+      Dir.glob('app/views/cms/**/*.html.erb')
+         .map{ |template| [template, template] if template.include?('cms/pages/') || template.include?('index') }
     end
 
     private

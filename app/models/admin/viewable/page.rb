@@ -29,9 +29,17 @@ module Admin
             scopes [:localized]
           end
 
+          create do
+            field :available_templates, :enum do
+              default_value do
+                'app/views/cms/pages/page.html.erb'
+              end
+            end
+            exclude_fields :title, :url, :meta_keywords, :meta_description, :breadcrumb_appear
+          end
+
           edit do
-            include_all_fields
-            exclude_fields :position, :uuid, :ancestry, :tree_position
+            field :breadcrumb_appear
           end
         end
       end

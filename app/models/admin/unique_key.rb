@@ -9,10 +9,6 @@ module Admin
         object_label_method do
           :id
         end
-
-        edit do
-          field :view_path
-        end
       end
     end
   end

@@ -94,7 +94,7 @@ module RailsAdminCMS
 
               path = rails_admin.edit_path(model_name: unique_key[:viewable_type].to_s.underscore.gsub('/', '~'),
                                            id: viewable.id,
-                                           return_to: rails_admin.edit_path(model_name: unique_key[:viewable_type].to_s.underscore.gsub('/', '~')))
+                                           return_to: rails_admin.edit_path(model_name: unique_key[:viewable_type].to_s.underscore.gsub('/', '~', ), id: viewable.id))
 
               redirect_to path
             end

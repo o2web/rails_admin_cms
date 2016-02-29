@@ -23,14 +23,16 @@ module CMS
 
     def current_url_for(locale)
       url = case controller_path
-      when /^cms\/(pages|forms)/
-        if @cms_view
-          @cms_view.other_uuid(locale).try(:url)
-        else
+        when /^cms\/(pages|forms)/
+          if @cms_view
+            @cms_view.other_uuid(locale).try(:url)
+          else
+            main_app.try("#{params[:cms_view_type]}_#{locale}_path")
+          end
+        when /^cms\//
           main_app.try("#{params[:cms_view_type]}_#{locale}_path")
-        end
-      else
-        url_for(:locale => locale.to_s)
+        else
+          url_for(:locale => locale.to_s)
       end
       url.presence || main_app.root_path(locale: locale)
     end

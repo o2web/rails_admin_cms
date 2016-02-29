@@ -36,7 +36,7 @@ module Viewable
 
     def breadcrumbs_li(page)
       h.content_tag :li do
-        h.concat (page == m) ? h.content_tag(:span, page.title) : h.link_to(page.title, page.url)
+        h.concat (page == m || !page.show_link) ? h.content_tag(:span, page.title) : h.link_to(page.title, page.url)
       end
     end
 

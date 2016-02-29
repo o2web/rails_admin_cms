@@ -10,11 +10,11 @@ module Viewable
     attr_accessor :available_templates
 
     scope :breadcrumb_appear, -> { localized.where(breadcrumb_appear: true) }
-    scope :with_page_url, -> { where("url LIKE '/%'").where(controller: 'pages', action: 'show') }
-    scope :with_controller_url, -> { where("url LIKE '/%'").where.not(controller: 'pages', action: 'show') }
+    scope :with_page_url, -> { where("url LIKE '/%'").where(controller: 'pages', action: 'show', show_link: true) }
+    scope :with_controller_url, -> { where("url LIKE '/%'").where(show_link: true).where.not(controller: 'pages', action: 'show') }
     scope :controller_routes, -> { joins(:unique_key).with_controller_url.where('unique_keys.locale = ?', I18n.locale) }
 
-    after_update :set_tree_for_translations if :position_changed? || :ancestry_changed?
+    after_update :set_tree_for_translations if :tree_position_changed? || :ancestry_changed?
 
     def set_tree_for_translations
       self.unique_key.other_locales.each do |key|

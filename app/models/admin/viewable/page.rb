@@ -23,7 +23,7 @@ module Admin
             end
           end
 
-          fields :title, :meta_keywords, :meta_description, :breadcrumb_appear
+          fields :title, :meta_keywords, :meta_description, :breadcrumb_appear, :has_show_page
 
           list do
             scopes [:localized]
@@ -40,11 +40,7 @@ module Admin
 
           edit do
             field :breadcrumb_appear
-            field :has_show_page do
-              visible do
-                bindings[:object].view_path.include? 'index.html.erb'
-              end
-            end
+            field :has_show_page
           end
         end
       end

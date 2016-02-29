@@ -40,6 +40,11 @@ module Admin
 
           edit do
             field :breadcrumb_appear
+            field :has_show_page do
+              visible do
+                bindings[:object].view_path.include? 'index.html.erb'
+              end
+            end
           end
         end
       end

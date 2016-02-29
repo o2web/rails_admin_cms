@@ -3,12 +3,13 @@ module Viewable
 
     # build page tree without root
     def tree(css_class = 'tree')
+      return if m.second_level_root.blank?
       h.content_tag :nav, class: css_class do
         h.concat render_tree_master_ul(m.second_level_root)
       end
     end
 
-    # build page breadcrumbs
+    # build page breadcrumbs from root
     def breadcrumbs(css_class = 'breadcrumbs')
       h.content_tag :nav, class: css_class do
         h.concat breadcrumbs_ul(breadcrumbs_list)

@@ -13,7 +13,6 @@ module Viewable
 
     after_update :set_tree_for_translations if :position_changed? || :ancestry_changed?
 
-
     def set_tree_for_translations
       self.unique_key.other_locales.each do |key|
 
@@ -41,7 +40,7 @@ module Viewable
 
     def available_templates_enum
       Dir.glob('app/views/cms/**/*.html.erb')
-         .map{ |template| [template, template] if template.include?('cms/pages/') || template.include?('index') }
+         .map{ |template| [template, template] if template.include?('cms/pages/') || template.exclude?('show.html.erb') }
     end
 
     private

@@ -92,7 +92,9 @@ module RailsAdminCMS
 
               viewable = UniqueKey.create_localized_viewable!(unique_key)
 
-              path = rails_admin.edit_path(model_name: unique_key[:viewable_type].to_s.underscore.gsub('/', '~'), id: viewable.id)
+              path = rails_admin.edit_path(model_name: unique_key[:viewable_type].to_s.underscore.gsub('/', '~'),
+                                           id: viewable.id,
+                                           return_to: rails_admin.edit_path(model_name: unique_key[:viewable_type].to_s.underscore.gsub('/', '~')))
 
               redirect_to path
             end

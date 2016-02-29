@@ -4,7 +4,11 @@ module CMS
     after_action :allow_iframe
 
     def find_page_view
-      @cms_view = Viewable::Page.find(params[:id]) if params[:id].present?
+      @cms_view = Viewable::Page.find(params[:id]) if params[:id].present? && params[:parent_id].blank?
+    end
+
+    def find_page_parent_view
+      @cms_view = Viewable::Page.find(params[:parent_id]) if params[:parent_id].present?
     end
 
     def show

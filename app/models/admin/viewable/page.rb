@@ -4,7 +4,6 @@ module Admin
       extend ActiveSupport::Concern
 
       included do
-        has_ancestry
 
         rails_admin do
           navigation_label I18n.t('cms.page.navigation')

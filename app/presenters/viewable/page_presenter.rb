@@ -1,25 +1,26 @@
 module Viewable
   class PagePresenter < ViewPresenter
 
-    # build page tree without root
-    def tree(css_class = 'tree')
-      return if m.second_level_root.blank?
+    # build page tree from specified root_depth, default second level root
+    def tree(root_depth = 1, css_class = 'tree')
+      return if m.parent_at_depth(root_depth).nil?
       h.content_tag :nav, class: css_class do
-        h.concat render_tree_master_ul(m.second_level_root)
+        h.concat render_tree_master_ul(m.parent_at_depth(root_depth))
       end
     end
 
-    # build page breadcrumbs from root
-    def breadcrumbs(css_class = 'breadcrumbs')
+    # build page breadcrumbs from specified root_depth, default root
+    def breadcrumbs(root_depth = 0, css_class = 'breadcrumbs')
+      return if m.parent_at_depth(root_depth).nil?
       h.content_tag :nav, class: css_class do
-        h.concat breadcrumbs_ul(breadcrumbs_list)
+        h.concat breadcrumbs_ul(breadcrumbs_list(root_depth))
       end
     end
 
     private
 
-    def breadcrumbs_list(page = m)
-      while page.present?
+    def breadcrumbs_list(root_depth = 0, page = m)
+      while page.present? && page.depth >= root_depth
         (pages ||= []).unshift(page)
         page = page.parent
       end

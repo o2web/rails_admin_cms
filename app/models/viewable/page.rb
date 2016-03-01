@@ -5,7 +5,9 @@ module Viewable
     include Field::Url
     include Admin::Viewable::Page
 
-    has_ancestry
+    has_ancestry({
+      cache_depth: true
+    })
 
     after_commit :reload_routes_path
 
@@ -29,6 +31,7 @@ module Viewable
 
         key.viewable.update_columns(ancestry: translated_ancestors.present? ? translated_ancestors.join('/') : nil)
         key.viewable.update_columns(tree_position: self.tree_position)
+        key.viewable.update_columns(ancestry_depth: self.ancestry_depth)
       end
     end
 
@@ -52,8 +55,9 @@ module Viewable
       @_single_locale_controller_name ||= "#{controller.split('/').last.singularize}_#{locale}"
     end
 
-    def second_level_root
-      root.children.each do |child|
+    def parent_at_depth(depth)
+      roots = self.class.at_depth(depth)
+      roots.each do |child|
         return child if child.descendants.include? self
       end
     end

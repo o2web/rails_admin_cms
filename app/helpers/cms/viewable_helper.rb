@@ -13,7 +13,7 @@ module CMS
 
     ::Viewable::Page.controller_routes.each do |page|
       define_custom_controllers_route(page)
-    end
+    end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
 
     def self.define_cms_view_helper(type)
       define_method "cms_view_#{type}" do |name = 'cms', min = 1, max = nil|

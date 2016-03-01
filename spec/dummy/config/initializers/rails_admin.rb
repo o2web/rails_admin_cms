@@ -77,6 +77,22 @@ RailsAdmin.config do |config|
     end
     show_in_app
 
+    create_page do
+      visible do
+        %w(
+          Viewable::Page
+        ).include? bindings[:abstract_model].model_name
+      end
+    end
+
+    nestable do
+      visible do
+        %w(
+          Viewable::Page
+        ).include? bindings[:abstract_model].model_name
+      end
+    end
+
     ## With an audit adapter, you can add:
     history_index
     history_show

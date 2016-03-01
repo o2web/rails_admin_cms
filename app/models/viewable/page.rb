@@ -71,7 +71,7 @@ module Viewable
 
     def reload_routes_path
       self.class.controller_routes.each do |page|
-        CMS::ViewableHelper.define_custom_controllers_route(page)
+        CMS::ViewableHelper.define_custom_route(page)
       end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
     end
   end

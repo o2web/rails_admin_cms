@@ -1,6 +1,6 @@
 module CMS
   module ViewableHelper
-    def self.define_custom_controllers_route(page)
+    def self.define_custom_route(page)
       define_method "#{page.controller_name}_path" do
         Rails.application.class.routes.url_helpers.send("#{page.controller_name}_#{I18n.locale}_path")
       end unless method_defined? :"#{page.controller_name}_path"
@@ -12,7 +12,7 @@ module CMS
     end
 
     ::Viewable::Page.controller_routes.each do |page|
-      define_custom_controllers_route(page)
+      define_custom_route(page)
     end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
 
     def self.define_cms_view_helper(type)

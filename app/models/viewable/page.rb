@@ -7,11 +7,13 @@ module Viewable
 
     has_ancestry
 
+    after_commit :reload_routes_path
+
     attr_accessor :available_templates
 
     scope :breadcrumb_appear, -> { localized.where(breadcrumb_appear: true) }
-    scope :with_page_url, -> { where("url LIKE '/%'").where(controller: 'pages', action: 'show', show_link: true) }
-    scope :with_controller_url, -> { where("url LIKE '/%'").where(show_link: true).where.not(controller: 'pages', action: 'show') }
+    scope :with_page_url, -> { with_url.where(controller: 'pages', action: 'show', show_link: true) }
+    scope :with_controller_url, -> { with_url.where(show_link: true).where.not(controller: 'pages', action: 'show') }
     scope :controller_routes, -> { joins(:unique_key).with_controller_url.where('unique_keys.locale = ?', I18n.locale) }
 
     after_update :set_tree_for_translations if :tree_position_changed? || :ancestry_changed?
@@ -65,6 +67,12 @@ module Viewable
 
     def uuid_columns
       super + [:url]
+    end
+
+    def reload_routes_path
+      self.class.controller_routes.each do |page|
+        CMS::ViewableHelper.define_custom_controllers_route(page)
+      end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
     end
   end
 end

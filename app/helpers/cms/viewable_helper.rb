@@ -3,11 +3,11 @@ module CMS
     def self.define_custom_controllers_route(page)
       define_method "#{page.controller_name}_path" do
         Rails.application.class.routes.url_helpers.send("#{page.controller_name}_#{I18n.locale}_path")
-      end
+      end unless method_defined? :"#{page.controller_name}_path"
       if page.action == 'index' && page.has_show_page
         define_method "#{page.single_controller_name}_path" do |item|
           Rails.application.class.routes.url_helpers.send("#{page.single_controller_name}_#{I18n.locale}_path", item)
-        end
+        end unless method_defined? :"#{page.single_controller_name}_path"
       end
     end
 

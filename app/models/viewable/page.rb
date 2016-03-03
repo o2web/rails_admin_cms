@@ -56,10 +56,11 @@ module Viewable
     end
 
     def parent_at_depth(depth)
-      roots = self.class.at_depth(depth)
+      roots = self.ancestors.at_depth(depth)
       roots.each do |child|
         return child if child.descendants.include? self
       end
+      self
     end
 
     def available_templates_enum

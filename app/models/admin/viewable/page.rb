@@ -43,6 +43,10 @@ module Admin
           end
 
           edit do
+            field :meta_title do
+              label I18n.t('cms.page.meta_title')
+            end
+
             field :meta_keywords do
               label I18n.t('cms.page.meta_keywords')
             end

@@ -23,6 +23,7 @@ module Viewable
     def set_meta_tags
       tags = %w[
         title
+        meta_title
         meta_keywords
         meta_description
       ]

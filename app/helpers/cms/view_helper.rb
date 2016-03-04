@@ -20,7 +20,7 @@ module CMS
     end
 
     def cms_title(default = nil)
-      @cms_page_title || default
+      (@cms_page_meta_title || @cms_page_title) || default
     end
 
     def cms_meta_data_tags(default = nil)
@@ -43,7 +43,7 @@ module CMS
         image = @product.images.first.try(:attachment)
         tags[:image] = image.try(:url, :product)
       else
-        tags[:title] = title.blank? ? Setting['cms_og_tag_title'] : title
+        tags[:title] = title.blank? ? Setting['cms_og_tag_title'] : cms_title(title)
       end
       %{
         <meta property="og:title" content="#{tags[:title]}" />

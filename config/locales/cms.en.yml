@@ -22,6 +22,7 @@ en:
       navigation: Site
       one: Page
       other: Pages
+      meta_title: Meta title
       meta_keywords: Meta keywords
       meta_description: Meta description
       has_show_page: Has a show page (for an index page)

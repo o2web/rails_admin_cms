@@ -22,6 +22,13 @@ en:
       navigation: Site
       one: Page
       other: Pages
+      meta_keywords: Meta keywords
+      meta_description: Meta description
+      has_show_page: Has a show page (for an index page)
+      show_link: Make available url and display link in breadcrumbs
+      url: Link
+      title: Title
+      breadcrumb_appear: Appears in breadcrumbs
     setting:
       navigation: Site
       one: Setting

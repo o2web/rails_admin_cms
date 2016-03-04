@@ -11,12 +11,23 @@ module Admin
           label_plural I18n.t('cms.page.other')
 
           field :url, :string do
+            label I18n.t('cms.page.url')
             pretty_value do
-              bindings[:view].link_to value, value, target: '_blank'
+              (bindings[:object].show_link) ? bindings[:view].link_to(value, value, target: '_blank') : value
             end
           end
 
-          fields :title, :meta_keywords, :meta_description, :breadcrumb_appear, :has_show_page, :show_link
+          field :title do
+            label I18n.t('cms.page.title')
+          end
+
+          field :breadcrumb_appear do
+            label I18n.t('cms.page.breadcrumb_appear')
+          end
+
+          field :show_link do
+            label I18n.t('cms.page.show_link')
+          end
 
           list do
             scopes [:localized]
@@ -28,12 +39,21 @@ module Admin
                 'app/views/cms/pages/page.html.erb'
               end
             end
-            exclude_fields :title, :url, :meta_keywords, :meta_description, :breadcrumb_appear, :has_show_page, :show_link
+            exclude_fields :title, :url, :breadcrumb_appear
           end
 
           edit do
-            field :breadcrumb_appear
-            field :has_show_page
+            field :meta_keywords do
+              label I18n.t('cms.page.meta_keywords')
+            end
+
+            field :meta_description do
+              label I18n.t('cms.page.meta_description')
+            end
+
+            field :has_show_page do
+              label I18n.t('cms.page.has_show_page')
+            end
           end
 
           nestable_tree({

@@ -22,6 +22,13 @@ fr:
       navigation: Site
       one: Page
       other: Pages
+      meta_keywords: Meta mots clés
+      meta_description: Meta description
+      has_show_page: A une page fiche (dans le cas d'une page index)
+      show_link: Rendre disponible l'url et afficher un lien dans le fil d'Ariane
+      url: Lien
+      title: Titre
+      breadcrumb_appear: Afficher dans le fil d'Ariane
     setting:
       navigation: Site
       one: Paramètre

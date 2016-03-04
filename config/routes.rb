@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     get 'attachments/*directory/:file' => 'attachments#show', format: true
 
     Viewable::Page.with_page_url.each do |page|
-      get page.url => "pages#show", defaults: { id: page.id, cms_view_type: page.view_name, locale: page.locale }, format: false
+      if page.show_link
+        get page.url => "pages#show", defaults: { id: page.id, cms_view_type: page.view_name, locale: page.locale }, format: false
+      end
     end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
 
     Viewable::Page.with_controller_url.each do |page|

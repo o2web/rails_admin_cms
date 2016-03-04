@@ -63,7 +63,7 @@ module Admin
           nestable_tree({
             scope: :breadcrumb_appear,
             position_field: :tree_position,
-            max_depth: 4
+            max_depth: 5
           })
         end
       end

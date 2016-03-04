@@ -65,7 +65,15 @@ module Viewable
 
     def available_templates_enum
       Dir.glob('app/views/cms/**/*.html.erb')
-         .map{ |template| [template, template] if template.include?('cms/pages/') || template.include?('index.html.erb') }
+         .map{ |template| [template, template] if template.include?('cms/pages/') || self.template_exists?(template) }
+    end
+
+    def template_exists?(template)
+      template.include?('index.html.erb') && self.existing_index_routes.exclude?(template.sub('app/views/', '').sub('.html.erb', ''))
+    end
+
+    def existing_index_routes
+      self.class.includes(:unique_key).where(unique_keys: { viewable_type: 'Viewable::Page'}).where('unique_keys.view_path LIKE ?', '%/index').pluck(:view_path)
     end
 
     private

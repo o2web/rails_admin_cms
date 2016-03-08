@@ -55,7 +55,7 @@ module Viewable
         h.concat h.link_to(page.title, page.url, class: ('active' if page == m))
         page.children.order(:tree_position).each do |child|
           h.concat render_tree_ul(child)
-        end if page.has_children? && page != m && page.depth < m.depth
+        end if page.has_children? && (page.depth < m.depth || m == page)
       end
     end
 

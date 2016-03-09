@@ -25,33 +25,29 @@ module CMS
 
     def cms_meta_data_tags(default = nil)
       if @cms_page_meta_keywords || @cms_page_meta_description
-        html = tag(:meta, name: 'meta_keywords', content: @cms_page_meta_keywords)
+        html = tag(:meta, name: 'keywords', content: @cms_page_meta_keywords)
         html << "\n"
-        html << tag(:meta, name: 'meta_description', content: @cms_page_meta_description)
+        html << tag(:meta, name: 'description', content: @cms_page_meta_description)
         html.html_safe
       else
         default
       end
     end
 
-    def cms_meta_og_tags(title = nil)
+    def cms_meta_og_tags(default = nil)
       tags = {}
-      if @product # TODO: move to Solidus connector
-        tags[:title] = @product.name
-        tags[:description] = @product.description
-        tags[:url] = product_url(@product, only_path: false)
-        image = @product.images.first.try(:attachment)
-        tags[:image] = image.try(:url, :product)
-      else
-        tags[:title] = title.blank? ? Setting['cms_og_tag_title'] : cms_title(title)
+      tags[:title] = @product ? @product.name : cms_title
+      tags[:type] = 'website'
+      tags[:description] = @product ? @product.description : @cms_page_meta_description
+      tags[:url] = @product ? product_url(@product, only_path: false) : request.original_url
+      tags[:image] = @product ? @product.images.first.try(:attachment).try(:url, :product) : nil # @todo image
+
+      html = ''
+      tags.each do |name, value|
+        html << tag(:meta, property: "og:#{name}", content: value)
+        html << "\n"
       end
-      %{
-        <meta property="og:title" content="#{tags[:title]}" />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content="#{tags[:description] || Setting['cms_og_tag_description']}" />
-        <meta property="og:url" content="#{tags[:url] || request.original_url }" />
-        <meta property="og:image" content="#{image_url(tags[:image] || 'ogimage.jpg', only_path: false)}" />
-      }.html_safe
+      html.html_safe || default
     end
 
     def yes_no(boolean)

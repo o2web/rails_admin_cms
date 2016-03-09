@@ -10,10 +10,10 @@ module Viewable
     end
 
     # build page breadcrumbs from specified root_depth, default root
-    def breadcrumbs(root_depth = 0, css_class = 'breadcrumbs')
+    def breadcrumbs(root_depth = 0, nav_class = 'breadcrumbs', div_class = 'scrollable')
       return if m.parent_at_depth(root_depth).nil?
-      h.content_tag :nav, class: css_class do
-        h.concat breadcrumbs_ul(breadcrumbs_list(root_depth))
+      h.content_tag :nav, class: nav_class do
+        h.concat h.content_tag(:div, breadcrumbs_ul(breadcrumbs_list(root_depth)), class: div_class)
       end
     end
 

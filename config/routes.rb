@@ -9,12 +9,12 @@ Rails.application.routes.draw do
 
     Viewable::Page.with_page_url.each do |page|
       if page.show_link
-        get page.url => "pages#show", defaults: { id: page.id, cms_view_type: page.view_name, locale: page.locale }, format: false
+        get page.url => "pages#show", defaults: { page_id: page.id, cms_view_type: page.view_name, locale: page.locale }, format: false
       end
     end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
 
     Viewable::Page.with_controller_url.each do |page|
-      get page.url => "#{page.controller}##{page.action}", as: page.locale_controller_name, defaults: { id: page.id, cms_view_type: page.controller_name, locale: page.locale }, format: false
+      get page.url => "#{page.controller}##{page.action}", as: page.locale_controller_name, defaults: { page_id: page.id, cms_view_type: page.controller_name, locale: page.locale }, format: false
       if page.action == 'index' && page.has_show_page
         get "#{page.url}/:id" => "#{page.controller}#show", as: page.single_locale_controller_name, defaults: { parent_id: page.id, cms_view_type: page.single_controller_name, locale: page.locale }, format: false
       end

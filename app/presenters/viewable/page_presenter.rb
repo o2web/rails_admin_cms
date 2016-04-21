@@ -1,9 +1,10 @@
 module Viewable
   class PagePresenter < ViewPresenter
 
-    # build page tree from specified root_depth, default second level root
-    def tree(root_depth: 1, nav_class: 'tree')
+    # build page tree from specified root_depth, default second level root with sitemap property to render a sitemap from top root of current page
+    def tree(root_depth: 1, sitemap: false, nav_class: 'tree')
       return if m.parent_at_depth(root_depth).nil?
+      @sitemap = sitemap
       h.content_tag :nav, class: nav_class do
         h.concat render_tree_master_ul(m.parent_at_depth(root_depth))
       end
@@ -39,7 +40,7 @@ module Viewable
 
     def breadcrumbs_li(page, last_page)
       h.content_tag :li do
-        h.concat (page.show_link && !last_page) ? h.link_to(page.title, page.url) : h.content_tag(:span, page.title)
+        h.concat (page.show_link && (!last_page || !@sitemap)) ? h.link_to(page.title, page.url) : h.content_tag(:span, page.title)
       end
     end
 
@@ -48,16 +49,16 @@ module Viewable
         h.concat h.content_tag(:span, page.title, data: {:'js-drawer-mobile' => true})
         page.children.order(:tree_position).each do |child|
           h.concat render_tree_ul(child)
-        end if page.has_children? && page != m
+        end if page.has_children? && (page != m || @sitemap)
       end
     end
 
     def render_tree_li(page)
-      h.content_tag(:li, class: ('active' if page.subtree.include? m)) do
-        h.concat h.link_to(page.title, page.url, class: ('active' if page == m))
+      h.content_tag(:li, class: ('active' if (page.subtree.include?(m) && !@sitemap))) do
+        h.concat h.link_to(page.title, page.url, class: ('active' if (page == m && !@sitemap)))
         page.children.order(:tree_position).each do |child|
           h.concat render_tree_ul(child)
-        end if page.has_children? && (m.ancestors.include?(page) || m.subtree.include?(page))
+        end if page.has_children? && (m.ancestors.include?(page) || m.subtree.include?(page) || @sitemap)
       end
     end
 

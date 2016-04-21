@@ -46,7 +46,7 @@ module Viewable
 
     def render_tree_master_li(page)
       h.content_tag :li do
-        h.concat h.content_tag(:span, page.title, data: {:'js-drawer-mobile' => true})
+        h.concat h.content_tag(:span, (@sitemap ? h.link_to(page.title, page.url) : page.title), data: {:'js-drawer-mobile' => true})
         page.children.order(:tree_position).each do |child|
           h.concat render_tree_ul(child)
         end if page.has_children? && (page != m || @sitemap)

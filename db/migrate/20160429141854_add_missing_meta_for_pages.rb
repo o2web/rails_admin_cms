@@ -2,12 +2,12 @@ class AddMissingMetaForPages < ActiveRecord::Migration
   def change
     add_column :viewable_pages, :twitter_card, :string
     add_column :viewable_pages, :twitter_title, :string
-    add_column :viewable_pages, :twitter_description, :string
+    add_column :viewable_pages, :twitter_description, :text
     add_column :viewable_pages, :twitter_image, :string
 
     add_column :viewable_pages, :og_title, :string
     add_column :viewable_pages, :og_image, :string
-    add_column :viewable_pages, :og_description, :string
+    add_column :viewable_pages, :og_description, :text
 
     add_column :viewable_pages, :meta_general_image, :string
 

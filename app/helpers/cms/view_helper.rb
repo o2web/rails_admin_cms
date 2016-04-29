@@ -19,35 +19,23 @@ module CMS
       end
     end
 
-    def cms_title(default = nil)
-      (@cms_page_meta_title || @cms_page_title) || default
+    def cms_title
+      (@cms_view.meta_title || Setting['default_meta_title']).html_safe
     end
 
-    def cms_meta_data_tags(default = nil)
-      if @cms_page_meta_keywords || @cms_page_meta_description
-        html = tag(:meta, name: 'keywords', content: @cms_page_meta_keywords)
-        html << "\n"
-        html << tag(:meta, name: 'description', content: @cms_page_meta_description)
-        html.html_safe
-      else
-        default
-      end
-    end
+    def cms_meta_data_tags
+      html = tag(:meta, name: 'description', content: (@cms_view.meta_description.present? ? @cms_view.meta_description : Setting['default_meta_description']))
+      html << tag(:meta, name: 'keywords', content: (@cms_view.meta_keywords.present? ? @cms_view.meta_keywords : Setting['default_meta_description']))
+      html << tag(:meta, name: 'twitter:site', content: Setting['twitter_site'])
+      html << tag(:meta, name: 'twitter:card', content: (@cms_view.twitter_card.present? ? @cms_view.twitter_card : Setting['default_twitter_card']))
+      html << tag(:meta, name: 'twitter:title', content: (@cms_view.twitter_title.present? ? @cms_view.twitter_title : Setting['default_twitter_title']))
+      html << tag(:meta, name: 'twitter:image', content: (@cms_view.twitter_image.present? ? @cms_view.twitter_image : (@cms_view.meta_general_image.present? ? @cms_view.meta_general_image : Setting['default_meta_general_image'])))
+      html << tag(:meta, property: 'og:title', content: (@cms_view.og_title.present? ? @cms_view.og_title : Setting['default_og_title']))
+      html << tag(:meta, property: 'og:image', content: (@cms_view.og_image.present? ? @cms_view.og_image : (@cms_view.meta_general_image.present? ? @cms_view.meta_general_image : Setting['default_meta_general_image'])))
+      html << tag(:meta, property: 'og:description', content: (@cms_view.og_description.present? ? @cms_view.og_description : Setting['default_og_description']))
+      html << tag(:meta, property: 'fb:app_id', content: Setting['fb_app_id'])
 
-    def cms_meta_og_tags(default = nil)
-      tags = {}
-      tags[:title] = @product ? @product.name : cms_title
-      tags[:type] = 'website'
-      tags[:description] = @product ? @product.description : @cms_page_meta_description
-      tags[:url] = @product ? product_url(@product, only_path: false) : request.original_url
-      tags[:image] = @product ? @product.images.first.try(:attachment).try(:url, :product) : nil # @todo image
-
-      html = ''
-      tags.each do |name, value|
-        html << tag(:meta, property: "og:#{name}", content: value)
-        html << "\n"
-      end
-      html.html_safe || default
+      html.html_safe
     end
 
     def yes_no(boolean)

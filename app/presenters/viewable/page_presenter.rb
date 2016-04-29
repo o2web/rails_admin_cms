@@ -40,7 +40,7 @@ module Viewable
 
     def breadcrumbs_li(page, last_page)
       h.content_tag :li do
-        h.concat (page.show_link && (!last_page || !@sitemap)) ? h.link_to(page.title, page.url) : h.content_tag(:span, page.title)
+        h.concat (page.show_link && !last_page) ? h.link_to(page.title, page.url) : h.content_tag(:span, page.title)
       end
     end
 

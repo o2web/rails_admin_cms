@@ -55,6 +55,47 @@ module Admin
               label I18n.t('cms.page.meta_description')
             end
 
+            field :meta_general_image do
+              def render
+                bindings[:view].render partial: 'cms/shared/image',
+                                       locals: { image: value,
+                                                 image_field_name: 'viewable_page[meta_general_image]',
+                                                 image_field_id: 'viewable_page_meta_general_image',
+                                                 optimal_size: '1200×630'
+                                       }
+              end
+            end
+
+            field :og_title
+            field :og_description
+
+            field :og_image do
+              def render
+                bindings[:view].render partial: 'cms/shared/image',
+                                       locals: { image: value,
+                                                 image_field_name: 'viewable_page[og_image]',
+                                                 image_field_id: 'viewable_page_og_image',
+                                                 optimal_size: '1200×630'
+                                       }
+              end
+            end
+
+
+            field :twitter_card
+            field :twitter_title
+            field :twitter_description
+
+            field :twitter_image do
+              def render
+                bindings[:view].render partial: 'cms/shared/image',
+                                       locals: { image: value,
+                                                 image_field_name: 'viewable_page[twitter_image]',
+                                                 image_field_id: 'viewable_page_twitter_image',
+                                                 optimal_size: '240×240'
+                                       }
+              end
+            end
+
             field :has_show_page do
               label I18n.t('cms.page.has_show_page')
             end

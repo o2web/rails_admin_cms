@@ -20,7 +20,7 @@ module CMS
     end
 
     def cms_title
-      (@cms_view.meta_title || Setting['default_meta_title']).html_safe
+      ((@cms_view.meta_title.present? ? @cms_view.meta_title : @cms_view.title) || Setting['default_meta_title']).html_safe
     end
 
     def cms_meta_data_tags

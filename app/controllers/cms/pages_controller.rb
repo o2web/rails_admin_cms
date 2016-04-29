@@ -29,6 +29,7 @@ module CMS
     end
 
     def add_show_page_meta(show_page)
+      return if show_page.cms_meta_tag.nil?
       %i(
         meta_title
         meta_description

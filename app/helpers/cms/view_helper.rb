@@ -47,6 +47,14 @@ module CMS
       ''
     end
 
+    def hreflang_links
+      html = ''
+      I18n.available_locales.each do |locale|
+        html << tag(:link, rel: 'alternate', hreflang: locale, href: current_url_for(locale))
+      end
+      html
+    end
+
     def yes_no(boolean)
       boolean ? t('yes') : t('no')
     end

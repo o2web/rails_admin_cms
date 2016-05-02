@@ -31,9 +31,9 @@ module CMS
       html << tag(:meta, name: 'twitter:site', content: Setting['twitter_site'])
       html << tag(:meta, name: 'twitter:card', content: content_priority([@cms_view.twitter_card, Setting['default_twitter_card']]))
       html << tag(:meta, name: 'twitter:title', content: content_priority([@cms_view.twitter_title, Setting['default_twitter_title']]))
-      html << tag(:meta, name: 'twitter:image',content: content_priority([@cms_view.twitter_image, @cms_view.meta_general_image, Setting['default_meta_general_image']]))
+      html << tag(:meta, name: 'twitter:image',content: "#{request.base_url}#{content_priority([@cms_view.twitter_image, @cms_view.meta_general_image, Setting['default_meta_general_image']])}")
       html << tag(:meta, property: 'og:title', content: content_priority([@cms_view.og_title, Setting['default_og_title']]))
-      html << tag(:meta, property: 'og:image', content: content_priority([@cms_view.og_image, @cms_view.meta_general_image, Setting['default_meta_general_image']]))
+      html << tag(:meta, property: 'og:image', content: "#{request.base_url}#{content_priority([@cms_view.og_image, @cms_view.meta_general_image, Setting['default_meta_general_image']])}")
       html << tag(:meta, property: 'og:description', content: content_priority([@cms_view.og_description, Setting['default_og_description']]))
       html << tag(:meta, property: 'fb:app_id', content: Setting['fb_app_id'])
 

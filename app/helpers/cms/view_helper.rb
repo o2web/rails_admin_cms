@@ -50,7 +50,7 @@ module CMS
     def hreflang_links
       html = ''
       I18n.available_locales.each do |locale|
-        html << tag(:link, rel: 'alternate', hreflang: locale, href: current_url_for(locale))
+        html << tag(:link, rel: 'alternate', hreflang: locale, href: "#{request.base_url}#{current_url_for(locale)}")
       end
       html
     end

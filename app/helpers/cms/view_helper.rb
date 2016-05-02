@@ -19,23 +19,32 @@ module CMS
       end
     end
 
-    def cms_title
-      ((@cms_view.meta_title.present? ? @cms_view.meta_title : @cms_view.title) || Setting['default_meta_title']).html_safe
+    def cms_title(title = nil)
+      return title unless defined? @cms_view
+      "#{content_priority([@cms_view.meta_title, @cms_view.title, Setting['default_meta_title']])} - #{I18n.t('site.title')}".html_safe
     end
 
     def cms_meta_data_tags
-      html = tag(:meta, name: 'description', content: (@cms_view.meta_description.present? ? @cms_view.meta_description : Setting['default_meta_description']))
-      html << tag(:meta, name: 'keywords', content: (@cms_view.meta_keywords.present? ? @cms_view.meta_keywords : Setting['default_meta_description']))
+      return meta_data_tags unless defined? @cms_view
+      html = tag(:meta, name: 'description', content: content_priority([@cms_view.meta_description, Setting['default_meta_description']]))
+      html << tag(:meta, name: 'keywords', content: content_priority([@cms_view.meta_keywords, Setting['default_meta_keywords']]))
       html << tag(:meta, name: 'twitter:site', content: Setting['twitter_site'])
-      html << tag(:meta, name: 'twitter:card', content: (@cms_view.twitter_card.present? ? @cms_view.twitter_card : Setting['default_twitter_card']))
-      html << tag(:meta, name: 'twitter:title', content: (@cms_view.twitter_title.present? ? @cms_view.twitter_title : Setting['default_twitter_title']))
-      html << tag(:meta, name: 'twitter:image', content: (@cms_view.twitter_image.present? ? @cms_view.twitter_image : (@cms_view.meta_general_image.present? ? @cms_view.meta_general_image : Setting['default_meta_general_image'])))
-      html << tag(:meta, property: 'og:title', content: (@cms_view.og_title.present? ? @cms_view.og_title : Setting['default_og_title']))
-      html << tag(:meta, property: 'og:image', content: (@cms_view.og_image.present? ? @cms_view.og_image : (@cms_view.meta_general_image.present? ? @cms_view.meta_general_image : Setting['default_meta_general_image'])))
-      html << tag(:meta, property: 'og:description', content: (@cms_view.og_description.present? ? @cms_view.og_description : Setting['default_og_description']))
+      html << tag(:meta, name: 'twitter:card', content: content_priority([@cms_view.twitter_card, Setting['default_twitter_card']]))
+      html << tag(:meta, name: 'twitter:title', content: content_priority([@cms_view.twitter_title, Setting['default_twitter_title']]))
+      html << tag(:meta, name: 'twitter:image',content: content_priority([@cms_view.twitter_image, @cms_view.meta_general_image, Setting['default_meta_general_image']]))
+      html << tag(:meta, property: 'og:title', content: content_priority([@cms_view.og_title, Setting['default_og_title']]))
+      html << tag(:meta, property: 'og:image', content: content_priority([@cms_view.og_image, @cms_view.meta_general_image, Setting['default_meta_general_image']]))
+      html << tag(:meta, property: 'og:description', content: content_priority([@cms_view.og_description, Setting['default_og_description']]))
       html << tag(:meta, property: 'fb:app_id', content: Setting['fb_app_id'])
 
       html.html_safe
+    end
+
+    def content_priority(content)
+      content.each do |element|
+        return element if element.present?
+      end
+      ''
     end
 
     def yes_no(boolean)

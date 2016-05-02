@@ -10,6 +10,7 @@ module CMS
     def find_page_parent_view(show_page = nil)
       @cms_view = Viewable::Page.find(params[:parent_id]) if params[:parent_id].present?
       add_show_page_meta show_page unless show_page.nil?
+      @show_page = show_page
     end
 
     def show

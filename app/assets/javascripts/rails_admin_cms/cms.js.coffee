@@ -44,7 +44,7 @@ class CMS
     @data_js('cms-flash').fadeIn().delay(3500).fadeOut(800)
 
   @validate: =>
-    $.validate({ modules: 'security', validateOnBlur: false})
+    $.validate({ modules: 'security, file', validateOnBlur: false})
 
   @validate_mailchimp: =>
     $.validate(form: '#mailchimp_form', validateOnBlur: false)

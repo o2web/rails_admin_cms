@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails_admin_history_rollback", "~> 0.0.6"
   s.add_dependency "naught", "~> 1.0.0"
   s.add_dependency "rails_admin_globalize_field", "~> 0.4.0"
+  s.add_dependency "globalize", "~> 5.0.1"
   s.add_dependency "rails_admin_nestable", "~> 0.3.2"
   s.add_dependency "ancestry", "~> 2.1.0"
 

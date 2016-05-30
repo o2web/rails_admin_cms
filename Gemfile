@@ -10,6 +10,7 @@ gem 'rails_admin', github: 'o2web/rails_admin', branch: 'master'
 gem 'rails_admin_jcrop', github: 'o2web/rails_admin_jcrop', branch: 'feature/one_crop_per_page'
 gem 'rails_admin_globalize_field', github: 'o2web/rails_admin_globalize_field', branch: 'master'
 gem 'rails_admin_nestable'
+gem 'globalize', '~> 5.0.1'
 gem 'ancestry'
 
 # Declare any dependencies that are still in development here instead of in

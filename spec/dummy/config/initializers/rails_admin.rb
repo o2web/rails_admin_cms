@@ -36,6 +36,8 @@ RailsAdmin.config do |config|
     UniqueKey
     Setting
     Rich::RichFile
+    CMS::Page
+    CMS::Page::Translation
   ]
 
   config.actions do
@@ -131,5 +133,13 @@ RailsAdmin.config do |config|
         end
       end
     end
+  end
+
+  config.model 'CMS::Page::Translation' do
+    visible false
+    configure :locale, :hidden do
+      help ''
+    end
+    include_fields :locale, :title, :url
   end
 end

@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency "email_validator", "~> 1.6", ">= 1.6.0"
   s.add_dependency "country_select", "~> 2.5", ">= 2.5.1"
   s.add_dependency "i18n_country_select", "~> 1.1", ">= 1.1.5"
-  s.add_dependency "invisible_captcha", "~> 0.8", ">= 0.8.0"
+  s.add_dependency "invisible_captcha", "~> 0.8.0"
   s.add_dependency "jquery-form-validator-rails", "~> 0.0", ">= 0.0.2"
   s.add_dependency "bootstrap_flash_messages", "~> 1.0", ">= 1.0.1"
   s.add_dependency "gibbon", "~> 1.1"

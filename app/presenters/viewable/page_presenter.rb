@@ -61,7 +61,11 @@ module Viewable
 
     def render_tree_li(page)
       h.content_tag(:li, class: ('active' if (page.subtree.include?(m) && !@sitemap))) do
-        h.concat h.link_to_if(page.show_link?, page.title, page.url, class: ('active' if (page == m && !@sitemap)))
+        if page.show_link?
+          h.concat h.link_to(page.title, page.url, class: ('active' if (page == m && !@sitemap)))
+        else
+          h.concat h.content_tag(:span, page.title)
+        end
         page.children.order(:tree_position).each do |child|
           h.concat render_tree_ul(child)
         end if page.has_children? && (m.ancestors.include?(page) || m.subtree.include?(page) || @sitemap)

@@ -64,7 +64,7 @@ module Viewable
         if page.show_link?
           h.concat h.link_to(page.title, page.url, class: ('active' if (page == m && !@sitemap)))
         else
-          h.concat h.content_tag(:span, page.title)
+          h.concat h.content_tag(:span, page.title, class: '-disable')
         end
         page.children.order(:tree_position).each do |child|
           h.concat render_tree_ul(child)

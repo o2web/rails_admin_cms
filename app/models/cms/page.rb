@@ -15,7 +15,7 @@ class CMS::Page < ActiveRecord::Base
   has_many :texts
 
   def text_with_key(key)
-    texts.with_key(key)
+    texts.with_key(key, self.id)
   end
 
   def current_url_for(locale)

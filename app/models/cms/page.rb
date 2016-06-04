@@ -27,6 +27,10 @@ class CMS::Page < ActiveRecord::Base
     self.send(part.to_s.pluralize).with_key(key, self.id)
   end
 
+  def parts_with_key(part, key, min)
+    self.send(part.to_s.pluralize).all_with_key(key, self.id, min)
+  end
+
   def current_url_for(locale)
     self.translations.with_locale(locale).first.url
   end

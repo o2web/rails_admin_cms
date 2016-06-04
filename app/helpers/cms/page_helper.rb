@@ -5,17 +5,38 @@ module CMS
     end
 
     def self.define_cms_page_helpers(part)
-      define_method "cms_page_#{part}" do |key = 'cms'|
-        "CMS::#{part.to_s.capitalize}Presenter".constantize.new(@cms_page.part_with_key(part, key), self)
+      presenter = "CMS::#{part.to_s.capitalize}Presenter".constantize
+
+      define_method "cms_page_#{part}" do |key = 'cms', min = nil, max = nil|
+        return presenter.new(@cms_page.part_with_key(part, key), self) if min.nil?
+
+        max = Float::INFINITY if max.nil? || max < min
+        list = []
+        @cms_page.parts_with_key(part, key, min).each{ |element| list.push presenter.new(element, self) }
+        CMS::PageListPresenter.new(list, self, max)
       end
 
-      define_method "cms_global_#{part}" do |key = 'cms'|
-        "CMS::#{part.to_s.capitalize}Presenter".constantize.new("CMS::#{part.to_s.capitalize}".constantize.global_with_key(key), self)
+      define_method "cms_global_#{part}" do |key = 'cms', min = 1, max = nil|
+        # validate_arguments! min, max
+        presenter.new("CMS::#{part.to_s.capitalize}".constantize.global_with_key(key), self)
       end
     end
 
     ::CMS::Page::PARTS.each do |part|
       define_cms_page_helpers(part)
+    end
+
+    def validate_arguments!(min, max)
+      if min == Float::INFINITY
+        raise ArgumentError, "'min' can not be Float::INFINITY"
+      end
+      if max.nil?
+        if min == 0
+          raise ArgumentError, "if 'max' is not defined, 'min' must be greater than 0"
+        end
+      elsif max < 1
+        raise ArgumentError, "'max' must be greater than 0 or nil"
+      end
     end
 
       # access a Viewable within the current context
@@ -56,26 +77,6 @@ module CMS
     #
     #     build_list_presenter(presenter_list, list_key, max)
     #   end
-    # end
-
-    # def cms_page_text(key)
-    #   CMS::TextPresenter.new(@cms_page.part_with_key(:text, key), self)
-    # end
-    #
-    # def cms_page_string(key)
-    #   CMS::PagePresenter.new(@cms_page.part_with_key(:string, key), self)
-    # end
-    #
-    # def cms_page_image(key)
-    #   CMS::ImagePresenter.new(@cms_page.part_with_key(:image, key), self)
-    # end
-    #
-    # def cms_page_link(key)
-    #   CMS::LinkPresenter.new(@cms_page.part_with_key(:link, key), self)
-    # end
-    #
-    # def cms_page_select(key)
-    #   CMS::SelectPresenter.new(@cms_page.part_with_key(:select, key), self)
     # end
   end
 end

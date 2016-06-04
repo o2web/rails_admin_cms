@@ -11,14 +11,24 @@ module CMS::PagePartsBase
         self.where(key: key).try(:first) || create_with_key(key, page_id)
       end
 
+      def all_with_key(key, page_id, min = nil)
+        all = self.where(key: key)
+        return all if all.any?
+        create_with_key(key, page_id, min)
+      end
+
       def global_with_key(key)
         self.where(key: key, page_id: nil).try(:first) || create_global_with_key(key)
       end
 
       private
 
-      def create_with_key(key, page_id)
-        self.create(key: key, page_id: page_id)
+      def create_with_key(key, page_id, min = nil)
+        return self.create(key: key, page_id: page_id) if min.nil?
+        min.times do |i|
+          (list ||= []).push self.create(key: key, page_id: page_id, position: i+1)
+        end
+        list
       end
 
       def create_global_with_key(key)

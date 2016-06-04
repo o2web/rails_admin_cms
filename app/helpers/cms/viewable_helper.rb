@@ -103,21 +103,21 @@ module CMS
       [name, min, max]
     end
 
-    def validate_arguments!(type, min, max)
-      if min == Float::INFINITY
-        raise ArgumentError, "'min' can not be Float::INFINITY"
-      end
-      if max.nil?
-        if min == 0
-          raise ArgumentError, "if 'max' is not defined, 'min' must be greater than 0"
-        end
-      elsif max < 1
-        raise ArgumentError, "'max' must be greater than 0 or nil"
-      end
-      if type == 'block' && @cms_view_partial
-        raise ArgumentError, "can not have cms_block(...) within block partials"
-      end
-    end
+    # def validate_arguments!(type, min, max)
+    #   if min == Float::INFINITY
+    #     raise ArgumentError, "'min' can not be Float::INFINITY"
+    #   end
+    #   if max.nil?
+    #     if min == 0
+    #       raise ArgumentError, "if 'max' is not defined, 'min' must be greater than 0"
+    #     end
+    #   elsif max < 1
+    #     raise ArgumentError, "'max' must be greater than 0 or nil"
+    #   end
+    #   if type == 'block' && @cms_view_partial
+    #     raise ArgumentError, "can not have cms_block(...) within block partials"
+    #   end
+    # end
 
     def adjust_name_or_build_view_presenter(type, name)
       case type

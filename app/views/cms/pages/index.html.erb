@@ -1,5 +1,6 @@
 <% text = cms_page_text('test') %>
 <% string = cms_page_string('test') %>
+<% string_list = cms_page_string('test_string_list', 2, 3) %>
 <% global_string = cms_global_string('test') %>
 
 <h1><%= cms_page.title %></h1>
@@ -12,4 +13,15 @@
 </div>
 <div>
   <%= global_string.string %><%= global_string.edit_link %>
+</div>
+<div class="wrapper">
+  <ul>
+    <% string_list.each do |li_string| %>
+        <li>
+          <%= li_string.string %>
+          <%= li_string.edit_link %>
+        </li>
+    <% end %>
+  </ul>
+  <%= string_list.add_link %>
 </div>

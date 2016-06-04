@@ -1,80 +1,80 @@
 module CMS
   module ViewableHelper
-    def self.define_custom_route(page)
-      define_method "#{page.controller_name}_path" do
-        Rails.application.class.routes.url_helpers.send("#{page.controller_name}_#{I18n.locale}_path")
-      end unless method_defined? :"#{page.controller_name}_path"
-      if page.action == 'index' && page.has_show_page
-        define_method "#{page.single_controller_name}_path" do |item|
-          Rails.application.class.routes.url_helpers.send("#{page.single_controller_name}_#{I18n.locale}_path", item)
-        end unless method_defined? :"#{page.single_controller_name}_path"
-      end
-    end
-
-    ::Viewable::Page.controller_routes.each do |page|
-      define_custom_route(page)
-    end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
-
-    def self.define_cms_view_helper(type)
-      define_method "cms_view_#{type}" do |name = 'cms', min = 1, max = nil|
-        name, min, max = adjust_arguments(name, min, max)
-
-        public_send("cms_#{type}", @cms_view.uuid_with(name), min, max)
-      end
-    end
-
-    ::Naming::Viewable::Block.names.each do |type|
-      define_cms_view_helper(type)
-
-      define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil|
-        name, min, max = adjust_arguments(name, min, max)
-
-        cms_block("#{type}/#{name}", min, max)
-      end
-    end
-
-    ::Naming::Viewable.names.each do |type|
-      define_cms_view_helper(type)
-
-      # access a Viewable within the current context
-      # name(optional):
-      # min (optional): defines how many viewables are created by default
-      # max (optional): defines the limit of viewables that could added (must be greater than min)
-      # * if min = 1, then a single ViewablePresenter is returned, otherwise, a ViewablePresenterList is returned
-      define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
-        name, min, max = adjust_arguments(name, min, max)
-
-        validate_arguments! type, min, max
-
-        name, presenter = adjust_name_or_build_view_presenter type, name
-
-        return presenter if presenter
-
-        presenter_list = (1..min).map do |position|
-          find_or_create_presenter(type, name, position)
-        end
-
-        list_key = cms_list_key(type, name)
-
-        if max.nil?
-          if min == 1
-            return presenter_list.first
-          else
-            return build_list_presenter(presenter_list, list_key, max)
-          end
-        end
-
-        ((min + 1)..max).each do |position|
-          if (presenter = find_presenter(type, name, position))
-            presenter_list << presenter
-          else
-            break
-          end
-        end
-
-        build_list_presenter(presenter_list, list_key, max)
-      end
-    end
+    # def self.define_custom_route(page)
+    #   define_method "#{page.controller_name}_path" do
+    #     Rails.application.class.routes.url_helpers.send("#{page.controller_name}_#{I18n.locale}_path")
+    #   end unless method_defined? :"#{page.controller_name}_path"
+    #   if page.action == 'index' && page.has_show_page
+    #     define_method "#{page.single_controller_name}_path" do |item|
+    #       Rails.application.class.routes.url_helpers.send("#{page.single_controller_name}_#{I18n.locale}_path", item)
+    #     end unless method_defined? :"#{page.single_controller_name}_path"
+    #   end
+    # end
+    #
+    # ::Viewable::Page.controller_routes.each do |page|
+    #   define_custom_route(page)
+    # end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
+    #
+    # def self.define_cms_view_helper(type)
+    #   define_method "cms_view_#{type}" do |name = 'cms', min = 1, max = nil|
+    #     name, min, max = adjust_arguments(name, min, max)
+    #
+    #     public_send("cms_#{type}", @cms_view.uuid_with(name), min, max)
+    #   end
+    # end
+    #
+    # ::Naming::Viewable::Block.names.each do |type|
+    #   define_cms_view_helper(type)
+    #
+    #   define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil|
+    #     name, min, max = adjust_arguments(name, min, max)
+    #
+    #     cms_block("#{type}/#{name}", min, max)
+    #   end
+    # end
+    #
+    # ::Naming::Viewable.names.each do |type|
+    #   define_cms_view_helper(type)
+    #
+    #   # access a Viewable within the current context
+    #   # name(optional):
+    #   # min (optional): defines how many viewables are created by default
+    #   # max (optional): defines the limit of viewables that could added (must be greater than min)
+    #   # * if min = 1, then a single ViewablePresenter is returned, otherwise, a ViewablePresenterList is returned
+    #   define_method "cms_#{type}" do |name = 'cms', min = 1, max = nil| # max = FLOAT::INFINITY
+    #     name, min, max = adjust_arguments(name, min, max)
+    #
+    #     validate_arguments! type, min, max
+    #
+    #     name, presenter = adjust_name_or_build_view_presenter type, name
+    #
+    #     return presenter if presenter
+    #
+    #     presenter_list = (1..min).map do |position|
+    #       find_or_create_presenter(type, name, position)
+    #     end
+    #
+    #     list_key = cms_list_key(type, name)
+    #
+    #     if max.nil?
+    #       if min == 1
+    #         return presenter_list.first
+    #       else
+    #         return build_list_presenter(presenter_list, list_key, max)
+    #       end
+    #     end
+    #
+    #     ((min + 1)..max).each do |position|
+    #       if (presenter = find_presenter(type, name, position))
+    #         presenter_list << presenter
+    #       else
+    #         break
+    #       end
+    #     end
+    #
+    #     build_list_presenter(presenter_list, list_key, max)
+    #   end
+    # end
 
     def cms_link_to_edit_mode
       next_mode = cms_edit_mode? ? t('cms.show_mode') : t('cms.edit_mode')
@@ -84,14 +84,14 @@ module CMS
       link_to next_mode, path, 'data-no-turbolink': :true
     end
 
-    def cms_list_key(type, name)
-      {
-        viewable_type: "Viewable::#{type.camelize}",
-        view_path: @virtual_path,
-        name: name,
-        locale: locale,
-      }
-    end
+    # def cms_list_key(type, name)
+    #   {
+    #     viewable_type: "Viewable::#{type.camelize}",
+    #     view_path: @virtual_path,
+    #     name: name,
+    #     locale: locale,
+    #   }
+    # end
 
     private
 

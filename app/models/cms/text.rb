@@ -17,4 +17,14 @@ class CMS::Text < ActiveRecord::Base
       self.create(key: key, page_id: page_id)
     end
   end
+
+  rails_admin do
+    configure :translations, :globalize_tabs
+    visible false
+
+    edit do
+      field :translations
+    end
+  end
+
 end

@@ -38,6 +38,8 @@ RailsAdmin.config do |config|
     Rich::RichFile
     CMS::Page
     CMS::Page::Translation
+    CMS::Text
+    CMS::Text::Translation
   ]
 
   config.actions do
@@ -48,6 +50,7 @@ RailsAdmin.config do |config|
         UniqueKey
         Setting
         Rich::RichFile
+        CMS::Text
       ]
     end
     export do
@@ -142,5 +145,13 @@ RailsAdmin.config do |config|
       help ''
     end
     include_fields :locale, :title, :url
+  end
+
+  config.model 'CMS::Text::Translation' do
+    visible false
+    configure :locale, :hidden do
+      help ''
+    end
+    include_fields :locale, :title, :text
   end
 end

@@ -1,1 +1,4 @@
-<%= @cms_page.title %>
+<% text = cms_page_text('test') %>
+
+<%= cms_page.title %>
+<%= text.text %>

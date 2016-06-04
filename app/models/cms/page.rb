@@ -14,6 +14,10 @@ class CMS::Page < ActiveRecord::Base
 
   has_many :texts
 
+  def text_with_key(key)
+    texts.with_key(key)
+  end
+
   def current_url_for(locale)
     self.translations.with_locale(locale).first.url
   end

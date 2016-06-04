@@ -12,6 +12,10 @@ class CMS::Page < ActiveRecord::Base
     cache_depth: true
   )
 
+  def current_url_for(locale)
+    self.translations.with_locale(locale).first.url
+  end
+
   rails_admin do
     configure :translations, :globalize_tabs
     create do

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   I18n.available_locales.each do |locale|
     Globalize.with_locale(locale) do
       CMS::Page.all.each do |page|
-        get page.url => "#{page.controller}##{page.action}"
+        get page.url => "#{page.controller}##{page.action}", defaults: { page_id: page.id, locale: locale }, format: false
       end if ActiveRecord::Base.connection.table_exists? 'cms_pages'
     end
   end

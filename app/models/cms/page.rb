@@ -13,9 +13,10 @@ class CMS::Page < ActiveRecord::Base
   )
 
   has_many :texts
+  has_many :strings
 
-  def text_with_key(key)
-    texts.with_key(key, self.id)
+  def part_with_key(part, key)
+    self.send(part.to_s.pluralize).with_key(key, self.id)
   end
 
   def current_url_for(locale)

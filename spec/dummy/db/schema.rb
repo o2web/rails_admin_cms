@@ -11,7 +11,130 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111082041) do
+ActiveRecord::Schema.define(version: 20160604184702) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "cms_image_translations", force: :cascade do |t|
+    t.integer  "cms_image_id", null: false
+    t.string   "locale",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "title"
+    t.string   "image"
+  end
+
+  add_index "cms_image_translations", ["cms_image_id"], name: "index_cms_image_translations_on_cms_image_id", using: :btree
+  add_index "cms_image_translations", ["locale"], name: "index_cms_image_translations_on_locale", using: :btree
+
+  create_table "cms_images", force: :cascade do |t|
+    t.integer  "page_id"
+    t.string   "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cms_link_translations", force: :cascade do |t|
+    t.integer  "cms_link_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.string   "url"
+    t.string   "page"
+    t.string   "file"
+  end
+
+  add_index "cms_link_translations", ["cms_link_id"], name: "index_cms_link_translations_on_cms_link_id", using: :btree
+  add_index "cms_link_translations", ["locale"], name: "index_cms_link_translations_on_locale", using: :btree
+
+  create_table "cms_links", force: :cascade do |t|
+    t.integer  "page_id"
+    t.string   "key"
+    t.boolean  "boolean"
+    t.boolean  "turbolink"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cms_page_translations", force: :cascade do |t|
+    t.integer  "cms_page_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.string   "url"
+  end
+
+  add_index "cms_page_translations", ["cms_page_id"], name: "index_cms_page_translations_on_cms_page_id", using: :btree
+  add_index "cms_page_translations", ["locale"], name: "index_cms_page_translations_on_locale", using: :btree
+
+  create_table "cms_pages", force: :cascade do |t|
+    t.string   "controller"
+    t.string   "action"
+    t.string   "ancestry"
+    t.string   "ancestry_depth"
+    t.string   "position"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "cms_select_translations", force: :cascade do |t|
+    t.integer  "cms_select_id", null: false
+    t.string   "locale",        null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "label"
+    t.string   "value"
+  end
+
+  add_index "cms_select_translations", ["cms_select_id"], name: "index_cms_select_translations_on_cms_select_id", using: :btree
+  add_index "cms_select_translations", ["locale"], name: "index_cms_select_translations_on_locale", using: :btree
+
+  create_table "cms_selects", force: :cascade do |t|
+    t.integer  "page_id"
+    t.string   "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cms_string_translations", force: :cascade do |t|
+    t.integer  "cms_string_id", null: false
+    t.string   "locale",        null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "string"
+  end
+
+  add_index "cms_string_translations", ["cms_string_id"], name: "index_cms_string_translations_on_cms_string_id", using: :btree
+  add_index "cms_string_translations", ["locale"], name: "index_cms_string_translations_on_locale", using: :btree
+
+  create_table "cms_strings", force: :cascade do |t|
+    t.integer  "page_id"
+    t.string   "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cms_text_translations", force: :cascade do |t|
+    t.integer  "cms_text_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.text     "text"
+  end
+
+  add_index "cms_text_translations", ["cms_text_id"], name: "index_cms_text_translations_on_cms_text_id", using: :btree
+  add_index "cms_text_translations", ["locale"], name: "index_cms_text_translations_on_locale", using: :btree
+
+  create_table "cms_texts", force: :cascade do |t|
+    t.integer  "page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "key"
+  end
 
   create_table "form_emails", force: :cascade do |t|
     t.boolean  "with_email", default: false
@@ -35,7 +158,7 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.datetime "updated_at",                   null: false
   end
 
-  add_index "form_fields", ["structure_id"], name: "index_form_fields_on_structure_id"
+  add_index "form_fields", ["structure_id"], name: "index_form_fields_on_structure_id", using: :btree
 
   create_table "form_rows", force: :cascade do |t|
     t.integer  "structure_id"
@@ -64,7 +187,7 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "form_rows", ["structure_id"], name: "index_form_rows_on_structure_id"
+  add_index "form_rows", ["structure_id"], name: "index_form_rows_on_structure_id", using: :btree
 
   create_table "form_static_jobs", force: :cascade do |t|
     t.string   "locale"
@@ -90,7 +213,7 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "form_structures", ["email_id"], name: "index_form_structures_on_email_id"
+  add_index "form_structures", ["email_id"], name: "index_form_structures_on_email_id", using: :btree
 
   create_table "rich_rich_files", force: :cascade do |t|
     t.datetime "created_at"
@@ -113,7 +236,7 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "settings", ["name"], name: "index_settings_on_name", unique: true
+  add_index "settings", ["name"], name: "index_settings_on_name", unique: true, using: :btree
 
   create_table "unique_keys", force: :cascade do |t|
     t.integer  "viewable_id"
@@ -126,8 +249,8 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "unique_keys", ["viewable_type", "view_path", "name", "position", "locale"], name: "index_unique_keys_on_unique_key", unique: true
-  add_index "unique_keys", ["viewable_type", "viewable_id"], name: "index_unique_keys_on_viewable_type_and_viewable_id"
+  add_index "unique_keys", ["viewable_type", "view_path", "name", "position", "locale"], name: "index_unique_keys_on_unique_key", unique: true, using: :btree
+  add_index "unique_keys", ["viewable_type", "viewable_id"], name: "index_unique_keys_on_viewable_type_and_viewable_id", using: :btree
 
   create_table "version_associations", force: :cascade do |t|
     t.integer "version_id"
@@ -135,27 +258,36 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.integer "foreign_key_id"
   end
 
-  add_index "version_associations", ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key"
-  add_index "version_associations", ["version_id"], name: "index_version_associations_on_version_id"
+  add_index "version_associations", ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key", using: :btree
+  add_index "version_associations", ["version_id"], name: "index_version_associations_on_version_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",                         null: false
-    t.integer  "item_id",                           null: false
-    t.string   "event",                             null: false
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
     t.string   "whodunnit"
-    t.text     "object",         limit: 1073741823
+    t.text     "object"
     t.datetime "created_at"
-    t.text     "object_changes", limit: 1073741823
+    t.text     "object_changes"
     t.integer  "transaction_id"
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id"
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+  add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
 
   create_table "viewable_blocks", force: :cascade do |t|
     t.string   "uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  add_index "viewable_blocks", ["uuid"], name: "index_viewable_blocks_on_uuid", using: :btree
+
+  create_table "viewable_class_selectors", force: :cascade do |t|
+    t.string   "main_class"
+    t.string   "extra_classes"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "viewable_forms", force: :cascade do |t|
@@ -169,8 +301,9 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "viewable_forms", ["structure_id"], name: "index_viewable_forms_on_structure_id"
-  add_index "viewable_forms", ["url"], name: "index_viewable_forms_on_url"
+  add_index "viewable_forms", ["structure_id"], name: "index_viewable_forms_on_structure_id", using: :btree
+  add_index "viewable_forms", ["url"], name: "index_viewable_forms_on_url", using: :btree
+  add_index "viewable_forms", ["uuid"], name: "index_viewable_forms_on_uuid", using: :btree
 
   create_table "viewable_images", force: :cascade do |t|
     t.string   "title"
@@ -196,15 +329,39 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.string   "title"
     t.text     "meta_keywords"
     t.text     "meta_description"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "controller",          default: "pages"
+    t.string   "action",              default: "show"
+    t.boolean  "breadcrumb_appear",   default: false
+    t.integer  "tree_position"
+    t.string   "ancestry"
+    t.boolean  "has_show_page",       default: false
+    t.boolean  "show_link",           default: true
+    t.integer  "ancestry_depth",      default: 0
+    t.string   "meta_title"
+    t.string   "twitter_card"
+    t.string   "twitter_title"
+    t.text     "twitter_description"
+    t.string   "twitter_image"
+    t.string   "og_title"
+    t.string   "og_image"
+    t.text     "og_description"
+    t.string   "meta_general_image"
   end
 
-  add_index "viewable_pages", ["url"], name: "index_viewable_pages_on_url"
+  add_index "viewable_pages", ["url"], name: "index_viewable_pages_on_url", using: :btree
+  add_index "viewable_pages", ["uuid"], name: "index_viewable_pages_on_uuid", using: :btree
 
   create_table "viewable_selects", force: :cascade do |t|
     t.string   "value"
     t.string   "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "viewable_strings", force: :cascade do |t|
+    t.string   "string"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

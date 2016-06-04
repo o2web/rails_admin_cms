@@ -11,6 +11,6 @@ class CreateCMSTexts < ActiveRecord::Migration
   end
   def down
     CMS::Text.drop_translation_table!
-    drop_table :cms_pages
+    drop_table :cms_texts
   end
 end

@@ -1,4 +1,7 @@
-<% text = cms_page_text('test2') %>
+<% text = cms_page_text('test') %>
 
-<%= cms_page.title %>
-<%= text.text %>
+<h1><%= cms_page.title %></h1>
+<div>
+  <h2><%= text.title %></h2>
+  <%= text.html %><%= text.edit_link %>
+</div>

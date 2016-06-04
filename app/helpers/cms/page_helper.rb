@@ -5,7 +5,7 @@ module CMS
     end
 
     def cms_page_text(key)
-      @cms_page.text_with_key(key)
+      CMS::TextPresenter.new(@cms_page.text_with_key(key), self)
     end
   end
 end

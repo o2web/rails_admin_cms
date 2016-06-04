@@ -1,15 +1,38 @@
 class CMS::Page < ActiveRecord::Base
   self.table_name = 'cms_pages'
-  translates :title, :url
 
+  translates :title, :url
   accepts_nested_attributes_for :translations, allow_destroy: true
+
+  validates :url, uniqueness: true
+
+  after_commit :reload_routes
+
+  has_ancestry(
+    cache_depth: true
+  )
 
   rails_admin do
     configure :translations, :globalize_tabs
-    nested do
+    create do
+      field :translations
+      field :controller
+      field :action
+    end
+
+    edit do
       field :translations
     end
-    field :controller
-    field :action
+
+    nestable_tree(
+      max_depth: 5,
+      position_field: :position
+    )
+  end
+
+  private
+
+  def reload_routes
+    Rails.application.routes_reloader.reload!
   end
 end

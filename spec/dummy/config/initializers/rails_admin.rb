@@ -91,6 +91,7 @@ RailsAdmin.config do |config|
       visible do
         %w(
           Viewable::Page
+          CMS::Page
         ).include? bindings[:abstract_model].model_name
       end
     end

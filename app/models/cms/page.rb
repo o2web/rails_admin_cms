@@ -4,6 +4,14 @@ class CMS::Page < ActiveRecord::Base
   translates :title, :url
   accepts_nested_attributes_for :translations, allow_destroy: true
 
+  PARTS = %i(
+    image
+    link
+    select
+    string
+    text
+  )
+
   validates :url, uniqueness: true
 
   after_commit :reload_routes

@@ -1,5 +1,6 @@
 <% text = cms_page_text('test') %>
 <% string = cms_page_string('test') %>
+<% global_string = cms_global_string('test') %>
 
 <h1><%= cms_page.title %></h1>
 <div>
@@ -8,4 +9,7 @@
 </div>
 <div>
   <%= string.string %><%= string.edit_link %>
+</div>
+<div>
+  <%= global_string.string %><%= global_string.edit_link %>
 </div>

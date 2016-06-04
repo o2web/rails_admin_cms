@@ -21,18 +21,30 @@ module CMS::PagePartsBase
         self.where(key: key, page_id: nil).try(:first) || create_global_with_key(key)
       end
 
+      def all_globals_with_key(key, min)
+        all = self.where(key: key, page_id: nil)
+        return all if all.any?
+        create_global_with_key(key, min)
+      end
+
       private
 
       def create_with_key(key, page_id, min = nil)
         return self.create(key: key, page_id: page_id) if min.nil?
+        list = []
         min.times do |i|
-          (list ||= []).push self.create(key: key, page_id: page_id, position: i+1)
+          list.push self.create(key: key, page_id: page_id, position: i+1)
         end
         list
       end
 
-      def create_global_with_key(key)
-        self.create(key: key, page_id: nil)
+      def create_global_with_key(key, min)
+        return self.create(key: key, page_id: nil) if min.nil?
+        list = []
+        min.times do |i|
+          list.push self.create(key: key, page_id: nil, position: i+1)
+        end
+        list
       end
     end
   end

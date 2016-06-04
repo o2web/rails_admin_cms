@@ -17,8 +17,14 @@ module CMS
       end
 
       define_method "cms_global_#{part}" do |key = 'cms', min = 1, max = nil|
-        # validate_arguments! min, max
-        presenter.new("CMS::#{part.to_s.capitalize}".constantize.global_with_key(key), self)
+        model = "CMS::#{part.to_s.capitalize}".constantize
+
+        return presenter.new(model.global_with_key(key), self) if min.nil?
+
+        max = Float::INFINITY if max.nil? || max < min
+        list = []
+        model.all_globals_with_key(key, min).each{ |element| list.push presenter.new(element, self) }
+        CMS::PageListPresenter.new(list, self, max)
       end
     end
 

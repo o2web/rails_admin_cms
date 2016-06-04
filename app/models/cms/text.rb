@@ -14,7 +14,7 @@ class CMS::Text < ActiveRecord::Base
     private
 
     def create_with_key(key, page_id)
-      self.create(key: key, page_id: page_id, position: 1)
+      self.create(key: key, page_id: page_id)
     end
   end
 end

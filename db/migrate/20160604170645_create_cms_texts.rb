@@ -2,7 +2,6 @@ class CreateCMSTexts < ActiveRecord::Migration
   def up
     create_table :cms_texts do |t|
       t.integer :page_id
-      t.integer :position
       t.string :key
 
       t.timestamps null: false

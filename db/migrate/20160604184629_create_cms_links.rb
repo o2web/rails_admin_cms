@@ -3,7 +3,7 @@ class CreateCMSLinks < ActiveRecord::Migration
     create_table :cms_links do |t|
       t.integer :page_id
       t.string :key
-      t.boolean :boolean
+      t.boolean :target_blank
       t.boolean :turbolink
 
       t.timestamps null: false

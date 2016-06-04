@@ -40,6 +40,14 @@ RailsAdmin.config do |config|
     CMS::Page::Translation
     CMS::Text
     CMS::Text::Translation
+    CMS::String
+    CMS::String::Translation
+    CMS::Link
+    CMS::Link::Translation
+    CMS::Select
+    CMS::Select::Translation
+    CMS::Image
+    CMS::Image::Translation
   ]
 
   config.actions do
@@ -51,6 +59,10 @@ RailsAdmin.config do |config|
         Setting
         Rich::RichFile
         CMS::Text
+        CMS::String
+        CMS::Link
+        CMS::Select
+        CMS::Image
       ]
     end
     export do
@@ -153,5 +165,37 @@ RailsAdmin.config do |config|
       help ''
     end
     include_fields :locale, :title, :text
+  end
+
+  config.model 'CMS::String::Translation' do
+    visible false
+    configure :locale, :hidden do
+      help ''
+    end
+    include_fields :locale, :string
+  end
+
+  config.model 'CMS::Link::Translation' do
+    visible false
+    configure :locale, :hidden do
+      help ''
+    end
+    include_fields :locale, :title, :url, :page, :file
+  end
+
+  config.model 'CMS::Select::Translation' do
+    visible false
+    configure :locale, :hidden do
+      help ''
+    end
+    include_fields :locale, :label, :value
+  end
+
+  config.model 'CMS::Image::Translation' do
+    visible false
+    configure :locale, :hidden do
+      help ''
+    end
+    include_fields :locale, :title, :image
   end
 end

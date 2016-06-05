@@ -4,8 +4,8 @@ class CreateCMSPages < ActiveRecord::Migration
       t.string :controller
       t.string :action
       t.string :ancestry
-      t.string :ancestry_depth
-      t.string :position
+      t.integer :ancestry_depth, default: 0
+      t.integer :position, default: 1
       t.timestamps null: false
     end
     CMS::Page.create_translation_table! title: :string,

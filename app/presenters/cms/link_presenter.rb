@@ -1,4 +1,4 @@
-class CMS::LinkPresenter < CMS::PagePresenter
+class CMS::LinkPresenter < CMS::ElementPresenter
   def link_to(name = nil, options = {})
     h.active_link_to *normalize_link_options(name, options)
   end

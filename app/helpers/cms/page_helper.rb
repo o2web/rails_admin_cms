@@ -1,7 +1,7 @@
 module CMS
   module PageHelper
     def cms_page
-      @cms_page
+      ::CMS::PagePresenter.new(@cms_page, self)
     end
 
     def self.define_cms_page_helpers(part)
@@ -13,7 +13,7 @@ module CMS
         max = Float::INFINITY if max.nil? || max < min
         list = []
         @cms_page.parts_with_key(part, key, min).each{ |element| list.push presenter.new(element, self) }
-        CMS::PageListPresenter.new(list, self, max, @cms_page.id)
+        ::CMS::ElementListPresenter.new(list, self, max, @cms_page.id)
       end
 
       define_method "cms_global_#{part}" do |key = 'cms', min = 1, max = nil|
@@ -24,7 +24,7 @@ module CMS
         max = Float::INFINITY if max.nil? || max < min
         list = []
         model.all_globals_with_key(key, min).each{ |element| list.push presenter.new(element, self) }
-        CMS::PageListPresenter.new(list, self, max)
+        ::CMS::ElementListPresenter.new(list, self, max)
       end
     end
 

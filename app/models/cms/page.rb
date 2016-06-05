@@ -12,13 +12,13 @@ class CMS::Page < ActiveRecord::Base
     text
   )
 
-  validates :url, uniqueness: true
-
   after_commit :reload_routes
 
-  has_ancestry(
-    cache_depth: true
-  )
+  has_ancestry({
+    cache_depth: true,
+    ancestry_column: :ancestry,
+    depth_cache_column: :ancestry_depth
+  })
 
   has_many :texts
   has_many :strings
@@ -35,6 +35,14 @@ class CMS::Page < ActiveRecord::Base
     self.translations.with_locale(locale).first.url
   end
 
+  def parent_at_depth(depth)
+    roots = self.ancestors.at_depth(depth)
+    roots.each do |child|
+      return child if child.descendants.include? self
+    end
+    self
+  end
+
   rails_admin do
     configure :translations, :globalize_tabs
     create do
@@ -47,10 +55,10 @@ class CMS::Page < ActiveRecord::Base
       field :translations
     end
 
-    nestable_tree(
+    nestable_tree({
       max_depth: 5,
       position_field: :position
-    )
+    })
   end
 
   private

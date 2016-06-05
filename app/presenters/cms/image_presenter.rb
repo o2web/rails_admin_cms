@@ -1,4 +1,4 @@
-class CMS::ImagePresenter < CMS::PagePresenter
+class CMS::ImagePresenter < CMS::ElementPresenter
   def path
     m.image
   end

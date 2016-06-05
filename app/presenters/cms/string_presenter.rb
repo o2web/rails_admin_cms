@@ -1,2 +1,2 @@
-class CMS::StringPresenter < CMS::PagePresenter
+class CMS::StringPresenter < CMS::ElementPresenter
 end

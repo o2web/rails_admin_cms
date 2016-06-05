@@ -1,4 +1,4 @@
-class CMS::SelectPresenter < CMS::PagePresenter
+class CMS::SelectPresenter < CMS::ElementPresenter
   def option
     [label, m.value]
   end

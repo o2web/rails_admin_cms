@@ -1,35 +1,80 @@
 class CMS::PagePresenter < BasePresenter
-  def edit_link(name = nil)
-    return unless h.cms_edit_mode?
-
-    h.link_to edit_path, class: "cms-edit cms-edit-#{dashed_name}", 'data-no-turbolink' => true do
-      h.concat h.content_tag(:span, h.t('cms.edit'), class: "cms-edit-action")
-      h.concat " "
-      h.concat h.content_tag(:span, name, class: "cms-edit-name")
+  # build page tree from specified root_depth, default second level root with sitemap property to render a sitemap from top root of current page
+  def tree(root_depth: 1, sitemap: false, nav_class: 'tree')
+    return if m.parent_at_depth(root_depth).nil?
+    @sitemap = sitemap
+    h.content_tag :nav, class: nav_class do
+      h.concat render_tree_master_ul(m.parent_at_depth(root_depth))
     end
   end
 
-  def li_sortable_tag(options = nil)
-    options ||= {}
-    if h.cms_edit_mode?
-      options = h.cms_data_js('cms-sortable-id', m.unique_key.id, options)
-    end
-    h.content_tag :li, options do
-      yield
+  # build page breadcrumbs from specified root_depth, default root
+  def breadcrumbs(root_depth: 0, last_page_title: nil, nav_class: 'breadcrumbs', div_class: 'scrollable')
+    return if m.parent_at_depth(root_depth).nil?
+    h.content_tag :nav, class: nav_class do
+      h.concat h.content_tag(:div, breadcrumbs_ul(breadcrumbs_list(root_depth, last_page_title)), class: div_class)
     end
   end
 
   private
 
-  def edit_path
-    h.rails_admin.edit_path(model_name: m.class.name.underscore.gsub('/', '~'), id: m.id)
+  def breadcrumbs_list(root_depth = 0, last_page_title = nil, page = m)
+    pages = []
+    while page.present? && page.depth >= root_depth
+      pages.unshift(page)
+      page = page.parent
+    end
+    pages.push(OpenStruct.new({title: last_page_title})) if last_page_title.present?
+    pages
   end
 
-  def dashed_name
-    @_dashed_name ||= underscored_name.dasherize
+  def breadcrumbs_ul(pages)
+    h.content_tag :ul do
+      pages.each do |page|
+        h.concat(breadcrumbs_li(page, (pages.last == page)))
+      end
+    end
   end
 
-  def underscored_name
-    @_underscored_name ||= m.class.name.underscore.gsub('/', '_')
+  def breadcrumbs_li(page, last_page)
+    h.content_tag :li do
+      h.concat (page.show_link && !last_page) ? h.link_to(page.title, page.url) : h.content_tag(:span, page.title)
+    end
+  end
+
+  def render_tree_master_li(page)
+    h.content_tag :li do
+      h.concat h.content_tag(:span, (@sitemap ? h.link_to(page.title, page.url) : page.title), data: {:'js-drawer-mobile' => true})
+      h.concat render_tree_ul_wrapper(page)
+    end
+  end
+
+  def render_tree_ul_wrapper(page)
+    h.content_tag :div do
+      page.children.order(:tree_position).each do |child|
+        h.concat render_tree_ul(child)
+      end if (page.has_children? && (page != m || @sitemap))
+    end
+  end
+
+  def render_tree_li(page)
+    h.content_tag(:li, class: ('active' if (page.subtree.include?(m) && !@sitemap))) do
+      h.concat h.link_to(page.title, page.url, class: ('active' if (page == m && !@sitemap)))
+      page.children.order(:tree_position).each do |child|
+        h.concat render_tree_ul(child)
+      end if page.has_children? && (m.ancestors.include?(page) || m.subtree.include?(page) || @sitemap)
+    end
+  end
+
+  def render_tree_master_ul(page)
+    h.content_tag :ul do
+      h.concat(render_tree_master_li(page))
+    end
+  end
+
+  def render_tree_ul(page)
+    h.content_tag :ul do
+      h.concat(render_tree_li(page))
+    end
   end
 end

@@ -1,4 +1,4 @@
-class CMS::TextPresenter < CMS::PagePresenter
+class CMS::TextPresenter < CMS::ElementPresenter
   def html
     m.text.try(:html_safe)
   end

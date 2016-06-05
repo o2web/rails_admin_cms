@@ -1,4 +1,4 @@
-class CMS::PageListPresenter < BasePresenter
+class CMS::ElementListPresenter < BasePresenter
   def initialize(list, context, max, page_id = nil)
     super(list, context)
     @max = max

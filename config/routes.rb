@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope module: 'cms' do
+    get 'create_list_part' => 'pages#create_list_part', as: :create_list_part
+  end
+
   # scope module: 'cms' do
   #   post 'mailchimp/subscribe' => 'mailchimp#subscribe', format: true, constraints: { format: :js }, as: :mailchimp
   #

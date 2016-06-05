@@ -8,6 +8,13 @@ module CMS
 
     end
 
+    def create_list_part
+      I18n.locale = params[:locale]
+      model = params[:model].constantize
+      model = model.add_with_key(params[:key], params[:page_id], params[:position])
+      redirect_to rails_admin.edit_path(model_name: model.class.name.underscore.gsub('/', '~'), id: model.id)
+    end
+
     # def find_page_view
     #   @cms_view = Viewable::Page.find(params[:page_id]) if params[:page_id].present? && params[:parent_id].blank?
     # end

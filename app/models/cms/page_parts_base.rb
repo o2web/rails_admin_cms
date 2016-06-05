@@ -27,6 +27,10 @@ module CMS::PagePartsBase
         create_global_with_key(key, min)
       end
 
+      def add_with_key(key, page_id, position)
+        return self.create(key: key, page_id: page_id, position: position)
+      end
+
       private
 
       def create_with_key(key, page_id, min = nil)

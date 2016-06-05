@@ -1,8 +1,9 @@
 class CMS::PageListPresenter < BasePresenter
-  def initialize(list, context, max)
+  def initialize(list, context, max, page_id = nil)
     super(list, context)
     @max = max
     @list = list
+    @page_id = page_id
   end
 
   def edit_links(method_name = nil)
@@ -49,7 +50,6 @@ class CMS::PageListPresenter < BasePresenter
   private
 
   def add_path
-    'path'
-    # h.main_app.new_viewable_url list_key: @list_key, max: @max
+    h.create_list_part_path model: @list.first.model.class.name, key: @list.first.key, page_id: @page_id, position: @list.size + 1, locale: ::I18n.locale
   end
 end

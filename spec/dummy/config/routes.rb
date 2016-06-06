@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   mount Rich::Engine => '/rich', :as => 'rich'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  # root 'home#show', defaults: { cms_view_type: 'show' }
+  root 'cms/pages#index', defaults: { page_id: 1, locale: :fr }
 
   # match '*not_found', via: :all, to: 'application#render_404'
 

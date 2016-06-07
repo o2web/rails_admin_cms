@@ -9,6 +9,7 @@ module CMS
     end
 
     def create_list_part
+      head :unauthorized unless current_admin?
       I18n.locale = params[:locale]
       model = params[:model].constantize
       model = model.add_with_key(params[:key], params[:page_id], params[:position])

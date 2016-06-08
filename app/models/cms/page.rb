@@ -4,6 +4,17 @@ class CMS::Page < ActiveRecord::Base
   translates :title, :url
   accepts_nested_attributes_for :translations, allow_destroy: true
 
+  before_validation :find_controller_action, on: :create
+  after_commit :reload_routes
+
+  with_options presence: true do
+    validates :title
+    validates :url, uniqueness: true
+    validates :template
+    validates :action
+    validates :controller
+  end
+
   PARTS = %i(
     image
     link
@@ -11,8 +22,6 @@ class CMS::Page < ActiveRecord::Base
     string
     text
   )
-
-  after_commit :reload_routes
 
   has_ancestry({
     cache_depth: true,
@@ -43,12 +52,15 @@ class CMS::Page < ActiveRecord::Base
     self
   end
 
+  def template_enum
+    Dir.glob('app/views/**/*.erb').map{ |template| [template.remove('app/views/'), template.remove('app/views/', template.slice((template.rindex('.', -5)..-1)))] }
+  end
+
   rails_admin do
     configure :translations, :globalize_tabs
     create do
       field :translations
-      field :controller
-      field :action
+      field :template, :enum
     end
 
     edit do
@@ -62,6 +74,11 @@ class CMS::Page < ActiveRecord::Base
   end
 
   private
+
+  def find_controller_action
+    self.action = template.remove template.slice(0..(template.rindex('/')))
+    self.controller = template.remove template.slice(template.rindex('/', -1)..-1)
+  end
 
   def reload_routes
     Rails.application.routes_reloader.reload!

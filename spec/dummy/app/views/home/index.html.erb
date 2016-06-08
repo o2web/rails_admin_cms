@@ -1,0 +1,35 @@
+<% text = cms_page_text('test') %>
+<% string = cms_page_string('test') %>
+<% string_list = cms_page_string('test_string_list', 2, 3) %>
+<% global_string = cms_global_string('global_string_list', 2, 3) %>
+<%= cms_page.breadcrumbs %>
+<h1><%= cms_page.title %></h1>
+<div>
+  <h2><%= text.title %></h2>
+  <%= text.html %><%= text.edit_link %>
+</div>
+<div>
+  <%= string.string %><%= string.edit_link %>
+</div>
+<div class="wrapper">
+  <ul>
+    <% global_string.each do |li_string| %>
+        <li>
+          <%= li_string.string %>
+          <%= li_string.edit_link %>
+        </li>
+    <% end %>
+  </ul>
+  <%= global_string.add_link %>
+</div>
+<div class="wrapper">
+  <ul>
+    <% string_list.each do |li_string| %>
+        <li>
+          <%= li_string.string %>
+          <%= li_string.edit_link %>
+        </li>
+    <% end %>
+  </ul>
+  <%= string_list.add_link %>
+</div>

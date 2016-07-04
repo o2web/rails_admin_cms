@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.2", ">= 4.2.0"
   s.add_dependency "rails-i18n", "~> 4.0", ">= 4.0.8"
   s.add_dependency "rails_admin", "~> 0.8", ">= 0.8.1"
-  s.add_dependency "rails_admin-i18n", "~> 0.0", ">= 0.0.9"
+  s.add_dependency "rails_admin-i18n", "~> 1.0"
   s.add_dependency "route_translator", "~> 4.2", ">= 4.2.2"
   s.add_dependency "jquery-rails", "~> 4.0", ">= 4.0.5"
   s.add_dependency "jquery-ui-rails", "~> 5.0", ">= 5.0.5"

@@ -44,6 +44,7 @@ class CMS
     @data_js('cms-flash').fadeIn().delay(3500).fadeOut(800)
 
   @validate: =>
+    that = this
     $.validate({ modules: 'security, file', validateOnBlur: false, onError: (e) ->
       that.data_js('general-error').show()
     })

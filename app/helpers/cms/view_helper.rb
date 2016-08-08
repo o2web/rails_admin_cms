@@ -21,21 +21,21 @@ module CMS
 
     def cms_title(title = nil)
       return title unless defined? @cms_view
-      "#{content_priority([@cms_view.meta_title, @cms_view.title, ::Setting['default_meta_title']])} - #{::I18n.t('site.title')}".html_safe
+      "#{content_priority([@cms_view.meta_title, @cms_view.title, ::Setting["default_meta_title_#{I18n.locale}"]])} - #{::I18n.t('site.title')}".html_safe
     end
 
     def cms_meta_data_tags
       return meta_data_tags unless defined? @cms_view
-      html = tag(:meta, name: 'description', content: content_priority([@cms_view.meta_description, ::Setting['default_meta_description']]))
-      html << tag(:meta, name: 'keywords', content: content_priority([@cms_view.meta_keywords, ::Setting['default_meta_keywords']]))
-      html << tag(:meta, name: 'twitter:site', content: ::Setting['twitter_site'])
-      html << tag(:meta, name: 'twitter:card', content: content_priority([@cms_view.twitter_card, ::Setting['default_twitter_card']]))
-      html << tag(:meta, name: 'twitter:title', content: content_priority([@cms_view.twitter_title, ::Setting['default_twitter_title']]))
-      html << tag(:meta, name: 'twitter:image',content: "#{request.base_url}#{content_priority([@cms_view.twitter_image, @cms_view.meta_general_image, ::Setting['default_meta_general_image']])}")
-      html << tag(:meta, property: 'og:title', content: content_priority([@cms_view.og_title, ::Setting['default_og_title']]))
-      html << tag(:meta, property: 'og:image', content: "#{request.base_url}#{content_priority([@cms_view.og_image, @cms_view.meta_general_image, ::Setting['default_meta_general_image']])}")
-      html << tag(:meta, property: 'og:description', content: content_priority([@cms_view.og_description, ::Setting['default_og_description']]))
-      html << tag(:meta, property: 'fb:app_id', content: ::Setting['fb_app_id'])
+      html = tag(:meta, name: 'description', content: content_priority([@cms_view.meta_description, ::Setting["default_meta_description_#{I18n.locale}"]]))
+      html << tag(:meta, name: 'keywords', content: content_priority([@cms_view.meta_keywords, ::Setting["default_meta_keywords_#{I18n.locale}"]]))
+      html << tag(:meta, name: 'twitter:site', content: ::Setting["twitter_site_#{I18n.locale}"])
+      html << tag(:meta, name: 'twitter:card', content: content_priority([@cms_view.twitter_card, ::Setting["default_twitter_card_#{I18n.locale}"]]))
+      html << tag(:meta, name: 'twitter:title', content: content_priority([@cms_view.twitter_title, ::Setting["default_twitter_title_#{I18n.locale}"]]))
+      html << tag(:meta, name: 'twitter:image',content: "#{request.base_url}#{content_priority([@cms_view.twitter_image, @cms_view.meta_general_image, ::Setting["default_meta_general_image_#{I18n.locale}"]])}")
+      html << tag(:meta, property: 'og:title', content: content_priority([@cms_view.og_title, ::Setting["default_og_title_#{I18n.locale}"]]))
+      html << tag(:meta, property: 'og:image', content: "#{request.base_url}#{content_priority([@cms_view.og_image, @cms_view.meta_general_image, ::Setting["default_meta_general_image_#{I18n.locale}"]])}")
+      html << tag(:meta, property: 'og:description', content: content_priority([@cms_view.og_description, ::Setting["default_og_description_#{I18n.locale}"]]))
+      html << tag(:meta, property: 'fb:app_id', content: ::Setting["fb_app_id_#{I18n.locale}"])
 
       html.html_safe
     end

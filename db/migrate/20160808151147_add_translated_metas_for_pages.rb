@@ -12,7 +12,9 @@ class AddTranslatedMetasForPages < ActiveRecord::Migration
       :default_og_title,
       :default_og_site_name,
       :default_og_description,
-      :meta_general_image
+      :meta_general_image,
+      :default_meta_keywords,
+      :default_meta_general_image
     )
 
     Setting.apply_all(
@@ -26,6 +28,8 @@ class AddTranslatedMetasForPages < ActiveRecord::Migration
       default_og_title_fr: '',
       default_og_site_name_fr: '',
       default_og_description_fr: '',
+      default_meta_keywords_fr: '',
+      default_meta_general_image_fr: '',
       meta_general_image_fr: '',
       default_meta_title_en: '',
       default_meta_description_en: '',
@@ -37,7 +41,9 @@ class AddTranslatedMetasForPages < ActiveRecord::Migration
       default_og_title_en: '',
       default_og_site_name_en: '',
       default_og_description_en: '',
-      meta_general_image_en: ''
+      meta_general_image_en: '',
+      default_meta_keywords_en: '',
+      default_meta_general_image_en: ''
     )
   end
 end

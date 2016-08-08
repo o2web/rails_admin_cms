@@ -2,17 +2,17 @@ class AddTranslatedMetasForPages < ActiveRecord::Migration
   def change
 
     Setting.remove_all(
-      default_meta_title: '',
-      default_meta_description: '',
-      twitter_site: '',
-      fb_app_id: '',
-      default_twitter_card: '',
-      default_twitter_title: '',
-      default_twitter_description: '',
-      default_og_title: '',
-      default_og_site_name: '',
-      default_og_description: '',
-      meta_general_image: ''
+      :default_meta_title,
+      :default_meta_description,
+      :twitter_site,
+      :fb_app_id,
+      :default_twitter_card,
+      :default_twitter_title,
+      :default_twitter_description,
+      :default_og_title,
+      :default_og_site_name,
+      :default_og_description,
+      :meta_general_image
     )
 
     Setting.apply_all(

@@ -32,5 +32,9 @@ module AppRailsAdminCMS
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Config for the redirector gem (https://github.com/vigetlabs/redirector)
+    config.redirector.include_query_in_source = true
+    config.redirector.silence_sql_logs = true
   end
 end

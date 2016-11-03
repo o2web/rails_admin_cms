@@ -36,6 +36,7 @@ RailsAdmin.config do |config|
     UniqueKey
     Setting
     Rich::RichFile
+    Redirector::Rule
   ]
 
   config.actions do

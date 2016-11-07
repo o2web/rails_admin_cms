@@ -2,10 +2,6 @@
 
 *Flexible Content Management Framework for RailsAdmin*
 
-## Overview
-
-RailsAdmin...
-
 ## Features
 
 ### View helpers example
@@ -190,6 +186,11 @@ Then, use the partial `app/views/cms/shared/_mailchimp.html.erb` to output the m
 1. Flash messages could be overriden by the keys `flash_messages.mailchimp.subscribe.(success|error)`.
 1. Input placeholder could be overriden by the key `simple_form.placeholders.mailchimp.email`. 
 1. Input and submit button are wrapper in a div tag with the class `cms-mailchimp`. 
+
+## Redirector
+
+You can import a list of 301 redirections directly with a simple rake task. Simply create a csv file in the `db/redirects` folder with the source and destination columns. You can then run the `rake redirector:import` command to launch the importation process. The imported file will then be moved to the `db/redirects/imported` directory.
+
 
 ## TODO
 

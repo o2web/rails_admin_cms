@@ -26,6 +26,10 @@ en:
       navigation: Site
       one: Setting
       other: Settings
+    redirector:
+      navigation: Redirects
+      one: Redirect rule
+      other: Redirect rules
   rich:
     file:
       navigation: Site

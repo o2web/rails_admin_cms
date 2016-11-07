@@ -26,6 +26,10 @@ fr:
       navigation: Site
       one: Paramètre
       other: Paramètres
+    redirector:
+      navigation: Redirections
+      one: Règle de redirection
+      other: Règles de redirection
   rich:
     file:
       navigation: Site

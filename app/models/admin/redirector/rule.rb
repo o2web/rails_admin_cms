@@ -5,6 +5,10 @@ module Admin
 
       included do
         rails_admin do
+          navigation_label I18n.t('cms.redirector.navigation')
+          label I18n.t('cms.redirector.one')
+          label_plural I18n.t('cms.redirector.other')
+
           list do
             field :id
             field :active

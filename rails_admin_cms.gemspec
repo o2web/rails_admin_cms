@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency "email_validator", "~> 1.6", ">= 1.6.0"
   s.add_dependency "country_select", "~> 2.5", ">= 2.5.1"
   s.add_dependency "i18n_country_select", "~> 1.1", ">= 1.1.5"
-  s.add_dependency "invisible_captcha", "~> 0.8", ">= 0.8.0"
+  s.add_dependency "invisible_captcha", "~> 0.8.0"
   s.add_dependency "jquery-form-validator-rails", "~> 0.0", ">= 0.0.2"
   s.add_dependency "bootstrap_flash_messages", "~> 1.0", ">= 1.0.1"
   s.add_dependency "gibbon", "~> 1.1"
@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails_admin_history_rollback", "~> 0.0.6"
   s.add_dependency "naught", "~> 1.0.0"
   s.add_dependency "rails_admin_globalize_field", "~> 0.4.0"
+  s.add_dependency "redirector"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"

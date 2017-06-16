@@ -1,5 +1,20 @@
 module CMS
   module ViewableHelper
+    def self.define_custom_route(page)
+      define_method "#{page.controller_name}_path" do
+        Rails.application.class.routes.url_helpers.send("#{page.controller_name}_#{I18n.locale}_path")
+      end unless method_defined? :"#{page.controller_name}_path"
+      if page.action == 'index' && page.has_show_page
+        define_method "#{page.single_controller_name}_path" do |item|
+          Rails.application.class.routes.url_helpers.send("#{page.single_controller_name}_#{I18n.locale}_path", item)
+        end unless method_defined? :"#{page.single_controller_name}_path"
+      end
+    end
+
+    ::Viewable::Page.controller_routes.each do |page|
+      define_custom_route(page)
+    end if ActiveRecord::Base.connection.table_exists? 'viewable_pages'
+
     def self.define_cms_view_helper(type)
       define_method "cms_view_#{type}" do |name = 'cms', min = 1, max = nil|
         name, min, max = adjust_arguments(name, min, max)

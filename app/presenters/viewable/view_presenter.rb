@@ -3,7 +3,6 @@ module Viewable
     def initialize(model, context)
       super
       set_cms_view
-      set_meta_tags
     end
 
     def add_link
@@ -18,17 +17,6 @@ module Viewable
 
     def set_cms_view
       h.instance_variable_set :@cms_view, self
-    end
-
-    def set_meta_tags
-      tags = %w[
-        title
-        meta_keywords
-        meta_description
-      ]
-      tags.each do |tag|
-        h.instance_variable_set("@cms_page_#{tag}", m.send(tag).presence)
-      end
     end
 
     def add_path

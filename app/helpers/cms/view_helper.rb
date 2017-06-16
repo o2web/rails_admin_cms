@@ -6,7 +6,7 @@ module CMS
         params[:cms_view_type],
         controller_name,
         "#{controller_name}-#{action_name}",
-        I18n.locale,
+        ::I18n.locale,
       ]
       classes << 'cms-edit-mode' if cms_edit_mode?
       classes.concat(args) if args.any?
@@ -19,39 +19,41 @@ module CMS
       end
     end
 
-    def cms_title(default = nil)
-      @cms_page_title || default
+    def cms_title(title = nil)
+      return title unless defined? @cms_view
+      "#{content_priority([@cms_view.meta_title, @cms_view.title, ::Setting["default_meta_title_#{::I18n.locale}"]])} - #{::I18n.t('site.title')}".html_safe
     end
 
-    def cms_meta_data_tags(default = nil)
-      if @cms_page_meta_keywords || @cms_page_meta_description
-        html = tag(:meta, name: 'meta_keywords', content: @cms_page_meta_keywords)
-        html << "\n"
-        html << tag(:meta, name: 'meta_description', content: @cms_page_meta_description)
-        html.html_safe
-      else
-        default
-      end
+    def cms_meta_data_tags
+      return meta_data_tags unless defined? @cms_view
+      html = tag(:meta, name: 'description', content: content_priority([@cms_view.meta_description, ::Setting["default_meta_description_#{::I18n.locale}"]]))
+      html << tag(:meta, name: 'keywords', content: content_priority([@cms_view.meta_keywords, ::Setting["default_meta_keywords_#{::I18n.locale}"]]))
+      html << tag(:meta, name: 'twitter:site', content: ::Setting["twitter_site_#{::I18n.locale}"])
+      html << tag(:meta, name: 'twitter:card', content: content_priority([@cms_view.twitter_card, ::Setting["default_twitter_card_#{::I18n.locale}"]]))
+      html << tag(:meta, name: 'twitter:title', content: content_priority([@cms_view.twitter_title, @cms_view.meta_title, @cms_view.title, ::Setting["default_twitter_title_#{::I18n.locale}"]]))
+      html << tag(:meta, name: 'twitter:description', content: content_priority([@cms_view.twitter_description, @cms_view.meta_description, ::Setting["default_twitter_description_#{::I18n.locale}"]]))
+      html << tag(:meta, name: 'twitter:image',content: "#{request.base_url}#{content_priority([@cms_view.twitter_image, @cms_view.meta_general_image, ::Setting["default_meta_general_image_#{::I18n.locale}"]])}")
+      html << tag(:meta, property: 'og:title', content: content_priority([@cms_view.og_title, @cms_view.meta_title, @cms_view.title, ::Setting["default_og_title_#{::I18n.locale}"]]))
+      html << tag(:meta, property: 'og:image', content: "#{request.base_url}#{content_priority([@cms_view.og_image, @cms_view.meta_general_image, ::Setting["default_meta_general_image_#{::I18n.locale}"]])}")
+      html << tag(:meta, property: 'og:description', content: content_priority([@cms_view.og_description, @cms_view.meta_description, ::Setting["default_og_description_#{::I18n.locale}"]]))
+      html << tag(:meta, property: 'fb:app_id', content: ::Setting["fb_app_id_#{::I18n.locale}"])
+
+      html.html_safe
     end
 
-    def cms_meta_og_tags(title = nil)
-      tags = {}
-      if @product # TODO: move to Solidus connector
-        tags[:title] = @product.name
-        tags[:description] = @product.description
-        tags[:url] = product_url(@product, only_path: false)
-        image = @product.images.first.try(:attachment)
-        tags[:image] = image.try(:url, :product)
-      else
-        tags[:title] = title.blank? ? Setting['cms_og_tag_title'] : title
+    def content_priority(content)
+      content.each do |element|
+        return element if element.present?
       end
-      %{
-        <meta property="og:title" content="#{tags[:title]}" />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content="#{tags[:description] || Setting['cms_og_tag_description']}" />
-        <meta property="og:url" content="#{tags[:url] || request.original_url }" />
-        <meta property="og:image" content="#{image_url(tags[:image] || 'ogimage.jpg', only_path: false)}" />
-      }.html_safe
+      ''
+    end
+
+    def hreflang_links
+      html = ''
+      ::I18n.available_locales.each do |locale|
+        html << tag(:link, rel: 'alternate', hreflang: locale, href: "#{request.base_url}#{current_url_for(locale)}")
+      end
+      html
     end
 
     def yes_no(boolean)

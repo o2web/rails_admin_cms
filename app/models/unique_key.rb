@@ -29,7 +29,13 @@ class UniqueKey < ActiveRecord::Base
     def create_localized_viewable!(unique_key)
       viewable = nil
       I18n.available_locales.each do |locale|
-        attributes = unique_key.merge(locale: locale, viewable: unique_key[:viewable_type].constantize.new)
+        viewable_params = {}
+        viewable_params[:breadcrumb_appear] = true if unique_key[:viewable_type] == 'Viewable::Page'
+        if unique_key[:viewable_type] == 'Viewable::Page' && unique_key[:view_path].exclude?('cms/pages/')
+          viewable_params[:controller] = unique_key[:view_path].sub('cms/', '').sub('/index', '')
+          viewable_params[:action] = 'index'
+        end
+        attributes = unique_key.merge(locale: locale, viewable: unique_key[:viewable_type].constantize.new(viewable_params))
         new_record = find_or_create_by! attributes
         if I18n.locale == locale
           viewable = new_record.viewable
@@ -51,6 +57,13 @@ class UniqueKey < ActiveRecord::Base
       .where(viewable_type: viewable_type, view_path: view_path, name: name)
       .where(position: position || self.position)
       .where.not(locale: locale)
+  end
+
+  def other_locale(locale = nil)
+    self.class
+      .where(viewable_type: viewable_type, view_path: view_path, name: name)
+      .where(position: self.position)
+      .where(locale: locale)
   end
 
   def with_buffered_position(new_position)

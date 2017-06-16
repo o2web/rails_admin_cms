@@ -37,6 +37,8 @@ module RailsAdmin
           path = viewable.url
         elsif name =~ CMSPageUUID
           path = Viewable::Page.find_by_uuid($1).url
+        elsif view_path == 'spree/users/show'
+          path = spree.account_path
         else
           case view_path
           when CMSPageType, CMSPageFormType, CMSFormType
